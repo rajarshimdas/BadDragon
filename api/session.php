@@ -1,9 +1,9 @@
 <?php
-
+/*
 session_name('CONCERT');
 session_start();
 
-/* Session Array */
+// Session Array 
 $sx = array (
     $session_id     => session_id(),
     $user_id        => $_SESSION['user_id'],
@@ -30,3 +30,5 @@ if ($debug_flag > 0) {
     var_dump($_SESSION);
     echo '</pre>now: '.date_unix2mysql($now).' | loginexp: '.date_unix2mysql($_SESSION['loginexp']).'</div?';
 }
+
+*/

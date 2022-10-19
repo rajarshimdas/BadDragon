@@ -41,10 +41,9 @@ if (filter_has_var(INPUT_POST, 'a')) {
     $uri_co = count($uri_request);
 
     // Controller Index
-    if ($uri_request[2] !== 'index.php') {
-        $uri_controller_index = 2;
-    } else {
-        $uri_controller_index = 3;
+    $uri_controller_index = 1;
+    if ($uri_request[$uri_controller_index] === 'index.php') {
+        $uri_controller_index++;
     }
 
     // Controller
