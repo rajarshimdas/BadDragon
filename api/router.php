@@ -10,8 +10,8 @@
 | https://domain.tld/rolodex/controller/method/...      |
 +-------------------------------------------------------+
 | Nginx Rewrite Rules                                   |
-| location /rolodex/ {                                  |
-|    try_files $uri /rolodex/index.php$is_args$args;    |
+| location / {                                          |
+|    try_files $uri /index.php$is_args$args;            |
 | }                                                     |
 +-------------------------------------------------------+
 */
