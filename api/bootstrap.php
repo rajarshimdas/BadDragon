@@ -5,7 +5,7 @@ require_once ($appFolderPath.'/config.php');
 
 // Bootstrap MVC Framework
 
-require_once ($apiFolderPath.'/toolbox.php');
+require_once ($apiFolderPath.'/appstarter.php');
 require_once ($apiFolderPath.'/session.php');
 require_once ($apiFolderPath.'/database.php');
 require_once ($apiFolderPath.'/validation.php');

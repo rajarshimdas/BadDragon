@@ -9,6 +9,6 @@ function date_unix2mysql($timestamp) {
     return strftime('%Y-%m-%d %H:%M:%S', $timestamp);
 }
 
-function view($path, $appFolderPath){
-    require $appFolderPath.'/view/'.$path.'.php';
+function view($path, $data){
+    require $data['appFolderPath'].'/view/'.$path.'.php';
 }

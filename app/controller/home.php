@@ -1,9 +1,14 @@
 <?php
 
-view('module/header', $appFolderPath);
-view('module/banner', $appFolderPath);
+$data = [
+    'appFolderPath' => $appFolderPath,
+    'page_title' => 'Digital transformation for Architects'
+];
+
+view('module/header', $data);
+view('module/banner', $data);
 
 // Body
-view('home', $appFolderPath);
+view('home', $data);
 
-view('module/footer', $appFolderPath);
+view('module/footer', $data);
