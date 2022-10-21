@@ -1,3 +1,20 @@
 body{
-    background-color: whitesmoke;
+    background-color: #173f4f;
+}
+.box1 {
+    padding-bottom: 5rem;
+}
+.box2{
+    background-color: #4bb679;
+    width: 100%;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+.banner {
+    color: #35b9ab;
+    padding-top: 5rem;
+    font-size: 300%;
+}
+.story {
+    color: white;
 }
