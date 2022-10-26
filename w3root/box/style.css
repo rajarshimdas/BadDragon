@@ -18,3 +18,6 @@ body{
 .story {
     color: white;
 }
+.text-muted-gray {
+    color: RGB(210,210,210);
+}
