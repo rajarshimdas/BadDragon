@@ -1,0 +1,4 @@
+$config['x']    Configurations
+$db['x']        Database
+$data['x']      Data passed by controller to view
+$sx['x']        Session

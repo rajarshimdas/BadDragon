@@ -20,7 +20,7 @@ if ($now > $loginexp) {
 }
 
 // Set new loginexp
-$_SESSION['loginexp'] = $now + $LoginTimeOut;
+$_SESSION['loginexp'] = $now + $config['LoginTimeOut'];
 
 
 // Debug
