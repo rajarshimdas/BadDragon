@@ -105,7 +105,7 @@ if (!file_exists($appFolderPath . '/controller/' . $a . '.php')) {
 }
 
 // Debug 
-if ($debug_flag > 0) {
+if ($config['debug_flag'] > 0) {
     echo '<div>Request URI: ' . $_SERVER['REQUEST_URI'] . '</div>';
     echo '<div>Controller: ' . $a . '</div>';
 }

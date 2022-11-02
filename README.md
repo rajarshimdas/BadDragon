@@ -1,2 +1,2 @@
 # appengine
-AppEngine inspired by ci4
+AppEngine inspired by codeigniter.

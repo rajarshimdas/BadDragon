@@ -9,12 +9,12 @@
 +-------------------------------------------------------+
 */
 
-// Set Paths
+// Align to runway
 $apiFolderPath = '../api';
 $appFolderPath = '../app';
 
-// Initialize
+// Fire the Engines
 require_once($apiFolderPath . '/bootstrap.php');
 
-// Fire the Engine and Take-off
+// Take-off
 require_once($appFolderPath . '/controller/' . $a . '.php');

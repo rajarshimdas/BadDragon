@@ -1,5 +1,9 @@
 <?php 
 
+// Instantiate config
+$config['appFolderPath'] = $appFolderPath;
+$config['apiFolderPath'] = $apiFolderPath;
+
 // Read Configuration
 require_once ($appFolderPath.'/config.php');
 
