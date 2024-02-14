@@ -1,2 +1,3 @@
+*.cgi
 w3files/*
 *.code-workspace
