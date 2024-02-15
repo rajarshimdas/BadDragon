@@ -6,7 +6,7 @@ $date->setTimezone(new DateTimeZone('Asia/Kolkata'));
 
 function date_unix2mysql($timestamp) {
     // return 'test';
-    return strftime('%Y-%m-%d %H:%M:%S', $timestamp);
+    return date('%Y-%m-%d %H:%M:%S', $timestamp);
 }
 
 function view($path, $data){
