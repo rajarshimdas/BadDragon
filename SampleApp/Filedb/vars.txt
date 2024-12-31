@@ -1,0 +1,70 @@
+array(34) {
+  ["USER"]=>
+  string(8) "www-data"
+  ["HOME"]=>
+  string(8) "/var/www"
+  ["HTTP_ACCEPT_LANGUAGE"]=>
+  string(35) "en-GB,en-US;q=0.9,en;q=0.8,hi;q=0.7"
+  ["HTTP_ACCEPT_ENCODING"]=>
+  string(13) "gzip, deflate"
+  ["HTTP_ACCEPT"]=>
+  string(135) "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+  ["HTTP_USER_AGENT"]=>
+  string(101) "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+  ["HTTP_UPGRADE_INSECURE_REQUESTS"]=>
+  string(1) "1"
+  ["HTTP_CONNECTION"]=>
+  string(10) "keep-alive"
+  ["HTTP_HOST"]=>
+  string(11) "arkafe.beta"
+  ["REDIRECT_STATUS"]=>
+  string(3) "200"
+  ["SERVER_NAME"]=>
+  string(11) "arkafe.beta"
+  ["SERVER_PORT"]=>
+  string(2) "80"
+  ["SERVER_ADDR"]=>
+  string(9) "127.0.0.1"
+  ["REMOTE_USER"]=>
+  string(0) ""
+  ["REMOTE_PORT"]=>
+  string(5) "57772"
+  ["REMOTE_ADDR"]=>
+  string(9) "127.0.0.1"
+  ["SERVER_SOFTWARE"]=>
+  string(12) "nginx/1.18.0"
+  ["GATEWAY_INTERFACE"]=>
+  string(7) "CGI/1.1"
+  ["REQUEST_SCHEME"]=>
+  string(4) "http"
+  ["SERVER_PROTOCOL"]=>
+  string(8) "HTTP/1.1"
+  ["DOCUMENT_ROOT"]=>
+  string(29) "/var/www/me/bad-dragon/w3root"
+  ["DOCUMENT_URI"]=>
+  string(10) "/index.cgi"
+  ["REQUEST_URI"]=>
+  string(10) "/angel/anu"
+  ["SCRIPT_NAME"]=>
+  string(10) "/index.cgi"
+  ["CONTENT_LENGTH"]=>
+  string(0) ""
+  ["CONTENT_TYPE"]=>
+  string(0) ""
+  ["REQUEST_METHOD"]=>
+  string(3) "GET"
+  ["QUERY_STRING"]=>
+  string(0) ""
+  ["SCRIPT_FILENAME"]=>
+  string(39) "/var/www/me/bad-dragon/w3root/index.cgi"
+  ["PATH_INFO"]=>
+  string(0) ""
+  ["FCGI_ROLE"]=>
+  string(9) "RESPONDER"
+  ["PHP_SELF"]=>
+  string(10) "/index.cgi"
+  ["REQUEST_TIME_FLOAT"]=>
+  float(1717511001.8626)
+  ["REQUEST_TIME"]=>
+  int(1717511001)
+}

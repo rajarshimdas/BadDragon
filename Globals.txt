@@ -1,0 +1,7 @@
+Global Vars
+
+$route                          Routing information
+
+$_SESSION['bdMessageTxt']       Display message
+$_SESSION['bdMessageFlag']      Flag 0: Normal | 1: Success | 2: Error
+    

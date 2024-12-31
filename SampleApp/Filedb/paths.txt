@@ -1,0 +1,7 @@
+<?php
+$BD = $_SERVER["DOCUMENT_ROOT"] . "/../BadDragon";
+// die($BD);
+
+define("BD", realpath($BD));
+define("W3ROOT", $_SERVER["DOCUMENT_ROOT"]);
+define("W3APP", realpath(W3ROOT . "/../w3app"));

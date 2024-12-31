@@ -1,0 +1,91 @@
+#
+# arkafe.beta
+#
+server {
+
+    listen              127.0.0.1;
+    server_name         arkafe.beta;
+
+    root /var/www/me/bad-dragon/w3root;
+
+    index index.cgi index.php index.html;
+    
+    location / {
+        try_files $uri $uri/ /index.cgi$is_args$args;
+    }
+
+    location ~ \.(cgi|php)$ {
+    
+        fastcgi_split_path_info ^(.+\.cgi)(/.+)$;    
+        
+        #fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+        
+        include snippets/fastcgi-php.conf;
+        
+    }
+
+    location ~ /\. {
+        deny all;
+    }
+    
+}
+
+
+server {
+    listen 80;
+    server_name beta.arkafe.com;
+    return 301 https://beta.arkafe.com$request_uri;
+}
+
+server {
+
+    listen 443 ssl;
+
+    server_name beta.arkafe.com;
+
+    ssl_certificate     /etc/letsencrypt/live/arkafe.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/arkafe.com/privkey.pem;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    root /var/www/beta/beta-arkafe-com/appengine/w3root;
+
+    index index.cgi index.php index.html;
+    
+    location / {
+        try_files $uri $uri/ /index.cgi$is_args$args;
+    }
+
+    location ~ \.(cgi|php)$ {
+		include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+	}
+    
+}
+
+#
+# Concert website - new
+# /var/www/beta/concert-arkafe-com/w3root
+#
+server {
+
+    listen 80;
+
+    server_name concert.w3;
+
+    root /var/www/beta/concert-arkafe-com/w3root;
+
+    index index.cgi index.php index.html;
+    
+    location / {
+        try_files $uri $uri/ /index.cgi$is_args$args;
+    }
+
+    location ~ \.(cgi|php)$ {
+		include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+	}
+    
+}
+
