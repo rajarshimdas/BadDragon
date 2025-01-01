@@ -47,29 +47,30 @@ class Router extends Controller
                 die('Error: Custom Routes file missing.');
             }
 
+            // var_dump($rx);
 
             // REQUEST URI (GET Requests)
+            // var_dump($_SERVER["REQUEST_URI"]);
             $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : $rx['default'];
-            //$uri = $_SERVER["REQUEST_URI"];
+            $uri = ltrim($_SERVER["REQUEST_URI"], "/");
             //die($uri);
 
-            /*
+            /* Validate URI */
             if (!alpha_numeric_dash_slash($uri)) {
                 show404("Invalid URI");
             }
-            */
-
+            
             /* Parts in route */
             $p = explode("/", $uri);
             // var_dump($p);
+            $co = isset($p) ? count($p) : 0;
 
-
-            if (isset($rx["static"][$p[1] . '/' . $p[2]])) {
+            if ($co >= 2) {
                 // die("static: " . $rx["static"][$p[1]]);
-                $this->uri = $rx["static"][$p[1] . '/' . $p[2]];
-            } elseif (isset($rx["static"][$p[1]])) {
+                $this->uri = $rx["static"][$p[0] . '/' . $p[1]];
+            } elseif ($co == 1) {
                 // die("static: " . $rx["static"][$p[1]]);
-                $this->uri = $rx["static"][$p[1]];
+                $this->uri = $rx["static"][$p[0]];
             } else {
                 // Auto route
                 $this->uri = $uri;

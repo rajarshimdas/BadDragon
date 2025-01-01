@@ -34,7 +34,7 @@ function show404($m)
 
 function alpha_numeric_dash_slash($str)
 {
-    return (bool) preg_match('/^[a-z0-9-//]+$/i', $str);
+    return (bool) preg_match('/^[a-z0-9\\/-]+$/i', $str);
 }
 
 function bdGo2uri(string $uri): bool

@@ -24,7 +24,7 @@ $errorMsg = "<!-- Error -->";
 if (!min_length($name, 1)) {
     $errorMsg = $errorMsg . "<p>Name is required.</p>";
     $errorFlag = 1;
-} 
+}
 
 if (!valid_email($email)) {
     $errorMsg = $errorMsg . "<p>Email $email is not valid. Please enter a valid email.</p>";
@@ -34,7 +34,7 @@ if (!valid_email($email)) {
 if (!min_length($website, 1)) {
     $errorMsg = $errorMsg . "<p>Website URL is required.</p>";
     $errorFlag = 1;
-} 
+}
 
 if ($errorFlag > 0) {
 
@@ -70,17 +70,21 @@ function log2file($status, $message)
     //$post = ($status == "F") ? json_encode($_POST) : 'ok';
 
     $log = "$status | $dt | $tm | REMOTE_ADDR: " . $_SERVER["REMOTE_ADDR"] . " [ M: " . $message . " ] " . $_SERVER["HTTP_USER_AGENT"];
-    $logfile = realpath(FILEDB . "/log/trial.log");
+    $logfile = FILEDB . "/log/trial.log";
 
-    if (!is_file($logfile)){
+    if (is_file($logfile)) {
+
+        // Open/Create the logfile
+        $f = fopen($logfile, "a");
+        fwrite($f, $log . "\n");
+        fclose($f);
+
+    } else {
+
+        // Logfile not found
         rdReturnJsonHttpResponse(
             '200',
             ["F", "Logfile not found. $logfile"]
         );
     }
-    
-    // Open/Create the logfile
-    $f = fopen($logfile, "a");
-    fwrite($f, $log . "\n");
-    fclose($f);
 }
