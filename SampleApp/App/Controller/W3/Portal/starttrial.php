@@ -67,15 +67,15 @@ function log2file($status, $message)
     $dt = date("Y-m-d");
     $tm = date("H:i:s");
 
-    $post = ($status == "F") ? json_encode($_POST) : 'ok';
+    //$post = ($status == "F") ? json_encode($_POST) : 'ok';
 
     $log = "$status | $dt | $tm | REMOTE_ADDR: " . $_SERVER["REMOTE_ADDR"] . " [ M: " . $message . " ] " . $_SERVER["HTTP_USER_AGENT"];
-    $logfile = FILEDB . "/log/trial.log";
+    $logfile = realpath(FILEDB . "/log/trial.log");
 
     if (!is_file($logfile)){
         rdReturnJsonHttpResponse(
             '200',
-            ["F", "Logfile not found."]
+            ["F", "Logfile not found. $logfile"]
         );
     }
     
