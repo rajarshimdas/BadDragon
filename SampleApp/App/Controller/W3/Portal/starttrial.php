@@ -70,8 +70,15 @@ function log2file($status, $message)
     $post = ($status == "F") ? json_encode($_POST) : 'ok';
 
     $log = "$status | $dt | $tm | REMOTE_ADDR: " . $_SERVER["REMOTE_ADDR"] . " [ M: " . $message . " ] " . $_SERVER["HTTP_USER_AGENT"];
-    $logfile = W3ROOT . "/../zfiledb/log/trial.log";
+    $logfile = FILEDB . "/log/trial.log";
 
+    if (!is_file($logfile)){
+        rdReturnJsonHttpResponse(
+            '200',
+            ["F", "Logfile not found."]
+        );
+    }
+    
     // Open/Create the logfile
     $f = fopen($logfile, "a");
     fwrite($f, $log . "\n");

@@ -40,7 +40,13 @@ class Router extends Controller
         } else {
 
             // Read Routes defination
-            require_once W3APP . '/Routes.php';
+            $routesFile = W3APP . '/Routes.php';
+            if (is_file($routesFile)) {
+                require_once $routesFile;
+            } else {
+                die('Error: Custom Routes file missing.');
+            }
+
 
             // REQUEST URI (GET Requests)
             $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : $rx['default'];
