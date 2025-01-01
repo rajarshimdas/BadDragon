@@ -6,7 +6,7 @@
 
 // use BadDragon\Router;
 
-function view($route, $page)
+function view(object $route, string $page): bool
 {
     // var_dump($route);
 
@@ -27,12 +27,12 @@ function view($route, $page)
     return true;
 }
 
-function show404($m)
+function show404(string $m): bool
 {
     die($m);
 }
 
-function alpha_numeric_dash_slash($str)
+function alpha_numeric_dash_slash(string $str): bool
 {
     return (bool) preg_match('/^[a-z0-9\\/-]+$/i', $str);
 }
@@ -47,7 +47,7 @@ function bdGo2uri(string $uri): bool
 
 
 // Return JSON Response
-function rdReturnJsonHttpResponse($httpCode, $data)
+function rdReturnJsonHttpResponse(string $httpCode, array $data): null
 {
     // remove any string that could create an invalid JSON 
     // such as PHP Notice, Warning, logs...
@@ -71,4 +71,31 @@ function rdReturnJsonHttpResponse($httpCode, $data)
 
     // making sure nothing is added
     die();
+}
+
+
+function bdLogInFile(string $status, string $message, string $logfile): bool
+{
+
+    $dt = date("Y-m-d");
+    $tm = date("H:i:s");
+
+    $log = "$dt | $tm | " . $_SERVER["REMOTE_ADDR"] . " | $status [ M: " . $message . " ]";
+    $logfile = FILEDB . "/log/$logfile";
+
+    if (is_file($logfile)) {
+
+        // Open/Create the logfile
+        $f = fopen($logfile, "a");
+        fwrite($f, $log . "\n");
+        fclose($f);
+    } else {
+
+        // Logfile not found
+        rdReturnJsonHttpResponse(
+            '200',
+            ["F", "Logfile not found. $logfile"]
+        );
+    }
+    return true;
 }

@@ -45,3 +45,6 @@ for ($i = 0; $i < count($framework); $i++) {
 // Clean up
 if (isset($mysqli)) $mysqli->close();
 
+// Log this request
+bdLogInFile('Request', $route->uri, 'access.log');
+

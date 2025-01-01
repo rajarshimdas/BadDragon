@@ -50,41 +50,11 @@ if ($errorFlag > 0) {
 +-------------------------------------------------------+
 */
 $message = "$name | $email | $website";
-log2file('Trial', $message);
+bdLogInFile('Trial', $message, 'trial.log');
 
-sleep(1);
+// sleep(1);
 
 rdReturnJsonHttpResponse(
     '200',
     ['T', "<h2>Welcome $name,</h2><p>Your trial details will be sent to $email</p>"]
 );
-
-
-
-function log2file($status, $message)
-{
-
-    $dt = date("Y-m-d");
-    $tm = date("H:i:s");
-
-    //$post = ($status == "F") ? json_encode($_POST) : 'ok';
-
-    $log = "$status | $dt | $tm | REMOTE_ADDR: " . $_SERVER["REMOTE_ADDR"] . " [ M: " . $message . " ] " . $_SERVER["HTTP_USER_AGENT"];
-    $logfile = FILEDB . "/log/trial.log";
-
-    if (is_file($logfile)) {
-
-        // Open/Create the logfile
-        $f = fopen($logfile, "a");
-        fwrite($f, $log . "\n");
-        fclose($f);
-
-    } else {
-
-        // Logfile not found
-        rdReturnJsonHttpResponse(
-            '200',
-            ["F", "Logfile not found. $logfile"]
-        );
-    }
-}
