@@ -1,24 +1,47 @@
 #
-# BadDragon
-# git@github.com:rajarshimdas/BadDragon.git
+# arkafe.com
 #
+
+# www to non-www
 server {
 
-    listen 127.0.0.1:80;
+    listen              443 ssl;
+    server_name         www.arkafe.com;
 
-    server_name baddragon;
+    ssl_certificate     /etc/letsencrypt/live/arkafe.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/arkafe.com/privkey.pem;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
 
-    root /var/www/Arkafe/SampleApp/w3root;
+    return 301 $scheme://arkafe.com$request_uri;
+}
+
+#
+# Arkafe Website
+#
+server {
+	listen 443 ssl;
+	server_name arkafe.com;
+
+    ssl_certificate     /etc/letsencrypt/live/arkafe.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/arkafe.com/privkey.pem;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+
+    root /var/www/arkafe/SampleApp/w3root;
+
+	index index.html index.php;
+
+	location / {
+		try_files $uri $uri/ /index.php$is_args$args;
+	}
+
+	location ~ \.php$ {
     
-    index index.php index.html;
-    
-    location / {
-        try_files $uri $uri/ /index.php$is_args$args;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+        include snippets/fastcgi-php.conf;
+        
     }
 
-    location ~ \.(cgi|php)$ {
-		include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
-	}
-    
 }
+
