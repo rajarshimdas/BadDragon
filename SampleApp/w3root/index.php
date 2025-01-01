@@ -8,7 +8,7 @@
 */
 
 // Bootstrap
-$paths = $_SERVER["DOCUMENT_ROOT"] . '/paths.cgi';
+$paths = $_SERVER["DOCUMENT_ROOT"] . '/paths.php';
 if (is_file($paths))
     require_once $paths;
 else
