@@ -47,34 +47,42 @@ class Router extends Controller
                 die('Error: Custom Routes file missing.');
             }
 
-            // var_dump($rx);
+            //var_dump($rx);
 
             // REQUEST URI (GET Requests)
-            //var_dump($_SERVER["REQUEST_URI"]);
-            // $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : $rx['default'];
-            $uri = ltrim($_SERVER["REQUEST_URI"], "/");
-            //die($uri);
-            $uri = isset($uri) ? $uri : "home";
-            /* Validate URI 
+            // var_dump($_SERVER["REQUEST_URI"]);
+            $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : "/" . $rx['default'];
+            // die($uri);
+
+            /* Validate URI */
             if (!alpha_numeric_dash_slash($uri)) {
                 show404("Invalid URI");
             }
-            */
+            
+
             /* Parts in route */
             $p = explode("/", $uri);
             // var_dump($p);
+
             $co = isset($p) ? count($p) : 0;
 
-            if ($co >= 2) {
-                // die("static: " . $rx["static"][$p[1]]);
-                $this->uri = $rx["static"][$p[0] . '/' . $p[1]];
-            } elseif ($co == 1) {
-                // die("static: " . $rx["static"][$p[1]]);
-                $this->uri = $rx["static"][$p[0]];
+            if ($co >= 3) {
+                if (isset($rx["static"][$p[1] . '/' . $p[2]])) {
+                    // die("static2: " . $rx["static"][$p[1] . '/' . $p[2]]);
+                    $this->uri = $rx["static"][$p[1] . '/' . $p[2]];
+                }
+            } elseif ($co == 2) {
+                if (isset($rx["static"][$p[1]])) {
+                    // die("static1: " . $rx["static"][$p[1]]);
+                    $this->uri = $rx["static"][$p[1]];
+                }
             } else {
                 // Auto route
                 $this->uri = $uri;
             }
+            
+            //echo $uri;
+            //var_dump($this->uri);
 
             $parts = explode("/", $this->uri);
 

@@ -6,11 +6,10 @@
 | Updated On:                                           |
 +-------------------------------------------------------+
 */
-$rx['default'] = "/w3/portal/home";
+$rx['default'] = "home";
 
 $rx['static'] = [
     // Matching top to bottom
-    "/"         => "/w3/portal/home",
     # Arkafe Website
     "home"      => "/w3/portal/home",
     "pricing"   => "/w3/portal/pricing",
