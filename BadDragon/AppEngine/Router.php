@@ -95,7 +95,7 @@ class Router extends Controller
             for ($i = 1; $i < 4; $i++) {
                 if (!isset($parts[$i]) || $parts[$i] == NULL) {
                     // die("404! That route was not found.");
-                    show404("404! That route was not found. " . $this->uri . " | $uri");
+                    show404("404! That route was not found.");
                 }
             }
 
