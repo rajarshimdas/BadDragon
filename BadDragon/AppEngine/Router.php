@@ -50,7 +50,7 @@ class Router extends Controller
             // var_dump($rx);
 
             // REQUEST URI (GET Requests)
-            // var_dump($_SERVER["REQUEST_URI"]);
+            var_dump($_SERVER["REQUEST_URI"]);
             // $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : $rx['default'];
             $uri = ltrim($_SERVER["REQUEST_URI"], "/");
             //die($uri);
