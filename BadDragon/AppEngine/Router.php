@@ -58,29 +58,34 @@ class Router extends Controller
             if (!alpha_numeric_dash_slash($uri)) {
                 show404("Invalid URI");
             }
-            
+
 
             /* Parts in route */
             $p = explode("/", $uri);
             // var_dump($p);
 
             $co = isset($p) ? count($p) : 0;
+            $matchflag = 0;
 
             if ($co >= 3) {
                 if (isset($rx["static"][$p[1] . '/' . $p[2]])) {
                     // die("static2: " . $rx["static"][$p[1] . '/' . $p[2]]);
                     $this->uri = $rx["static"][$p[1] . '/' . $p[2]];
+                    $matchflag++;
                 }
             } elseif ($co == 2) {
                 if (isset($rx["static"][$p[1]])) {
                     // die("static1: " . $rx["static"][$p[1]]);
                     $this->uri = $rx["static"][$p[1]];
+                    $matchflag++;
                 }
-            } else {
+            }
+
+            if ($matchflag < 1) {
                 // Auto route
                 $this->uri = $uri;
             }
-            
+
             //echo $uri;
             //var_dump($this->uri);
 
@@ -90,7 +95,7 @@ class Router extends Controller
             for ($i = 1; $i < 4; $i++) {
                 if (!isset($parts[$i]) || $parts[$i] == NULL) {
                     // die("404! That route was not found.");
-                    show404("404! That route was not found.");
+                    show404("404! That route was not found. " . $this->uri . " | $uri");
                 }
             }
 
