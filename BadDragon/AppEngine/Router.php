@@ -54,7 +54,7 @@ class Router extends Controller
             // $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : $rx['default'];
             $uri = ltrim($_SERVER["REQUEST_URI"], "/");
             //die($uri);
-            $uri = isset($uri) ? $uri : "/";
+            $uri = isset($uri) ? $uri : "/home";
             /* Validate URI 
             if (!alpha_numeric_dash_slash($uri)) {
                 show404("Invalid URI");
