@@ -55,11 +55,11 @@ class Router extends Controller
             $uri = ltrim($_SERVER["REQUEST_URI"], "/");
             //die($uri);
 
-            /* Validate URI */
+            /* Validate URI 
             if (!alpha_numeric_dash_slash($uri)) {
                 show404("Invalid URI");
             }
-            
+            */
             /* Parts in route */
             $p = explode("/", $uri);
             // var_dump($p);
