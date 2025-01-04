@@ -47,7 +47,7 @@ function bdGo2uri(string $uri): bool
 
 
 // Return JSON Response
-function rdReturnJsonHttpResponse(string $httpCode, array $data): null
+function rdReturnJsonHttpResponse(string $httpCode, array $data)
 {
     // remove any string that could create an invalid JSON 
     // such as PHP Notice, Warning, logs...
