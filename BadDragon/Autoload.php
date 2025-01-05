@@ -9,7 +9,7 @@
 define('BADDRAGON', 'Ver 1.0.0');
 
 $classmap = [
-    'BadDragon' => __DIR__ . '/AppEngine',
+    'BadDragon' => __DIR__ . '/Engine',
 ];
 
 spl_autoload_register(function (string $classname) use ($classmap) {
