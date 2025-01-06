@@ -39,7 +39,7 @@
 
     <link href="box/style.css" rel="stylesheet" type="text/css">
     <script>
-        const apiUrl = "<?= BASE_URL ?>";
+        const apiUrl = "<?= BASE_URL ?>index.php";
     </script>
     <script src="public/BadDragon.js"></script>
 </head>
