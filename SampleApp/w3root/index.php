@@ -12,14 +12,16 @@ $paths = $_SERVER["DOCUMENT_ROOT"] . '/paths.php';
 if (is_file($paths))
     require_once $paths;
 else
-    die("System Error :: Paths not defined.");
+    die("BadDragon :: Paths not defined.");
 
-// Wake BadDragon
-$wakeUp = BD . '/BadDragon.php';
-if (is_file($wakeUp))
-    require_once $wakeUp;
+// Invoke BadDragon
+$BadDragon = BD . '/spitFire.php';
+if (is_file($BadDragon))
+    // Spit Fire
+    require_once $BadDragon;
 else
-    die("BadDragon missing...");
+    // BadDragon missing
+    echo "Hello BadDragon?! Are you there...";
 
 // All done. Die in peace...
 die();

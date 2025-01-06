@@ -41,7 +41,7 @@
     <script>
         const apiUrl = "<?= BASE_URL ?>index.php";
     </script>
-    <script src="public/BadDragon.js"></script>
+    <script src="public/BadDragon.js" type="text/javascript"></script>
 </head>
 
 <body>
