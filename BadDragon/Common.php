@@ -46,8 +46,15 @@ function bdGo2uri(string $uri): bool
 }
 
 
-// Return JSON Response
+// Return JSON Response | legacy
 function rdReturnJsonHttpResponse(string $httpCode, array $data)
+{
+    // For legacy Apps using it
+    bdReturnJSON($data, $httpCode);
+}
+
+// Return JSON Response
+function bdReturnJSON(array $data, string $httpCode = '200')
 {
     // remove any string that could create an invalid JSON 
     // such as PHP Notice, Warning, logs...
