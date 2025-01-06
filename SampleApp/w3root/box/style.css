@@ -27,19 +27,19 @@
 /* Segoi UI */
 @font-face {
     font-family: 'Segoe UI';
-    src: url('/box/fonts/segoe-ui-semilight.woff2');
+    src: url('/../public/fonts/segoe-ui-semilight.woff2');
 }
 
 /* Roboto */
 @font-face {
     font-family: 'Roboto';
-    src: url('/box/fonts/Roboto-Light.ttf');
+    src: url('/../public/fonts/Roboto-Light.ttf');
 }
 
 /* Fredoka */
 @font-face {
     font-family: 'Roboto Bold';
-    src: url('/box/fonts/Roboto-Bold.ttf');
+    src: url('/../public/fonts/Roboto-Bold.ttf');
 }
 
 /* Style */
