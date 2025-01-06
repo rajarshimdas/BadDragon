@@ -12,7 +12,7 @@
                 <img class="fa5button" src="/images/fa5/close.png" alt="close" onclick="dxTrialClose()">
             </td>
         </tr>
-   SampleApp/w3root/box/index.php     <tr>
+        <tr>
             <td id="dxMessage" colspan="2"></td>
         </tr>
         <tr>
