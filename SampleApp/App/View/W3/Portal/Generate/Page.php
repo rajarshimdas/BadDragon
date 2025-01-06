@@ -41,6 +41,7 @@
     <script>
         const apiUrl = "<?= BASE_URL ?>";
     </script>
+    <script src="public/BadDragon.js"></script>
 </head>
 
 <body>

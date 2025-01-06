@@ -12,7 +12,7 @@
                 <img class="fa5button" src="/images/fa5/close.png" alt="close" onclick="dxTrialClose()">
             </td>
         </tr>
-        <tr>
+   SampleApp/w3root/box/index.php     <tr>
             <td id="dxMessage" colspan="2"></td>
         </tr>
         <tr>
@@ -81,15 +81,6 @@
     </div>
 </div>
 
-
-
-<?php
-/*
-+-------------------------------------------------------+
-| Javascript                                            |
-+-------------------------------------------------------+
-*/
-?>
 <script>
     
     const dxTrial = e$('dxTrial')
@@ -107,7 +98,7 @@
         formData.append("email", email)
         formData.append("website", website)
 
-        bdPostData(apiUrl, formData).then((response) => {
+        bdFetchAPI(apiUrl, formData).then((response) => {
             console.log(response);
 
             if (response[0] != "T") {
