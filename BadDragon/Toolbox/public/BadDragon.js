@@ -1,4 +1,4 @@
-/* Create a softlink to this File
+/* Create a softlink to this File in w3root
 +-------------------------------------------------------+
 | Rajarshi Das						                    |
 +-------------------------------------------------------+

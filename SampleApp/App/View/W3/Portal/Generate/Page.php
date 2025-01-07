@@ -37,6 +37,7 @@
     <!-- Social Media | Apple & Whatsapp -->
     <link rel="apple-touch-icon" href="<?= BASE_URL ?>images/arkafe-logo-box.jpg">
 
+    <link href="public/BadDragon.css" rel="stylesheet" type="text/css">
     <link href="box/style.css" rel="stylesheet" type="text/css">
     <script>
         const apiUrl = "<?= BASE_URL ?>index.php";

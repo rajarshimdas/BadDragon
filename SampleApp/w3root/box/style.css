@@ -24,24 +24,6 @@
     --rd-color-button: #0A66C2;
 }
 
-/* Segoi UI */
-@font-face {
-    font-family: 'Segoe UI';
-    src: url('/../public/fonts/segoe-ui-semilight.woff2');
-}
-
-/* Roboto */
-@font-face {
-    font-family: 'Roboto';
-    src: url('/../public/fonts/Roboto-Light.ttf');
-}
-
-/* Fredoka */
-@font-face {
-    font-family: 'Roboto Bold';
-    src: url('/../public/fonts/Roboto-Bold.ttf');
-}
-
 /* Style */
 body {
     font-size: 1em;
