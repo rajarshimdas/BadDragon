@@ -3,25 +3,6 @@
     <a class="button-18" href="<?= BASE_URL ?>pricing">Pricing</a>
 </div>
 
-<!-- Todo | Data validation error messages -->
-<dialog id="dxTrial">
-    <table style="width:300px;">
-        <tr>
-            <td class='rd-text-bold'>Trial</td>
-            <td style="width:50px;text-align:right;">
-                <img class="fa5button" src="/images/fa5/close.png" alt="close" onclick="dxTrialClose()">
-            </td>
-        </tr>
-        <tr>
-            <td id="dxMessage" colspan="2"></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align:right;">
-                <button class="button-18" onclick="dxTrialClose()">Close</button>
-            </td>
-        </tr>
-    </table>
-</dialog>
 
 <style>
     table tr td {
@@ -81,9 +62,11 @@
     </div>
 </div>
 
+<?php require_once BD . '/Toolbox/bdMessageBox.php'; ?>
+
 <script>
     
-    const dxTrial = e$('dxTrial')
+    const dxTrial = e$('dxMessageBox')
 
     function startMyTrial() {
 
@@ -102,17 +85,14 @@
             console.log(response);
 
             if (response[0] != "T") {
-                e$("dxMessage").innerHTML = response[1]
+                e$("dxMessageBoxTitle").innerHTML = "Trial"
+                e$("dxMessageBoxBody").innerHTML = response[1]
                 dxTrial.showModal()
             } else {
                 e$("starttrial").innerHTML = response[1]
             }
         });
 
-    }
-
-    function dxTrialClose() {
-        dxTrial.close()
     }
 
 </script>
