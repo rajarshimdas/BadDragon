@@ -106,3 +106,29 @@ function bdLogInFile(string $status, string $message, string $logfile): bool
     }
     return true;
 }
+
+function bdIsValidDateMySQLFormat(string $date): bool
+{
+    if (empty($date)) return false;
+
+    $x = explode("-", $date);
+
+    $co = isset($x) ? count($x) : 0;
+    if ($co == 3) {
+        $dtD = (int)$x[2];
+        $dtM = (int)$x[1];
+        $dtY = (int)$x[0];
+    }
+
+    if (!is_int($dtM) || empty($dtM) || $dtM < 1 || $dtM > 12) return false;
+    if (!is_int($dtY) || empty($dtY) || $dtY < 1977 || $dtY > 3000) return false;
+
+    // Check last day of month | Todo
+    $noOfDays = date('t', strtotime($dtY . '-' . $dtM . '-01'));
+    //echo $noOfDays;
+    if (!is_int($dtD) || empty($dtD) || $dtD < 1 || $dtD > $noOfDays) return false;
+    
+    // Ok
+    return true;
+}
+
