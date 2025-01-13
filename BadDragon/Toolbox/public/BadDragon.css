@@ -6,21 +6,22 @@
 | Updated On:                                           |
 +-------------------------------------------------------+
 */
+@import url('normalize.css');
 
 /* Segoi UI */
 @font-face {
     font-family: 'Segoe UI';
-    src: url('/public/fonts/segoe-ui-semilight.woff2');
+    src: url('fonts/segoe-ui-semilight.woff2');
 }
 
 /* Roboto */
 @font-face {
     font-family: 'Roboto';
-    src: url('/public/fonts/Roboto-Light.ttf');
+    src: url('fonts/Roboto-Light.ttf');
 }
 
 /* Fredoka */
 @font-face {
     font-family: 'Roboto Bold';
-    src: url('/public/fonts/Roboto-Bold.ttf');
+    src: url('fonts/Roboto-Bold.ttf');
 }
