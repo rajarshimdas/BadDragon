@@ -19,6 +19,7 @@ class Router extends Controller
     public $controller;
     public $method;
     public $parts;
+    private $aroute;
 
     public function __construct()
     {
@@ -99,7 +100,11 @@ class Router extends Controller
                 }
             }
 
-            $this->parts = [
+            // $co = isset($parts) ? count($parts) : 0;
+            
+            $this->parts = $parts;
+            
+            $this->aroute = [
                 $parts[1],
                 $parts[2],
                 $parts[3],
@@ -112,7 +117,7 @@ class Router extends Controller
 
     private function autoroute()
     {
-        $parts = $this->parts;
+        $parts = $this->aroute;
         // var_dump($parts); die;
 
         if (isset($parts)) {
