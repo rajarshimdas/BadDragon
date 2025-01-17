@@ -37,7 +37,12 @@ $route = new Router;
 // Request controllers
 $framework = $dragon->fire($route);
 
-// Load Controllers
+// Load Controllers - base controller
+if(is_file(W3APP . "/Controller/Controller.php")){
+    require_once W3APP . "/Controller/Controller.php";
+}
+
+// Load Controllers - MVC
 for ($i = 0; $i < count($framework); $i++) {
     require_once $framework[$i];
 }
