@@ -77,7 +77,7 @@ function bdReturnJSON(array $data, string $httpCode = '200')
     echo json_encode($data);
 
     // making sure nothing is added
-    die();
+    // die();
 }
 
 

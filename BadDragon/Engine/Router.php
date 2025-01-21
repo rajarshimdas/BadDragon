@@ -28,11 +28,11 @@ class Router extends Controller
             // POST Method
             $this->a = $_POST["a"];
             // die($this->a);
-            $this->uri = "POST:".$this->a;
+            $this->uri = "POST:" . $this->a;
 
             /* Auto routing */
             $parts = explode("-", $this->a);
-            
+
             foreach ($parts as $p) {
                 $this->parts[] = $p;
             }
@@ -109,9 +109,9 @@ class Router extends Controller
             }
 
             // $co = isset($parts) ? count($parts) : 0;
-            
+
             $this->parts = $parts;
-            
+
             $this->aroute = [
                 $parts[1],
                 $parts[2],
