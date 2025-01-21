@@ -38,7 +38,7 @@ $route = new Router;
 $framework = $dragon->fire($route);
 
 // Load Controllers - base controller
-if(is_file(W3APP . "/Controller/Controller.php")){
+if (is_file(W3APP . "/Controller/Controller.php")) {
     require_once W3APP . "/Controller/Controller.php";
 }
 
@@ -51,6 +51,5 @@ for ($i = 0; $i < count($framework); $i++) {
 if (isset($mysqli)) $mysqli->close();
 
 // Log this request
-$logMessage = empty($logMessage)?'BD':$logMessage;
+$logMessage = empty($logMessage) ? 'BD' : $logMessage;
 bdLogInFile($logMessage, $route->uri, 'access.log');
-
