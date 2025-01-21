@@ -34,7 +34,7 @@ async function bdFetchAPI(url = "", formData = {}) {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
-/* Howto use bdPostData function
+/* Howto use bdFetchAPI function
 +---------------------------------------------------------------------------+
 | https://developer.mozilla.org/en-US/docs/Web/API/FormData                 |
 +---------------------------------------------------------------------------+
@@ -43,7 +43,7 @@ const apiUrl = "<?= $base_url ?>index.php";
 var formData = new FormData()
 formData.append("a", "tasks-api-fetchProjectData")
 
-bdPostData(apiUrl,formData).then((response) => {
+bdFetchAPI(apiUrl,formData).then((response) => {
     console.log(response);
 });
 */
