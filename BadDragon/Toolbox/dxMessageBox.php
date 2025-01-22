@@ -6,7 +6,7 @@ $dxMessageBoxWidth = empty($dxMessageBoxWidth)? '300px': $dxMessageBoxWidth;
         <tr>
             <td id="dxMessageBoxTitle" style="font-weight: bold;"></td>
             <td style="width:50px;text-align:right;">
-                <img class="fa5button" src="<?= BASE_URL ?>public/images/close.png" alt="close" onclick="dxMessageBoxClose()">
+                <img class="fa5button" src="<?= BASE_URL ?>public/fa5/window-close.png" alt="close" onclick="dxMessageBoxClose()">
             </td>
         </tr>
         <tr>
