@@ -2,8 +2,9 @@ Global Vars
 
 $route                          Routing information. Object.
 
-bdMessageBox.php                Available in Toolkit
-$_SESSION['bdMessageTxt']       Display message
-$_SESSION['bdMessageFlag']      Flag 0: NA | 1: Success | 2: Error
+dxMessageBox.php                Available in Toolbox
+dxMessageBoxTitle
+dxMessageBoxBody
+dxMessageBoxWidth
     
 $logMessage                     Message to write in logfile
