@@ -56,3 +56,12 @@ bdFetchAPI(apiUrl,formData).then((response) => {
 function e$(eid) {
     return document.getElementById(eid)
 }
+
+
+function dxClose(dxId) {
+    e$(dxId).close()
+}
+
+function rx (log){
+    console.log(log)
+}
