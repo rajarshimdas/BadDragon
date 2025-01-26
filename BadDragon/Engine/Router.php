@@ -63,11 +63,11 @@ class Router extends Controller
             $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : "/" . $rx['default'];
             // die($uri);
 
-            /* Validate URI */
+            /* Validate URI 
             if (!alpha_numeric_dash_slash($uri)) {
                 show404("Invalid URI");
             }
-
+            */
 
             /* Parts in route */
             $p = explode("/", $uri);
