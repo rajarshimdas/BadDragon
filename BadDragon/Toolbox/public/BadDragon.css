@@ -24,6 +24,7 @@
 @font-face {
     font-family: 'Roboto Bold';
     src: url('fonts/Roboto-Bold.ttf');
+    /* src: url('fonts/segoi-ui-bold.woff2'); */
 }
 
 body {
