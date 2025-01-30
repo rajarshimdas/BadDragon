@@ -45,6 +45,10 @@ function bdGo2uri(string $uri): bool
     return true;
 }
 
+function rx($var)
+{
+    echo '<pre>', var_dump($var), '</pre>';
+}
 
 // Return JSON Response | legacy
 function rdReturnJsonHttpResponse(string $httpCode, array $data)
@@ -127,8 +131,7 @@ function bdIsValidDateMySQLFormat(string $date): bool
     $noOfDays = date('t', strtotime($dtY . '-' . $dtM . '-01'));
     //echo $noOfDays;
     if (!is_int($dtD) || empty($dtD) || $dtD < 1 || $dtD > $noOfDays) return false;
-    
+
     // Ok
     return true;
 }
-
