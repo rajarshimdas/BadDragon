@@ -103,10 +103,7 @@ function bdLogInFile(string $status, string $message, string $logfile): bool
     } else {
 
         // Logfile not found
-        rdReturnJsonHttpResponse(
-            '200',
-            ["F", "Logfile not found. $logfile"]
-        );
+        return false;
     }
     return true;
 }

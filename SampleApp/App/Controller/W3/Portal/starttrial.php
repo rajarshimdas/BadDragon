@@ -37,11 +37,11 @@ if (!min_length($website, 1)) {
 }
 
 if ($errorFlag > 0) {
-
     rdReturnJsonHttpResponse(
         '200',
         ["F", $errorMsg]
     );
+    die;
 }
 
 /*
@@ -50,7 +50,13 @@ if ($errorFlag > 0) {
 +-------------------------------------------------------+
 */
 $message = "$name | $email | $website";
-bdLogInFile('Trial', $message, 'trial.log');
+if (!bdLogInFile('Trial', $message, 'trial.log')) {
+    rdReturnJsonHttpResponse(
+        '200',
+        ["F", "Logfile not found. $logfile"]
+    );
+    die;
+};
 
 // sleep(1);
 
