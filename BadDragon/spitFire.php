@@ -51,5 +51,5 @@ for ($i = 0; $i < count($framework); $i++) {
 if (isset($mysqli)) $mysqli->close();
 
 // Log this request
-$logMessage = empty($logMessage) ? 'BD' : $logMessage;
-bdLogInFile($logMessage, $route->uri, 'access.log');
+# $logMessage = empty($logMessage) ? 'BD' : $logMessage;
+# bdLogInFile($logMessage, $route->uri, 'access.log');
