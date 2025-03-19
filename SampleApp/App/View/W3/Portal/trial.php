@@ -62,7 +62,7 @@
     </div>
 </div>
 
-<?php require_once BD . '/Toolbox/bdMessageBox.php'; ?>
+<?php require_once BD . '/Toolbox/dxMessageBox.php'; ?>
 
 <script>
     
