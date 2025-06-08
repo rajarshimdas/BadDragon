@@ -65,3 +65,16 @@ function dxClose(dxId) {
 function rx (log){
     console.log(log)
 }
+
+
+function formatIsoDateToHuman(isoDateStr) {
+  const date = new Date(isoDateStr);
+  
+  const day = String(date.getDate()).padStart(2, '0');
+  const monthShort = date.toLocaleString('en-US', { month: 'short' }); // "Jun"
+  const year = String(date.getFullYear()).slice(-2); // "25"
+
+  return `${day}-${monthShort}-${year}`;
+}
+
+
