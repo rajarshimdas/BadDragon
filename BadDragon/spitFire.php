@@ -32,10 +32,11 @@ use BadDragon\Router;
 
 $dragon = new Controller;
 $route = new Router;
-// var_dump($route); die;
+// die(var_dump($route));
 
 // Request controllers
 $framework = $dragon->fire($route);
+// die(var_dump($framework));
 
 // Load Controllers - base controller
 if (is_file(W3APP . "/Controller/Controller.php")) {

@@ -48,6 +48,7 @@ class Router extends Controller
             }
         } else {
 
+            // GET Method
             // Read Routes defination
             $routesFile = W3APP . '/Routes.php';
             if (is_file($routesFile)) {
@@ -61,7 +62,7 @@ class Router extends Controller
             // REQUEST URI (GET Requests)
             // var_dump($_SERVER["REQUEST_URI"]);
             $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : "/" . $rx['default'];
-            // die($uri);
+            //  die($uri);
 
             /* Validate URI | Common.php */ 
             if (!alpha_numeric_dash_slash($uri)) {
@@ -72,7 +73,7 @@ class Router extends Controller
             $p = explode("/", $uri);
             // var_dump($p);
 
-            $co = isset($p) ? count($p) : 0;
+            $co = empty($p) ? 0: count($p);
             $matchflag = 0;
 
             if ($co >= 3) {
@@ -101,20 +102,20 @@ class Router extends Controller
 
             // Validate all parts for auto route are available
             for ($i = 1; $i < 4; $i++) {
-                if (!isset($parts[$i]) || $parts[$i] == NULL) {
+                if (empty($parts[$i])) {
                     // die("404! That route was not found.");
                     show404("404! That route was not found.");
                 }
             }
 
             // $co = isset($parts) ? count($parts) : 0;
-
+            array_shift($parts);
             $this->parts = $parts;
 
             $this->aroute = [
+                $parts[0],
                 $parts[1],
                 $parts[2],
-                $parts[3],
             ];
 
             // Parse Module | Controller | Method for this request
