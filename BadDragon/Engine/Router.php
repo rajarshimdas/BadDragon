@@ -64,7 +64,7 @@ class Router extends Controller
             $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : "/" . $rx['default'];
             //  die($uri);
 
-            /* Validate URI | Common.php */ 
+            /* Validate URI | Common.php */
             if (!alpha_numeric_dash_slash($uri)) {
                 show404("Invalid URI");
             }
@@ -73,7 +73,7 @@ class Router extends Controller
             $p = explode("/", $uri);
             // var_dump($p);
 
-            $co = empty($p) ? 0: count($p);
+            $co = empty($p) ? 0 : count($p);
             $matchflag = 0;
 
             if ($co >= 3) {
@@ -99,9 +99,11 @@ class Router extends Controller
             //var_dump($this->uri);
 
             $parts = explode("/", $this->uri);
+            // purge empty first index            
+            if (empty($parts[0])) array_shift($parts);
 
             // Validate all parts for auto route are available
-            for ($i = 1; $i < 4; $i++) {
+            for ($i = 0; $i < 3; $i++) {
                 if (empty($parts[$i])) {
                     // die("404! That route was not found.");
                     show404("404! That route was not found.");
@@ -109,7 +111,6 @@ class Router extends Controller
             }
 
             // $co = isset($parts) ? count($parts) : 0;
-            array_shift($parts);
             $this->parts = $parts;
 
             $this->aroute = [
