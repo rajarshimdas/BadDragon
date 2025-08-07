@@ -3,7 +3,7 @@
 | Rajarshi Das						                    |
 +-------------------------------------------------------+
 | Created On: 22-Dec-2022				                |
-| Updated On: 											|
+| Updated On: 18-Jul-2025                               |
 +-------------------------------------------------------+
 */
 
@@ -85,10 +85,12 @@ h1.tagline {
     cursor: pointer;
     opacity: 0.4;
 }
-.rd-text-bold{
+
+.rd-text-bold {
     font-family: "Roboto Bold";
     color: var(--rd-dark-gray);
 }
+
 .rd-mailto {
     color: white;
     /* text-decoration: none; */
@@ -148,4 +150,10 @@ a.button-18 {
     cursor: not-allowed;
     background: rgba(0, 0, 0, .08);
     color: rgba(0, 0, 0, .3);
+}
+
+td.hotKey:hover {
+    cursor: pointer;
+    background-color: cadetblue;
+    color: white;
 }

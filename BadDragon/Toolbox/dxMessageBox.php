@@ -1,5 +1,5 @@
 <dialog id="dxMessageBox">
-    <table style="width:<?= empty($dxMessageBoxWidth)? '350px': $dxMessageBoxWidth ?>;">
+    <table style="width:<?= empty($dxMessageBoxWidth) ? '350px' : $dxMessageBoxWidth ?>;">
         <tr>
             <td id="dxMessageBoxTitle" style="font-weight: bold;"></td>
             <td style="width:50px;text-align:right;">
@@ -16,3 +16,10 @@
         </tr>
     </table>
 </dialog>
+<script>
+    function showMessageBox(title, body) {
+        e$('dxMessageBoxTitle').innerHTML = title
+        e$('dxMessageBoxBody').innerHTML = body
+        e$("dxMessageBox").showModal()
+    }
+</script>
