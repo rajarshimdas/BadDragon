@@ -45,9 +45,18 @@ function bdGo2uri(string $uri): bool
     return true;
 }
 
-function rx($var)
-{
-    echo '<pre>', var_dump($var), '</pre>';
+if (!function_exists('rx')) {
+    function rx($var)
+    {
+        echo '<pre>', var_dump($var), '</pre>';
+    }
+}
+
+if (!function_exists('rd')) {
+    function rd($var)
+    {
+        echo '<div>' . $var . '</div>';
+    }
 }
 
 // Return JSON Response | legacy
