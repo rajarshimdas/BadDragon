@@ -44,7 +44,8 @@ if (is_file(W3APP . "/Controller/Controller.php")) {
 }
 
 // Load Controllers - MVC
-for ($i = 0; $i < count($framework); $i++) {
+$framework_co = empty($framework) ? 0 : count($framework);
+for ($i = 0; $i < $framework_co; $i++) {
     require_once $framework[$i];
 }
 
