@@ -2,8 +2,8 @@
 +-------------------------------------------------------+
 | Rajarshi Das						                    |
 +-------------------------------------------------------+
-| Created On: 19-Feb-2024                               |
-| Updated On: 23-Oct-2025 ChatGPT                       |
+| Created On:   19-Feb-2024                             |
+| Updated On:                                           |
 +-------------------------------------------------------+
 */
 define('BADDRAGON', 'Ver 1.0.0');
@@ -15,6 +15,7 @@ $classmap = [
 spl_autoload_register(function (string $classname) use ($classmap) {
 
     $parts = explode('\\', $classname);
+    // var_dump($parts);
     $namespace = array_shift($parts);
     $classfile = array_pop($parts) . '.php';
 
@@ -22,11 +23,12 @@ spl_autoload_register(function (string $classname) use ($classmap) {
         return;
     }
 
-    // Build path safely
-    $path = $parts ? DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, $parts) : '';
+    $path = implode(DIRECTORY_SEPARATOR, $parts);
     $file = $classmap[$namespace] . $path . DIRECTORY_SEPARATOR . $classfile;
 
-    if (file_exists($file)) {
-        require_once $file;
+    if (!file_exists($file) && !class_exists($classname)) {
+        return;
     }
+
+    require_once $file;
 });
