@@ -2,8 +2,8 @@
 +-------------------------------------------------------+
 | Rajarshi Das						                    |
 +-------------------------------------------------------+
-| Created On:   29-Jan-2024                             |
-| Updated On:                                           |
+| Created On: 29-Jan-2024                               |
+| Updated On: 23-Oct-2025                               |
 +-------------------------------------------------------+
 */
 
@@ -44,9 +44,9 @@ if (is_file(W3APP . "/Controller/Controller.php")) {
 }
 
 // Load Controllers - MVC
-$framework_co = empty($framework) ? 0 : count($framework);
-for ($i = 0; $i < $framework_co; $i++) {
-    require_once $framework[$i];
+// Cast null to an empty array, so the loop runs safely with no warning and no output.
+foreach((array)$framework as $controller){
+    require_once $controller;
 }
 
 // Clean up
