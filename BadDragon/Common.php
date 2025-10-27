@@ -119,6 +119,7 @@ function bdLogInFile(string $status, string $message, string $logfile): bool
 
 function bdIsValidDateMySQLFormat(string $date): bool
 {
+    /*
     if (empty($date)) return false;
 
     $x = explode("-", $date);
@@ -140,4 +141,26 @@ function bdIsValidDateMySQLFormat(string $date): bool
 
     // Ok
     return true;
+    */
+    return checkValidISODate($date);
 }
+
+
+// ChatGPT | 2025-10-27
+function checkValidISODate(string $date): bool {
+    
+    // Blank string check
+    if (trim($date) === '') {
+        return false;
+    }
+
+    // Must strictly match YYYY-MM-DD
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+        return false;
+    }
+
+    // Check if it’s a real calendar date
+    [$year, $month, $day] = explode('-', $date);
+    return checkdate((int)$month, (int)$day, (int)$year);
+}
+
