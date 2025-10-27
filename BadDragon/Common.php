@@ -1,10 +1,9 @@
-<?php /*
+<?php 
+/*
 +-------------------------------------------------------+
 | System Common Functions                               |
 +-------------------------------------------------------+
 */
-
-// use BadDragon\Router;
 
 function view(object $route, string $page): bool
 {
