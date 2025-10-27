@@ -38,14 +38,16 @@ $route = new Router;
 $framework = $dragon->fire($route);
 // die(var_dump($framework));
 
+## Begin loading controllers
+##
+
 // Load Controllers - base controller
 if (is_file(W3APP . "/Controller/Controller.php")) {
     require_once W3APP . "/Controller/Controller.php";
 }
 
-// Load Controllers - MVC
-// Cast null to an empty array, so the loop runs safely with no warning and no output.
-foreach((array)$framework as $controller){
+// Load Controllers - MVC (Module | Controller | Script)
+foreach($framework as $controller){
     require_once $controller;
 }
 

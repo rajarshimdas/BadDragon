@@ -119,7 +119,7 @@ class Router extends Controller
                 $parts[2],
             ];
 
-            // Parse Module | Controller | Method for this request
+            // Parse Module | Controller | Script for this request
             $this->autoroute();
         }
     }
