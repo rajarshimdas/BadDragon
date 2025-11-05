@@ -1,9 +1,10 @@
-<?php /*
+<?php
+/*
 +-------------------------------------------------------+
-| Rajarshi Das						                    |
+| Rajarshi Das                                          |
 +-------------------------------------------------------+
 | Created On:   18-Feb-2024                             |
-| Updated On:                                           |
+| Updated On:   05-Nov-2025 ChatGPT                     |
 +-------------------------------------------------------+
 */
 
@@ -11,49 +12,64 @@ namespace BadDragon;
 
 class Controller
 {
-
     public function __construct()
     {
-        // die("Hello from bad-dragon");
+        // Framework initialization (placeholder)
         return true;
     }
 
+    /**
+     * Load controller files (module, controller, and script)
+     * for the given route.
+     *
+     * @param object $route
+     * @return array|null
+     */
     public function fire(object $route): ?array
     {
+        // Define file paths
         $controllerModule = W3APP . '/Controller/' . $route->module . '/' . $route->module . '.php';
         $controllerMethod = W3APP . '/Controller/' . $route->module . '/' . $route->controller . '/' . $route->controller . '.php';
         $controllerScript = W3APP . '/Controller/' . $route->module . '/' . $route->controller . '/' . $route->method . '.php';
 
+        // Check all files
         if (!is_file($controllerModule)) {
-            if (ENV == 'dev') {
-                die("Module " . $controllerMethod . " files missing...");
-            } else {
-                show404("Module | " . $route->uri);
-            };
-        };
+            return $this->handleMissing("Module", $controllerModule, $route->uri);
+        }
 
         if (!is_file($controllerMethod)) {
-            if (ENV == 'dev') {
-                die("Controller Method " . $controllerMethod . " is missing...");
-            } else {
-                show404("Method | " . $route->uri);
-            };
-        };
+            return $this->handleMissing("Controller", $controllerMethod, $route->uri);
+        }
 
         if (!is_file($controllerScript)) {
-            if (ENV == 'dev') {
-                die("Controller Method Script " . $controllerScript . " is missing...");
-            } else {
-                show404("Script | " . $route->uri);
-            };
-        };
+            return $this->handleMissing("Script", $controllerScript, $route->uri);
+        }
 
-        $framework = [
+        // All good — return the framework stack
+        return [
             $controllerModule,
             $controllerMethod,
-            $controllerScript
+            $controllerScript,
         ];
+    }
 
-        return $framework;
+    /**
+     * Handles missing files with proper error messages.
+     */
+    private function handleMissing(string $type, string $file, string $uri): ?array
+    {
+        $msg = "$type file missing: $file";
+
+        if (defined('ENV') && ENV === 'dev') {
+            die($msg);
+        }
+
+        if (function_exists('show404')) {
+            show404("$type | $uri");
+        } else {
+            die("404: $msg");
+        }
+
+        return null;
     }
 }

@@ -1,9 +1,10 @@
-<?php /*
+<?php
+/*
 +-------------------------------------------------------+
-| Rajarshi Das						                    |
+| Rajarshi Das                                          |
 +-------------------------------------------------------+
 | Created On:   29-Jan-2024                             |
-| Updated On:                                           |
+| Updated On:   05-Nov-2025  CHat GPT                   |
 +-------------------------------------------------------+
 */
 
@@ -13,135 +14,113 @@ use BadDragon\Controller;
 
 class Router extends Controller
 {
-    public $a;
-    public $uri;
-    public $module;
-    public $controller;
-    public $method;
-    public $parts;
-    private $aroute;
+    public string $a = '';
+    public string $uri = '';
+    public string $module = '';
+    public string $controller = '';
+    public string $method = '';
+    public array $parts = [];
+    private array $aroute = [];
 
     public function __construct()
     {
-        if (!empty($_POST["a"])) {
-
-            // POST Method
-            $this->a = $_POST["a"];
-            // die($this->a);
-            $this->uri = "POST:" . $this->a;
-
-            /* Auto routing */
-            $parts = explode("-", $this->a);
-
-            foreach ($parts as $p) {
-                $this->parts[] = $p;
-            }
-            // die(var_dump($this->parts));
-
-            // Parse Module | Controller | Method for this request
-            if (count($parts) > 2) {
-                $this->module       = ucfirst($parts[0]);
-                $this->controller   = ucfirst($parts[1]);
-                $this->method       = $parts[2];
-            } else {
-                die("Error: Invalid routing info...");
-            }
+        // Handle POST or GET routes
+        if (!empty($_POST['a'])) {
+            $this->handlePostRoute($_POST['a']);
         } else {
-
-            // GET Method
-            // Read Routes defination
-            $routesFile = W3APP . '/Routes.php';
-            if (is_file($routesFile)) {
-                require_once $routesFile;
-            } else {
-                die('Error: Custom Routes file missing.');
-            }
-
-            //var_dump($rx);
-
-            // REQUEST URI (GET Requests)
-            // var_dump($_SERVER["REQUEST_URI"]);
-            $uri = (rtrim($_SERVER["REQUEST_URI"], "/") != null) ? rtrim($_SERVER["REQUEST_URI"], "/") : "/" . $rx['default'];
-            //  die($uri);
-
-            /* Validate URI | Common.php */
-            if (!alpha_numeric_dash_slash($uri)) {
-                show404("Invalid URI");
-            }
-
-            /* Parts in route */
-            $p = explode("/", $uri);
-            // var_dump($p);
-
-            $co = empty($p) ? 0 : count($p);
-            $matchflag = 0;
-
-            if ($co >= 3) {
-                if (isset($rx["static"][$p[1] . '/' . $p[2]])) {
-                    // die("static2: " . $rx["static"][$p[1] . '/' . $p[2]]);
-                    $this->uri = $rx["static"][$p[1] . '/' . $p[2]];
-                    $matchflag++;
-                }
-            } elseif ($co == 2) {
-                if (isset($rx["static"][$p[1]])) {
-                    // die("static1: " . $rx["static"][$p[1]]);
-                    $this->uri = $rx["static"][$p[1]];
-                    $matchflag++;
-                }
-            }
-
-            if ($matchflag < 1) {
-                // Auto route
-                $this->uri = $uri;
-            }
-
-            //echo $uri;
-            //var_dump($this->uri);
-
-            $parts = explode("/", $this->uri);
-            // purge empty first index            
-            if (empty($parts[0])) array_shift($parts);
-
-            // Validate all parts for auto route are available
-            for ($i = 0; $i < 3; $i++) {
-                if (empty($parts[$i])) {
-                    // die("404! That route was not found.");
-                    show404("404! That route was not found.");
-                }
-            }
-
-            // $co = isset($parts) ? count($parts) : 0;
-            $this->parts = $parts;
-
-            $this->aroute = [
-                $parts[0],
-                $parts[1],
-                $parts[2],
-            ];
-
-            // Parse Module | Controller | Script for this request
-            $this->autoroute();
+            $this->handleGetRoute();
         }
     }
 
-    private function autoroute()
+    /**
+     * Handle POST requests and auto-route based on `a` parameter.
+     */
+    private function handlePostRoute(string $action): void
     {
-        $parts = $this->aroute;
-        // var_dump($parts); die;
+        $this->a = $action;
+        $this->uri = "POST:" . $action;
 
-        if (isset($parts)) {
+        $parts = explode('-', $action);
 
-            if (count($parts) > 2) {
-                $this->module       = ucfirst($parts[0]);
-                $this->controller   = ucfirst($parts[1]);
-                $this->method       = $parts[2];
-            } else {
-                header("Location:" . BASE_URL . "/home");
-                die;
-                //die("Incomplete routing info...");
-            }
-        } else {
-            die("404 - Routing info missing...");
+        if (count($parts) < 3) {
+            show404("Invalid routing info for POST request.");
         }
+
+        $this->parts = $parts;
+        [$this->module, $this->controller, $this->method] = [
+            ucfirst($parts[0]),
+            ucfirst($parts[1]),
+            $parts[2],
+        ];
+    }
+
+    /**
+     * Handle GET requests and route to correct controller/method.
+     */
+    private function handleGetRoute(): void
+    {
+        $routesFile = W3APP . '/Routes.php';
+
+        if (!is_file($routesFile)) {
+            show404('Custom Routes file missing.');
+        }
+
+        require_once $routesFile;
+
+        $uri = rtrim($_SERVER['REQUEST_URI'], '/') ?: '/' . ($rx['default'] ?? '');
+        if (!alpha_numeric_dash_slash($uri)) {
+            show404("Invalid URI");
+        }
+
+        $parts = array_values(array_filter(explode('/', $uri)));
+
+        // Attempt static route match first
+        $this->uri = $this->matchStaticRoute($parts, $rx) ?? $uri;
+
+        $routeParts = array_values(array_filter(explode('/', $this->uri)));
+
+        if (count($routeParts) < 3) {
+            show404("404! That route was not found.");
+        }
+
+        $this->parts = $routeParts;
+        $this->aroute = array_slice($routeParts, 0, 3);
+
+        $this->autoroute();
+    }
+
+    /**
+     * Attempt to match a static route from $rx definitions.
+     */
+    private function matchStaticRoute(array $parts, array $rx): ?string
+    {
+        $count = count($parts);
+
+        if ($count >= 3 && isset($rx['static'][$parts[1] . '/' . $parts[2]])) {
+            return $rx['static'][$parts[1] . '/' . $parts[2]];
+        }
+
+        if ($count >= 2 && isset($rx['static'][$parts[1]])) {
+            return $rx['static'][$parts[1]];
+        }
+
+        return null;
+    }
+
+    /**
+     * Parse and assign module, controller, and method.
+     */
+    private function autoroute(): void
+    {
+        if (empty($this->aroute) || count($this->aroute) < 3) {
+            header("Location:" . BASE_URL . "/home");
+            exit;
+        }
+
+        [$module, $controller, $method] = $this->aroute;
+
+        $this->module = ucfirst($module);
+        $this->controller = ucfirst($controller);
+        $this->method = $method;
     }
 }
