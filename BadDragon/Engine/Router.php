@@ -5,6 +5,7 @@
 +-------------------------------------------------------+
 | Created On:   29-Jan-2024                             |
 | Updated On:   05-Nov-2025  ChatGPT                    |
+|               18-Nov-2025                             |
 +-------------------------------------------------------+
 */
 
@@ -95,8 +96,7 @@ class Router extends Controller
         $routeParts = array_values(array_filter(explode('/', $this->uri)));
 
         if (count($routeParts) < 3) {
-            var_dump($routeParts);
-            show404("404! That route was not found.5");
+            show404("404! That route was not found.");
         }
 
         $this->parts = $routeParts;
