@@ -4,8 +4,8 @@
 | Rajarshi Das                                          |
 +-------------------------------------------------------+
 | Created On:   29-Jan-2024                             |
-| Updated On:   05-Nov-2025  ChatGPT                    |
-|               18-Nov-2025                             |
+| Updated On:   05-Nov-2025 ChatGPT                     |
+|               18-Nov-2025 Bugfix handleGetRoute       |
 +-------------------------------------------------------+
 */
 
@@ -73,9 +73,9 @@ class Router extends Controller
 
         if (empty($x)) {
             $rxURI = $rx['static'][$rx['default']];
-        } elseif (!empty($rx['static'][$x])){
+        } elseif (!empty($rx['static'][$x])) {
             $rxURI = $rx['static'][$x];
-        } else{
+        } else {
             $rxURI = "/$x";
         };
         // rx($rxURI);
