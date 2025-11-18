@@ -66,8 +66,23 @@ class Router extends Controller
         }
 
         require_once $routesFile;
+        // var_dump($rx);
 
-        $uri = rtrim($_SERVER['REQUEST_URI'], '/') ?: '/' . ($rx['default'] ?? '');
+        $x = trim($_SERVER['REQUEST_URI'], '/');
+
+        if (empty($x)) {
+            $rxURI = $rx['static'][$rx['default']];
+        } elseif (!empty($rx['static'][$x])){
+            $rxURI = $rx['static'][$x];
+        } else{
+            $rxURI = "/$x";
+        };
+        // rx($rxURI);
+
+        // $uri = rtrim($_SERVER['REQUEST_URI'], '/') ?: '/' . ($rx['default'] ?? '');
+        // $uri = rtrim($_SERVER['REQUEST_URI'], '/') ?: '/' . ($rx['static'][$rx['default']] ?? '');
+        $uri = $rxURI;
+
         if (!alpha_numeric_dash_slash($uri)) {
             show404("Invalid URI");
         }
@@ -80,7 +95,8 @@ class Router extends Controller
         $routeParts = array_values(array_filter(explode('/', $this->uri)));
 
         if (count($routeParts) < 3) {
-            show404("404! That route was not found.");
+            var_dump($routeParts);
+            show404("404! That route was not found.5");
         }
 
         $this->parts = $routeParts;
