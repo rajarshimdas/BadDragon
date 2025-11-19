@@ -69,30 +69,27 @@ class Router extends Controller
         require_once $routesFile;
         // var_dump($rx);
 
+        // From NGINX
         $x = trim($_SERVER['REQUEST_URI'], '/');
 
+        // Routing decision
         if (empty($x)) {
+            // Use default Route
             $rxURI = $rx['static'][$rx['default']];
         } elseif (!empty($rx['static'][$x])) {
+            // Use static Route
             $rxURI = $rx['static'][$x];
         } else {
+            // Use Autoroute
             $rxURI = "/$x";
         };
         // rx($rxURI);
 
-        // $uri = rtrim($_SERVER['REQUEST_URI'], '/') ?: '/' . ($rx['default'] ?? '');
-        // $uri = rtrim($_SERVER['REQUEST_URI'], '/') ?: '/' . ($rx['static'][$rx['default']] ?? '');
-        $uri = $rxURI;
-
-        if (!alpha_numeric_dash_slash($uri)) {
+        if (!alpha_numeric_dash_slash($rxURI)) {
             show404("Invalid URI");
         }
 
-        $parts = array_values(array_filter(explode('/', $uri)));
-
-        // Attempt static route match first
-        $this->uri = $this->matchStaticRoute($parts, $rx) ?? $uri;
-
+        $this->uri = $rxURI;
         $routeParts = array_values(array_filter(explode('/', $this->uri)));
 
         if (count($routeParts) < 3) {
@@ -103,24 +100,6 @@ class Router extends Controller
         $this->aroute = array_slice($routeParts, 0, 3);
 
         $this->autoroute();
-    }
-
-    /**
-     * Attempt to match a static route from $rx definitions.
-     */
-    private function matchStaticRoute(array $parts, array $rx): ?string
-    {
-        $count = count($parts);
-
-        if ($count >= 3 && isset($rx['static'][$parts[1] . '/' . $parts[2]])) {
-            return $rx['static'][$parts[1] . '/' . $parts[2]];
-        }
-
-        if ($count >= 2 && isset($rx['static'][$parts[1]])) {
-            return $rx['static'][$parts[1]];
-        }
-
-        return null;
     }
 
     /**
