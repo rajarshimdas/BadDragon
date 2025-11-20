@@ -6,7 +6,7 @@
 | Updated On: 23-Oct-2025 ChatGPT                       |
 +-------------------------------------------------------+
 */
-define('BADDRAGON', 'Ver 1.0.0');
+define('BADDRAGON', 'Ver 2.0');
 
 $classmap = [
     'BadDragon' => __DIR__ . '/Engine',
