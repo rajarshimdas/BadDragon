@@ -78,3 +78,137 @@ function formatIsoDateToHuman(isoDateStr) {
 }
 
 
+/*
++---------------------------------------------------------------------------+
+| Data Validation | 22-Dec-2025 ChatGPT                                     |
++---------------------------------------------------------------------------+
+*/
+
+const bdValidate = {
+
+    /* ===============================
+       BASIC CHECKS
+    =============================== */
+
+    isRequired(value) {
+        return value !== null &&
+               value !== undefined &&
+               String(value).trim() !== "";
+    },
+
+    isString(value, min = 0, max = Infinity) {
+        if (!this.isRequired(value)) return false;
+        return typeof value === "string" &&
+               value.length >= min &&
+               value.length <= max;
+    },
+
+    isAlpha(value) {
+        return /^[A-Za-z]+$/.test(value);
+    },
+
+    isAlphaNumeric(value) {
+        return /^[A-Za-z0-9]+$/.test(value);
+    },
+
+    isAlphaNumericDot(value) {
+        return /^[A-Za-z0-9.]+$/.test(value);
+    },
+
+    /* ===============================
+       NUMBER VALIDATION
+    =============================== */
+
+    isNumber(value) {
+        return Number.isFinite(Number(value));
+    },
+
+    isNonEmptyNonNegativeNumber(value) {
+        if (!this.isRequired(value)) return false;
+        const num = Number(value);
+        return Number.isFinite(num) && num >= 0;
+    },
+
+    isPositiveNumber(value) {
+        if (!this.isRequired(value)) return false;
+        const num = Number(value);
+        return Number.isFinite(num) && num > 0;
+    },
+
+    isInteger(value) {
+        return Number.isInteger(Number(value));
+    },
+
+    isInRange(value, min, max) {
+        if (!this.isNumber(value)) return false;
+        const num = Number(value);
+        return num >= min && num <= max;
+    },
+
+    /* ===============================
+       DATE VALIDATION
+    =============================== */
+
+    isValidISODate(value) {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+
+        const [y, m, d] = value.split("-").map(Number);
+        const date = new Date(y, m - 1, d);
+
+        return (
+            date.getFullYear() === y &&
+            date.getMonth() === m - 1 &&
+            date.getDate() === d
+        );
+    },
+
+    isPastDate(value) {
+        if (!this.isValidISODate(value)) return false;
+        return new Date(value) < new Date();
+    },
+
+    isFutureDate(value) {
+        if (!this.isValidISODate(value)) return false;
+        return new Date(value) > new Date();
+    },
+
+    /* ===============================
+       EMAIL / PHONE
+    =============================== */
+
+    isEmail(value) {
+        if (!this.isRequired(value)) return false;
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    },
+
+    isPhone(value, min = 10, max = 15) {
+        if (!this.isRequired(value)) return false;
+        return /^[0-9]+$/.test(value) &&
+               value.length >= min &&
+               value.length <= max;
+    },
+
+    /* ===============================
+       PASSWORD
+    =============================== */
+
+    isStrongPassword(value, minLen = 8) {
+        if (!this.isRequired(value)) return false;
+        return new RegExp(
+            `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).{${minLen},}$`
+        ).test(value);
+    },
+
+    /* ===============================
+       URL
+    =============================== */
+
+    isURL(value) {
+        try {
+            new URL(value);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+};
