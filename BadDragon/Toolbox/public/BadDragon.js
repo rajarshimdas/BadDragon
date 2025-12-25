@@ -23,8 +23,8 @@ async function bdFetchAPI(url = "", formData = {}) {
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
         credentials: "same-origin", // include, *same-origin, omit
         //headers: {
-            // "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
+        // "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
         //},
         redirect: "error", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
@@ -62,19 +62,19 @@ function dxClose(dxId) {
     e$(dxId).close()
 }
 
-function rx (log){
+function rx(log) {
     console.log(log)
 }
 
 
 function formatIsoDateToHuman(isoDateStr) {
-  const date = new Date(isoDateStr);
-  
-  const day = String(date.getDate()).padStart(2, '0');
-  const monthShort = date.toLocaleString('en-US', { month: 'short' }); // "Jun"
-  const year = String(date.getFullYear()).slice(-2); // "25"
+    const date = new Date(isoDateStr);
 
-  return `${day}-${monthShort}-${year}`;
+    const day = String(date.getDate()).padStart(2, '0');
+    const monthShort = date.toLocaleString('en-US', { month: 'short' }); // "Jun"
+    const year = String(date.getFullYear()).slice(-2); // "25"
+
+    return `${day}-${monthShort}-${year}`;
 }
 
 
@@ -92,15 +92,15 @@ const bdValidate = {
 
     isRequired(value) {
         return value !== null &&
-               value !== undefined &&
-               String(value).trim() !== "";
+            value !== undefined &&
+            String(value).trim() !== "";
     },
 
     isString(value, min = 0, max = Infinity) {
         if (!this.isRequired(value)) return false;
         return typeof value === "string" &&
-               value.length >= min &&
-               value.length <= max;
+            value.length >= min &&
+            value.length <= max;
     },
 
     isAlpha(value) {
@@ -184,8 +184,8 @@ const bdValidate = {
     isPhone(value, min = 10, max = 15) {
         if (!this.isRequired(value)) return false;
         return /^[0-9]+$/.test(value) &&
-               value.length >= min &&
-               value.length <= max;
+            value.length >= min &&
+            value.length <= max;
     },
 
     /* ===============================
