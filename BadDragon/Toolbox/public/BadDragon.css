@@ -32,11 +32,3 @@ body {
     font-family: "Segoe UI", "Roboto", "Arial";
     font-weight: normal;
 }
-
-dialog {
-    padding: 0px;
-}
-
-dialog#dxMessageBox table tr td {
-    padding: 6px;
-}
