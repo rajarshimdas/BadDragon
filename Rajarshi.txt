@@ -11,3 +11,5 @@
 19-Nov-25   Ver 1.8 Routing bugfixes
 
 21-Nov-25   Ver 2.0 
+
+26-Dec-25   Ver 2.1 CSS Optimizations
