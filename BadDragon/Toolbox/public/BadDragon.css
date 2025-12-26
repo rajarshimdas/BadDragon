@@ -11,7 +11,7 @@
 /* Segoi UI */
 @font-face {
     font-family: 'Segoe UI';
-    src: url('fonts/segoe-ui-semilight.woff2');
+    src: url('fonts/segoe-ui.woff2');
 }
 
 /* Roboto */
@@ -20,15 +20,23 @@
     src: url('fonts/Roboto-Light.ttf');
 }
 
-/* Fredoka */
+@font-face {
+    font-family: 'Roboto Medium';
+    src: url('fonts/Roboto-Medium.ttf');
+}
+
 @font-face {
     font-family: 'Roboto Bold';
     src: url('fonts/Roboto-Bold.ttf');
-    /* src: url('fonts/segoi-ui-bold.woff2'); */
+}
+
+/* Root Element */
+html {
+    font-size: 16px;
 }
 
 body {
     font-size: 1rem;
     font-family: "Segoe UI", "Roboto", "Arial";
-    font-weight: normal;
+    color: var(--rd-dark-gray);
 }
