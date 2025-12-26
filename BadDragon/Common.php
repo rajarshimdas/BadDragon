@@ -1,4 +1,17 @@
 <?php 
+
+function sessionToVars(array $session)
+{
+    foreach ($session as $key => $value) {
+        if (preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $key)) {
+            $GLOBALS[$key] = $value;
+        }
+    }
+}
+
+// session_start();
+// sessionToVars($_SESSION);
+
 /*
 +-------------------------------------------------------+
 | System Common Functions                               |
