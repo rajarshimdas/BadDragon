@@ -85,6 +85,13 @@
     </tr>
 
     <tr>
+        <td class="featureCell">Leave Management</td>
+        <td>Yes</td>
+        <td>Yes</td>
+        <td>Yes</td>
+    </tr>
+
+    <tr>
         <td class="featureCell">Management Information System</td>
         <td>Yes</td>
         <td>Yes</td>
