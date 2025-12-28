@@ -48,7 +48,7 @@
 <body>
     <div class="rd-banner">
         <h1 class="tagline">
-            <b>Arkafe</b> The&nbsp;Worksmart&nbsp;Studio&nbsp;Organizer
+            <b>Arkafe</b> The&nbsp;Worksmart&nbsp;Architecture&nbsp;Studio&nbsp;Organizer
         </h1>
     </div>
 
