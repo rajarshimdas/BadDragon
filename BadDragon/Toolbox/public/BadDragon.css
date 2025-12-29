@@ -14,6 +14,11 @@
     src: url('fonts/segoe-ui.woff2');
 }
 
+@font-face {
+    font-family: 'Segoe SL';
+    src: url('fonts/segoe-ui-semilight.woff2');
+}
+
 /* Roboto */
 @font-face {
     font-family: 'Roboto';
@@ -39,4 +44,12 @@ body {
     font-size: 1rem;
     font-family: "Segoe UI", "Roboto", "Arial";
     color: var(--rd-dark-gray);
+}
+
+table tr td {
+    font-family: 'Segoe SL';
+}
+
+table thead tr td {
+    font-family: 'Segoe UI';
 }
