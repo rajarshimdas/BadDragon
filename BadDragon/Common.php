@@ -1,4 +1,13 @@
-<?php 
+<?php /* 
++-------------------------------------------------------+
+| Rajarshi Das						                    |
++-------------------------------------------------------+
+| Created On: 29-Jan-2024                               |
+| Updated On: 31-Dec-2025                               |
++-------------------------------------------------------+
+| Provide common functions throughout the framework     |
++-------------------------------------------------------+
+*/
 
 function sessionToVars(array $session)
 {
@@ -14,7 +23,7 @@ function sessionToVars(array $session)
 
 /*
 +-------------------------------------------------------+
-| System Common Functions                               |
+| Controller handover to View for generating Page       |
 +-------------------------------------------------------+
 */
 
@@ -39,6 +48,11 @@ function view(object $route, string $page, array $data = []): bool
 
     return true;
 }
+/*
++-------------------------------------------------------+
+| System Common Functions                               |
++-------------------------------------------------------+
+*/
 
 function show404(string $m): bool
 {
@@ -122,11 +136,13 @@ function bdLogInFile(string $status, string $message, string $logfile): bool
         $f = fopen($logfile, "a");
         fwrite($f, $log . "\n");
         fclose($f);
+
     } else {
 
         // Logfile not found
         return false;
     }
+
     return true;
 }
 

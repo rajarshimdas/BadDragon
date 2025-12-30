@@ -8,8 +8,6 @@
 | Form Validation for non ci3 modules.					|
 +-------------------------------------------------------+
 */
-
-
 class bdDataValidation
 {
 	function __construct()

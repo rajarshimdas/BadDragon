@@ -38,6 +38,11 @@ $route = new Router;
 $framework = $dragon->fire($route);
 // die(var_dump($framework));
 
+## Load Helper classes. eg Data Validation
+##
+
+// Todo
+
 ## Begin loading controllers
 ##
 
