@@ -34,7 +34,7 @@
     <h1>Offers 2026</h1>
 
     <div class="offer-card">
-        <p>New customers (for first year only) subscribing Arkafe before 15 Jan 2026</p>
+        <p>One time offer for subscribing Arkafe before 15 Jan 2026</p>
 
         <ol>
             <li>Annual subscription - 15% discount or 3 months extra</li>
