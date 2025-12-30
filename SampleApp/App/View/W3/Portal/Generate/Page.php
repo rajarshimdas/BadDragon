@@ -64,7 +64,7 @@ $apple_touch_icon
 <body>
     <div class="rd-banner">
         <h1 class="tagline">
-            <b>Arkafe</b> 
+            Arkafe
             <span id="rd-tagline">The&nbsp;Worksmart&nbsp;Architecture&nbsp;Studio&nbsp;Organizer</span>
         </h1>
     </div>

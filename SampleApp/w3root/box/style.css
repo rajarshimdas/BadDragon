@@ -25,7 +25,7 @@
 }
 
 html {
-    font-size: clamp(10px, 1.2vw, 16px);
+    font-size: clamp(12px, 1.2vw, 16px);
 }
 
 body {
@@ -72,6 +72,11 @@ h1.tagline {
     padding: 10px;
 }
 
+#rd-tagline {
+    font-family: "Segoe UI";
+    font-weight: 400;
+}
+
 .rd-footer {
     text-align: center;
     padding: 10px;
@@ -112,24 +117,24 @@ a.button-18 {
     align-items: center;
     background-color: var(--rd-color-button);
     border: 0;
-    border-radius: 100px;
+    border-radius: 10rem;
     box-sizing: border-box;
     color: #ffffff;
     cursor: pointer;
     display: inline-flex;
     /* font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif; */
-    /* font-size: 16px; */
+    font-size: 1rem;
     font-family: 'Roboto Bold';
     /* font-weight: 600; */
     justify-content: center;
-    line-height: 20px;
+    line-height: 1.4rem;
     max-width: 480px;
-    min-height: 40px;
-    min-width: 0px;
+    min-height: 1.4rem;
+    min-width: 1.4rem;
     overflow: hidden;
     padding: 0px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     text-align: center;
     touch-action: manipulation;
     transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
