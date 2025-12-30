@@ -24,10 +24,13 @@
     --rd-color-button: #0A66C2;
 }
 
-/* Style */
+html {
+    font-size: clamp(10px, 1.2vw, 16px);
+}
+
 body {
-    font-size: 1em;
-    font-family: "Segoe UI", "Roboto", "Arial";
+    font-size: 1rem;
+    font-family: "Segoe SL", "Roboto", "Arial";
     font-weight: normal;
     color: white;
     background-color: var(--rd-login-background);
@@ -64,8 +67,8 @@ body {
 }
 
 h1.tagline {
-    font-size: 1.4em;
-    font-weight: normal;
+    font-size: 1.4rem;
+    font-family: "Roboto Bold";
     padding: 10px;
 }
 
