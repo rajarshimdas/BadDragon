@@ -37,7 +37,7 @@ async function bdFetchAPI(url = "", formData = {}) {
 async function bdFetchAPI(url = "", formData = new FormData()) {
     const response = await fetch(url, {
         method: "POST",
-        mode: "cors",
+        mode: "same-origin",
         cache: "no-cache",
         credentials: "same-origin",
         redirect: "error",
