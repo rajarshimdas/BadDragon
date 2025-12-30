@@ -3,7 +3,7 @@
 $data['title']                  = 'New Year Offers';
 $data['og_locale']              = 'en_US';
 $data['og_type']                = 'website';
-$data['og_title']               = 'The Worksmart Architecture Studio Organizer';
+$data['og_title']               = 'Arkafe';
 $data['og_site_name']           = 'Arkafe';
 $data['og_description']         = 'New Year Offers';
 $data['og_image_secure_url']    = BASE_URL.'images/arkafe-offers.png';
