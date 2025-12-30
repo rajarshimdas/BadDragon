@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
 
+// die('test');
+$title = empty($title) ? "The Worksmart Architecture Studio Organizer" : $title;
+$twCard = empty($twCard) ? "Arkafe is a management tool for Architecture, Interior and other Design consultancy Studios." : $twCard;
+
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arkafe | The Worksmart Architecture Studio Organizer</title>
+    <title>Arkafe | <?= $title ?></title>
     <link rel="icon" href="<?= BASE_URL ?>images/favicon.png">
 
     <meta name="description" content="The Worksmart Studio Organizer">
@@ -25,14 +31,14 @@
     <!-- Social Media | Open Graph Protocol -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="The Worksmart Architecture Studio Organizer">
+    <meta property="og:title" content="<?= $title ?>">
     <meta property="og:site_name" content="Arkafe">
     <meta property="og:description" content="Arkafe is a management tool for Architecture, Interior and other Design consultancy Studios.">
     <meta property="og:image:secure_url" content="<?= BASE_URL ?>images/arkafe-logo-box.jpg">
     <meta property="og:url:secure_url" content="<?= BASE_URL ?>">
     <!-- Social Media | Twitter -->
     <meta name="twitter:card"
-        content="Arkafe is a management tool for Architecture, Interior and other Design consultancy Studios.">
+        content="<?= $twCard ?>">
     <meta name="twitter:image:alt" content="Arkafe">
     <!-- Social Media | Apple & Whatsapp -->
     <link rel="apple-touch-icon" href="<?= BASE_URL ?>images/arkafe-logo-box.jpg">

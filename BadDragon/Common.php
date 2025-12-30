@@ -18,10 +18,11 @@ function sessionToVars(array $session)
 +-------------------------------------------------------+
 */
 
-function view(object $route, string $page): bool
+function view(object $route, string $page, array $data = []): bool
 {
     // var_dump($route);
-
+    extract($data);
+    
     $p = W3APP . "/View/" . $route->module . "/" . $route->controller . "/Generate/Page.php";
     // echo $p;
 
