@@ -1,3 +1,4 @@
 <?php
-# require_once W3APP. '/Controller/validation.php';
+$data['title'] = 'Trial';
+
 view($route, "trial", $data);
