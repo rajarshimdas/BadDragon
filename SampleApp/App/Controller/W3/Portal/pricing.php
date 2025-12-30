@@ -1,3 +1,3 @@
 <?php
 
-view($route, "pricing");
+view($route, "pricing", $data);

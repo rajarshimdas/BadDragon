@@ -2,9 +2,19 @@
 <html lang="en">
 <?php
 
-// die('test');
-$title = empty($title) ? "The Worksmart Architecture Studio Organizer" : $title;
-$twCard = empty($twCard) ? "Arkafe is a management tool for Architecture, Interior and other Design consultancy Studios." : $twCard;
+/*
+$title
+$og_locale
+$og_type
+$og_title
+$og_site_name
+$og_description
+$og_image_secure_url
+$og_url_secure_url
+$twitter_card
+$twitter_image_alt
+$apple_touch_icon
+*/
 
 ?>
 <head>
@@ -14,7 +24,7 @@ $twCard = empty($twCard) ? "Arkafe is a management tool for Architecture, Interi
     <title>Arkafe | <?= $title ?></title>
     <link rel="icon" href="<?= BASE_URL ?>images/favicon.png">
 
-    <meta name="description" content="The Worksmart Studio Organizer">
+    <meta name="description" content="<?= $og_title ?>">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LMK2PH2RJM"></script>
@@ -29,19 +39,19 @@ $twCard = empty($twCard) ? "Arkafe is a management tool for Architecture, Interi
     </script>
 
     <!-- Social Media | Open Graph Protocol -->
-    <meta property="og:locale" content="en_US">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="<?= $title ?>">
-    <meta property="og:site_name" content="Arkafe">
-    <meta property="og:description" content="Arkafe is a management tool for Architecture, Interior and other Design consultancy Studios.">
-    <meta property="og:image:secure_url" content="<?= BASE_URL ?>images/arkafe-logo-box.jpg">
-    <meta property="og:url:secure_url" content="<?= BASE_URL ?>">
+    <meta property="og:locale" content="<?= $og_locale ?>">
+    <meta property="og:type" content="<?= $og_type ?>">
+    <meta property="og:title" content="<?= $og_title ?>">
+    <meta property="og:site_name" content="<?= $og_site_name ?>">
+    <meta property="og:description" content="<?= $og_description ?>">
+    <meta property="og:image:secure_url" content="<?= $og_image_secure_url ?>">
+    <meta property="og:url:secure_url" content="<?= $og_url_secure_url ?>">
     <!-- Social Media | Twitter -->
     <meta name="twitter:card"
-        content="<?= $twCard ?>">
-    <meta name="twitter:image:alt" content="Arkafe">
+        content="<?= $twitter_card ?>">
+    <meta name="twitter:image:alt" content="<?= $twitter_image_alt ?>">
     <!-- Social Media | Apple & Whatsapp -->
-    <link rel="apple-touch-icon" href="<?= BASE_URL ?>images/arkafe-logo-box.jpg">
+    <link rel="apple-touch-icon" href="<?= $apple_touch_icon ?>">
 
     <link href="public/BadDragon.css" rel="stylesheet" type="text/css">
     <link href="box/style.css" rel="stylesheet" type="text/css">

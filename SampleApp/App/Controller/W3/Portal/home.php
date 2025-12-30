@@ -1,3 +1,3 @@
 <?php
 
-view($route, "home");
+view($route, "home", $data);
