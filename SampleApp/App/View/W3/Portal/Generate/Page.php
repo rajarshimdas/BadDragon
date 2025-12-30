@@ -45,10 +45,9 @@ $apple_touch_icon
     <meta property="og:site_name" content="<?= $og_site_name ?>">
     <meta property="og:description" content="<?= $og_description ?>">
     <meta property="og:image:secure_url" content="<?= $og_image_secure_url ?>">
-    <meta property="og:url:secure_url" content="<?= $og_url_secure_url ?>">
+    <meta property="og:url" content="<?= $og_url ?>">
     <!-- Social Media | Twitter -->
-    <meta name="twitter:card"
-        content="<?= $twitter_card ?>">
+    <meta name="twitter:card" content="<?= $twitter_card ?>">
     <meta name="twitter:image:alt" content="<?= $twitter_image_alt ?>">
     <!-- Social Media | Apple & Whatsapp -->
     <link rel="apple-touch-icon" href="<?= $apple_touch_icon ?>">
