@@ -1,36 +1,8 @@
 <div class="contentbox" style="text-align: center;">
-    <a class="button-18" href="<?= BASE_URL ?>home">Arkafe</a>
+    <a class="button-18" href="<?= BASE_URL ?>home">Home</a>
     <a class="button-18" href="<?= BASE_URL ?>trial">Get a free Trial</a>
     <a class="button-18 button-18offer" href="<?= BASE_URL ?>offers">2026 Offers</a>
 </div>
-
-
-<style>
-    .rd-table-pricing {
-        background-color: white;
-        color: var(--rd-dark-gray);
-        border-collapse: collapse;
-    }
-    .rd-table-pricing thead {
-        background-color: #c8dffb;
-        border-top: 2px solid var(--rd-dark-gray);
-        border-bottom: 2px solid var(--rd-dark-gray);
-    }
-    .rd-table-pricing thead tr td {
-        border: 0px;
-    }
-    .rd-table-pricing tr td {
-        line-height: 2em;
-        border-bottom: 1px solid var(--rd-dark-gray);
-        vertical-align: text-top;
-        padding: 0px 6px;
-    }
-    .rd-table-pricing tr td ul {
-        line-height: 1.2em;
-    }
-
-</style>
-
 
 <table class="rd-table-pricing" style="width: 100%;">
     <thead>
@@ -69,7 +41,6 @@
         <td>Yes</td>
         <td>Yes</td>
     </tr>
-
 
     <tr>
         <td class="featureCell">Task Management</td>

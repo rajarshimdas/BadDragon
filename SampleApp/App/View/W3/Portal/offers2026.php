@@ -1,13 +1,12 @@
 <style>
     .offers {
-        max-width: 600px;
+        max-width: 550px;
         text-align: center;
         margin: auto;
-
-
     }
 
     .offers h1 {
+        font-family: "Roboto Bold";
         background: #FFB703;
         color: #0F355A;
         padding: 14px 32px;
@@ -18,8 +17,9 @@
     }
 
     .offers p,
-    .offers ol li {
+    .offers ul li {
         text-align: left;
+        line-height: 1.5rem;
     }
 
     .offer-card {
@@ -29,28 +29,31 @@
         max-width: 720px;
         margin: 24px auto;
     }
+
+    ul {
+        padding-left: 24px;
+    }
 </style>
 <div class="offers">
     <h1>Offers 2026</h1>
 
     <div class="offer-card">
-        <p>One time offer for subscribing Arkafe before 15 Jan 2026</p>
+        <p>One time offer for subscribing Arkafe in January 2026. Pick any one.</p>
 
-        <ol>
-            <li>Annual subscription - 15% discount or 3 months extra</li>
-            <li>Quaterly subscription - 1 month extra</li>
-            <li>Under 10 users - 60k flat price for 1 year</li>
-        </ol>
+        <ul>
+            <li>Annual subscription - 15% discount or get 3 months extra</li>
+            <li>Quaterly subscription - get 1 month extra</li>
+            <li>Under 10 users - 60k flat price for entire year</li>
+        </ul>
 
-        <p>Refferal offers - 1 month extra</p>
+        <p>* Refferal offers - 1 month extra</p>
     </div>
 </div>
 
 
 <div class="contentbox" style="text-align: center;">
-    <a class="button-18" href="<?= BASE_URL ?>home">Arkafe</a>
+    <a class="button-18" href="<?= BASE_URL ?>home">Home</a>
     <a class="button-18" href="<?= BASE_URL ?>pricing">Pricing</a>
     <a class="button-18" href="<?= BASE_URL ?>trial">Get a free Trial</a>
     <!-- <a class="button-18 button-18offer" href="<?= BASE_URL ?>offers">2026 Offers</a> -->
 </div>
-

@@ -1,30 +1,8 @@
 <div class="contentbox" style="text-align: center;">
-    <a class="button-18" href="<?= BASE_URL ?>home">Arkafe</a>
+    <a class="button-18" href="<?= BASE_URL ?>home">Home</a>
     <a class="button-18" href="<?= BASE_URL ?>pricing">Pricing</a>
     <a class="button-18 button-18offer" href="<?= BASE_URL ?>offers">2026 Offers</a>
 </div>
-
-
-<style>
-    table tr td {
-        color: var(--rd-dark-gray);
-    }
-
-    #trial {
-        width: 350px;
-        margin: auto;
-        border-spacing: 6px;
-    }
-
-    #trial tr td:first-child {
-        text-align: right;
-    }
-
-    input {
-        width: 100%;
-        padding: 4px;
-    }
-</style>
 
 <div class="contentBox" style="background-color: white; color: var(--rd-dark-gray);padding:30px 5px; height: 180px;">
     <div id='starttrial' style="text-align: center; width:350px; margin: auto;">

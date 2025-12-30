@@ -3,7 +3,7 @@
 | Rajarshi Das						                    |
 +-------------------------------------------------------+
 | Created On: 22-Dec-2022				                |
-| Updated On: 18-Jul-2025                               |
+| Updated On: 30-Dec-2025                               |
 +-------------------------------------------------------+
 */
 
@@ -165,9 +165,54 @@ td.hotKey:hover {
     color: white;
 }
 
-
 .button-18offer {
     background: #FFB703;
     color: #0B2C4D;
     font-weight: 600;
+}
+
+table tr td {
+    color: var(--rd-dark-gray);
+}
+
+#trial {
+    width: 350px;
+    margin: auto;
+    border-spacing: 6px;
+}
+
+#trial tr td:first-child {
+    text-align: right;
+}
+
+input {
+    width: 100%;
+    padding: 4px;
+}
+
+.rd-table-pricing {
+    background-color: white;
+    color: var(--rd-dark-gray);
+    border-collapse: collapse;
+}
+
+.rd-table-pricing thead {
+    background-color: #c8dffb;
+    border-top: 2px solid var(--rd-dark-gray);
+    border-bottom: 2px solid var(--rd-dark-gray);
+}
+
+.rd-table-pricing thead tr td {
+    border: 0px;
+}
+
+.rd-table-pricing tr td {
+    line-height: 2em;
+    border-bottom: 1px solid var(--rd-dark-gray);
+    vertical-align: text-top;
+    padding: 0px 6px;
+}
+
+.rd-table-pricing tr td ul {
+    line-height: 1.2em;
 }
