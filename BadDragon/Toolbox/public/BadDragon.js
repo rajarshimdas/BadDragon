@@ -14,7 +14,6 @@
 +---------------------------------------------------------------------------+
 | Example POST method implementation:                                       |
 +---------------------------------------------------------------------------+
-*/
 async function bdFetchAPI(url = "", formData = {}) {
     // Default options are marked with *
     const response = await fetch(url, {
@@ -32,6 +31,25 @@ async function bdFetchAPI(url = "", formData = {}) {
         body: formData, // RD - use FormData
     });
     return response.json(); // parses JSON response into native JavaScript objects
+}
+*/
+
+async function bdFetchAPI(url = "", formData = new FormData()) {
+    const response = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        redirect: "error",
+        referrerPolicy: "no-referrer",
+        body: formData
+    });
+
+    if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+    }
+
+    return response.json();
 }
 
 /* Howto use bdFetchAPI function
