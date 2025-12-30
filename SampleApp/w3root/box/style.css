@@ -8,11 +8,11 @@
 */
 
 :root {
-    --rd-login-background: #1a477c;
+    --rd-login-background: #0F355A;
     --rd-home-box1: #dce9ed;
     --rd-home-box2: #c1d4db;
     --rd-nav-dark: #1a477c;
-    --rd-nav-light: #123256;
+    --rd-nav-light: #0F355A;
     --rd-form-background: #E8E9FF;
     --rd-nav-active: cyan;
     --rd-hover: #fecd61;
@@ -156,4 +156,11 @@ td.hotKey:hover {
     cursor: pointer;
     background-color: cadetblue;
     color: white;
+}
+
+
+.button-18offer {
+    background: #FFB703;
+    color: #0B2C4D;
+    font-weight: 600;
 }

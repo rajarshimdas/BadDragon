@@ -14,6 +14,7 @@ $rx['static'] = [
     "home"      => "/w3/portal/home",
     "pricing"   => "/w3/portal/pricing",
     "trial"     => "/w3/portal/trial",
+    "offers"    => "/w3/portal/offers",
     // 'start-trial' => "/w3/portal/starttrial",
 
     # Email Signature
