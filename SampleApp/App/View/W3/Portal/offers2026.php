@@ -55,7 +55,8 @@
             <li>Under 10 users - 60k flat price for entire year</li>
         </ul>
 
-        <img src="<?= BASE_URL ?>images/arkafe-2026.png" alt="New Year Offers" style="max-width:350px;max-height:350px;">
+        <img src="<?= BASE_URL ?>images/arkafe-2026.png" alt="New Year Offers" 
+        style="width:90%;max-width:350px;max-height:350px;">
 
     </div>
 </div>
