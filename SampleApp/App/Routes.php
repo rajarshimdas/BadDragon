@@ -14,10 +14,11 @@ $rx['static'] = [
     "home"      => "/w3/portal/home",
     "pricing"   => "/w3/portal/pricing",
     "trial"     => "/w3/portal/trial",
-    "offers"    => "/w3/portal/offers",
-    "offers-new" => "/w3/portal/offers",
-    "offers-2026" => "/w3/portal/offers",
-    // 'start-trial' => "/w3/portal/starttrial",
+    
+    # Offers
+    "offers"        => "/w3/portal/offers",
+    "offers-2026"   => "/w3/portal/offers",
+    "2026"          => "/w3/portal/offers",
 
     # Email Signature
     "signature" => "/w3/portal/signature",
