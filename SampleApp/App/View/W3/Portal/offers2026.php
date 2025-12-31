@@ -46,17 +46,19 @@
     <h1>2026 Offers</h1>
 
     <div class="offer-card">
-        
+
         <p>One time offer for subscribing Arkafe in January 2026. Pick any one.</p>
 
         <ul>
             <li>Annual subscription - 15% discount or get 3 months extra</li>
             <li>Quaterly subscription - get 1 month extra</li>
-            <li>Under 10 users - 60k flat price for entire year</li>
+            <li>Under 10 users - Rs. 60k for entire year</li>
         </ul>
 
-        <img src="<?= BASE_URL ?>images/arkafe-2026.png" alt="New Year Offers" 
-        style="width:90%;max-width:350px;max-height:350px;">
+        <img
+            src="<?= BASE_URL ?>images/arkafe-2026.png"
+            alt="New Year Offers"
+            style="width:90%;max-width:350px;max-height:350px;">
 
     </div>
 </div>
