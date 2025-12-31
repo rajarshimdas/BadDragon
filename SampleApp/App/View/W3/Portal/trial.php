@@ -3,48 +3,57 @@
     <a class="button-18" href="<?= BASE_URL ?>pricing">Pricing</a>
     <a class="button-18 button-18offer" href="<?= BASE_URL ?>offers">2026 Offers</a>
 </div>
+<style>
+    #starttrial {
+        background: #1B4F7A;
+        padding: 24px 32px;
+        border-radius: 10px;
+        max-width: 550px;
+        margin: 24px auto;
+    }
 
-<div class="contentBox" style="background-color: white; color: var(--rd-dark-gray);padding:30px 5px; height: 180px;">
-    <div id='starttrial' style="text-align: center; width:350px; margin: auto;">
-        
-        <table id="trial">
-            <tr>
-                <td></td>
-                <td><b>Get a free Trial</b></td>
-            </tr>
-            <tr>
-                <td style="width: 80px;">Your Name</td>
-                <td>
-                    <input type="text" name="name" id="name">
-                </td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>
-                    <input type="email" name="email" id="email">
-                </td>
-            </tr>
-            <tr>
-                <td>Website</td>
-                <td>
-                    <input type="url" name="website" id="website">
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td id="dxButton" style="text-align:center;">
-                    <button class="button-18" onclick="startMyTrial()">Start Trial</button>
-                </td>
-            </tr>
-        </table>
+    #trial tr td {
+        color: white;
+    }
+</style>
+<div id='starttrial'>
 
-    </div>
+    <table id="trial">
+        <tr>
+            <td></td>
+            <td style="text-align:center;"><b>Get a free Trial</b></td>
+        </tr>
+        <tr>
+            <td style="width: 80px;">Your Name</td>
+            <td>
+                <input type="text" name="name" id="name">
+            </td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>
+                <input type="email" name="email" id="email">
+            </td>
+        </tr>
+        <tr>
+            <td>Website</td>
+            <td>
+                <input type="url" name="website" id="website">
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="dxButton" style="text-align:center;">
+                <button class="button-18" onclick="startMyTrial()">Start Trial</button>
+            </td>
+        </tr>
+    </table>
+
 </div>
 
 <?php require_once BD . '/Toolbox/dxMessageBox.php'; ?>
 
 <script>
-    
     const dxTrial = e$('dxMessageBox')
 
     function startMyTrial() {
@@ -52,7 +61,7 @@
         let name = e$('name').value
         let email = e$('email').value
         let website = e$('website').value
-        
+
         var formData = new FormData()
 
         formData.append("a", "w3-portal-starttrial")
@@ -73,5 +82,4 @@
         });
 
     }
-
 </script>
