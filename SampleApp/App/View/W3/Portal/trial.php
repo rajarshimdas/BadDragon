@@ -6,14 +6,18 @@
 <style>
     #starttrial {
         background: #1B4F7A;
-        padding: 24px 32px;
+        padding: 15px 5px;
         border-radius: 10px;
         max-width: 550px;
-        margin: 24px auto;
+        margin: 15px auto;
     }
 
     #trial tr td {
         color: white;
+        /* border: 1px solid red; */
+    }
+    input{
+        box-sizing: border-box;
     }
 </style>
 <div id='starttrial'>
@@ -24,8 +28,8 @@
             <td style="text-align:center;"><b>Get a free Trial</b></td>
         </tr>
         <tr>
-            <td style="width: 80px;">Your Name</td>
-            <td>
+            <td style="width:80px;">Your Name</td>
+            <td style="width:180px;">
                 <input type="text" name="name" id="name">
             </td>
         </tr>
