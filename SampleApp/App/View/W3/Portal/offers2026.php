@@ -34,10 +34,19 @@
         padding-left: 24px;
     }
 </style>
+
+<div class="contentbox" style="text-align: center;">
+    <a class="button-18" href="<?= BASE_URL ?>home">Home</a>
+    <a class="button-18" href="<?= BASE_URL ?>pricing">Pricing</a>
+    <a class="button-18" href="<?= BASE_URL ?>trial">Get a free Trial</a>
+    <!-- <a class="button-18 button-18offer" href="<?= BASE_URL ?>offers">2026 Offers</a> -->
+</div>
+
 <div class="offers">
-    <h1>Offers 2026</h1>
+    <h1>2026 Offers</h1>
 
     <div class="offer-card">
+        
         <p>One time offer for subscribing Arkafe in January 2026. Pick any one.</p>
 
         <ul>
@@ -46,14 +55,7 @@
             <li>Under 10 users - 60k flat price for entire year</li>
         </ul>
 
-        <p>* Refferal offers - 1 month extra</p>
+        <img src="<?= BASE_URL ?>images/arkafe-2026.png" alt="New Year Offers" style="max-width:350px;max-height:350px;">
+
     </div>
-</div>
-
-
-<div class="contentbox" style="text-align: center;">
-    <a class="button-18" href="<?= BASE_URL ?>home">Home</a>
-    <a class="button-18" href="<?= BASE_URL ?>pricing">Pricing</a>
-    <a class="button-18" href="<?= BASE_URL ?>trial">Get a free Trial</a>
-    <!-- <a class="button-18 button-18offer" href="<?= BASE_URL ?>offers">2026 Offers</a> -->
 </div>

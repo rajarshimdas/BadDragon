@@ -2,21 +2,27 @@
 <html lang="en">
 <?php
 
-/*
+/* 
+Default values from Portal.php | Overrides in Page Controllers
+
 $title
 $og_locale
 $og_type
 $og_title
 $og_site_name
 $og_description
+$og_url
 $og_image_secure_url
-$og_url_secure_url
+$og_image_type
+$og_image_width
+$og_image_height
 $twitter_card
 $twitter_image_alt
 $apple_touch_icon
 */
 
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,19 +44,30 @@ $apple_touch_icon
         gtag('config', 'G-LMK2PH2RJM');
     </script>
 
-    <!-- Social Media | Open Graph Protocol -->
+
+    <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:locale" content="<?= $og_locale ?>">
     <meta property="og:type" content="<?= $og_type ?>">
     <meta property="og:title" content="<?= $og_title ?>">
     <meta property="og:site_name" content="<?= $og_site_name ?>">
     <meta property="og:description" content="<?= $og_description ?>">
-    <meta property="og:image:secure_url" content="<?= $og_image_secure_url ?>">
     <meta property="og:url" content="<?= $og_url ?>">
-    <!-- Social Media | Twitter -->
+    <meta property="og:image" content="<?= $og_image_secure_url ?>">
+    <meta property="og:image:secure_url" content="<?= $og_image_secure_url ?>">
+    <meta property="og:image:type" content="<?= $og_image_type ?>">
+    <meta property="og:image:width" content="<?= $og_image_width ?>">
+    <meta property="og:image:height" content="<?= $og_image_height ?>">
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="<?= $twitter_card ?>">
+    <meta name="twitter:title" content="<?= $og_title ?>">
+    <meta name="twitter:description" content="<?= $og_description ?>">
+    <meta name="twitter:image" content="<?= $og_image_secure_url?>">
     <meta name="twitter:image:alt" content="<?= $twitter_image_alt ?>">
-    <!-- Social Media | Apple & Whatsapp -->
-    <link rel="apple-touch-icon" href="<?= $apple_touch_icon ?>">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="360x360" href="<?= $apple_touch_icon ?>">
+
 
     <link href="public/BadDragon.css" rel="stylesheet" type="text/css">
     <link href="box/style.css" rel="stylesheet" type="text/css">
