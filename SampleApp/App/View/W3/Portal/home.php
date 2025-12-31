@@ -1,4 +1,4 @@
-<div style="background-color:white;">
+<div style="background-color:whitesmoke;">
     <div style="max-width:1000px;margin:auto;">
         <img src="<?= BASE_URL ?>images/concert-big-picture.webp" alt="Home" style="width: 100%;">
     </div>

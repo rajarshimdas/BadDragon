@@ -13,3 +13,5 @@
 21-Nov-25   Ver 2.0 
 
 26-Dec-25   Ver 2.1 CSS Optimizations
+
+31-Dec-25   Ver 2.2 Passing data from Controller to View
