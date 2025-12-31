@@ -6,7 +6,7 @@
 
 <div class="contentbox" style="background-color: var(--rd-nav-light);">
     <p>
-        Arkafe CONCERT is a management tool for Architecture, Interior and other Design consultancy Studios. It helps to build a standard and efficient Studio Workflow for project delivery by providing a platform to plan, monitor and effectively manage Time and Cost.
+        Arkafe CONCERT is a management tool for architecture, interior, and other design consultancy studios. It helps build a standardized and efficient studio workflow for project delivery by providing a platform to plan, monitor, and effectively manage time and cost.
     </p>
     <p>
         CONCERT is an extensible framework providing a platform for custom applications as per the studio's requirements. Custom Business Apps can be built on an individual need basis.
