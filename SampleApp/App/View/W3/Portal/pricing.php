@@ -1,10 +1,10 @@
 <div class="contentbox" style="text-align: center;">
     <a class="button-18" href="<?= BASE_URL ?>home">Home</a>
-    <a class="button-18" href="<?= BASE_URL ?>trial">Get a free Trial</a>
+    <a class="button-18" href="<?= BASE_URL ?>trial">Free Trial</a>
     <a class="button-18 button-18offer" href="<?= BASE_URL ?>offers">2026 Offers</a>
 </div>
 
-<table class="rd-table-pricing" style="width: 100%;">
+<table class="rd-table-pricing" style="width:100%;max-width:1000px;margin:auto;">
     <thead>
         <tr style="font-weight: bold;">
             <td rowspan="3" style="vertical-align:middle">Features</td>

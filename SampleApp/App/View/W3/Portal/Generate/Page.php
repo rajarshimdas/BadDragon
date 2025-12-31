@@ -62,7 +62,7 @@ $apple_touch_icon
     <meta name="twitter:card" content="<?= $twitter_card ?>">
     <meta name="twitter:title" content="<?= $og_title ?>">
     <meta name="twitter:description" content="<?= $og_description ?>">
-    <meta name="twitter:image" content="<?= $og_image_secure_url?>">
+    <meta name="twitter:image" content="<?= $og_image_secure_url ?>">
     <meta name="twitter:image:alt" content="<?= $twitter_image_alt ?>">
 
     <!-- Apple Touch Icon -->
@@ -84,7 +84,7 @@ $apple_touch_icon
             <span id="rd-tagline">The&nbsp;Worksmart&nbsp;Architecture&nbsp;Studio&nbsp;Organizer</span>
         </h1>
     </div>
-
+    
     <?php
     $viewpage = realpath(__DIR__ . "/../" . VIEWPAGE . ".php");
     if (is_file($viewpage)) {
