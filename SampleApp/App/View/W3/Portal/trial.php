@@ -6,7 +6,7 @@
 <style>
     #starttrial {
         background: #1B4F7A;
-        padding: 15px 5px;
+        padding: 15px 10px;
         border-radius: 10px;
         max-width: 550px;
         margin: 15px auto;
