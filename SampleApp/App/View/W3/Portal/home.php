@@ -9,7 +9,7 @@
         Arkafe CONCERT is a management tool for architecture, interior, and other design consultancy studios. It helps build a standardized and efficient studio workflow for project delivery by providing a platform to plan, monitor, and effectively manage time and cost.
     </p>
     <p>
-        CONCERT is an extensible framework providing a platform for custom applications as per the studio's requirements. Custom Business Apps can be built on an individual need basis.
+        CONCERT is an extensible framework providing a medium for custom applications as per the studio's requirements. Custom Business Apps can be built on an individual need basis.
     </p>
     <p>
         Write to <?= MAILTO ?> for a demo. A free trial is also available on request.
