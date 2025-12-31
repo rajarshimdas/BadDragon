@@ -52,7 +52,7 @@
         <ul>
             <li>Annual subscription - 15% discount or get 3 months extra</li>
             <li>Quaterly subscription - get 1 month extra</li>
-            <li>Under 10 users - Rs. 60k for entire year</li>
+            <li>Under 10 users - Express edition at Rs. 60k for entire year</li>
         </ul>
 
         <img

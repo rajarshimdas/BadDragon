@@ -86,8 +86,8 @@
 
     <tr>
         <td class="featureCell">Application Server</td>
-        <td>Shared VM</td>
-        <td>Private VM</td>
-        <td>Private VM</td>
+        <td>Shared</td>
+        <td>Private</td>
+        <td>Private</td>
     </tr>
 </table>

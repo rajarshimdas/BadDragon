@@ -175,6 +175,7 @@ td.hotKey:hover {
 
 table tr td {
     color: var(--rd-dark-gray);
+    line-height: 1.15rem;
 }
 
 #trial {
@@ -209,10 +210,9 @@ input {
 }
 
 .rd-table-pricing tr td {
-    line-height: 2em;
     border-bottom: 1px solid var(--rd-dark-gray);
     vertical-align: text-top;
-    padding: 0px 6px;
+    padding: 4px 6px;
 }
 
 .rd-table-pricing tr td ul {
