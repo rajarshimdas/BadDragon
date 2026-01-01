@@ -7,6 +7,8 @@
 | Updated On:   05-Nov-2025 ChatGPT                     |
 |               18-Nov-2025 Bugfix handleGetRoute       |
 +-------------------------------------------------------+
+| Heirarchy: Module > Controller > Method > Script      |
++-------------------------------------------------------+
 */
 
 namespace BadDragon;
@@ -15,13 +17,14 @@ use BadDragon\Controller;
 
 class Router extends Controller
 {
-    public string $a = '';
-    public string $uri = '';
-    public string $module = '';
-    public string $controller = '';
-    public string $method = '';
-    public array $parts = [];
-    private array $aroute = [];
+    public string   $a = '';
+    public string   $uri = '';
+    public string   $module = '';
+    public string   $controller = '';
+    public string   $method = '';
+    public array    $parts = [];
+
+    private array   $aroute = [];
 
     public function __construct()
     {
@@ -48,6 +51,7 @@ class Router extends Controller
         }
 
         $this->parts = $parts;
+
         [$this->module, $this->controller, $this->method] = [
             ucfirst($parts[0]),
             ucfirst($parts[1]),
@@ -66,6 +70,7 @@ class Router extends Controller
             show404('Custom Routes file missing.');
         }
 
+        // $rx is set from Routes.php 
         require_once $routesFile;
         // var_dump($rx);
 
@@ -114,8 +119,8 @@ class Router extends Controller
 
         [$module, $controller, $method] = $this->aroute;
 
-        $this->module = ucfirst($module);
-        $this->controller = ucfirst($controller);
-        $this->method = $method;
+        $this->module       = ucfirst($module);
+        $this->controller   = ucfirst($controller);
+        $this->method       = $method;
     }
 }
