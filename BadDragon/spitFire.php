@@ -66,6 +66,7 @@ if (is_file(W3APP . "/Controller/Controller.php")) {
 +-------------------------------------------------------+
 */
 foreach ($framework as $controller) {
+    if ($bdDebugMode == 'T') rd('Load: ' . $controller);
     require_once $controller;
 }
 

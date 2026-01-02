@@ -58,14 +58,14 @@ class Controller
      */
     private function handleMissing(string $type, string $file, string $uri): ?array
     {
-        $msg = "$type file missing: $file";
+        $msg = "Error[BD::Controller]: $type file missing: $file";
 
         if (defined('ENV') && ENV === 'dev') {
             die($msg);
         }
 
         if (function_exists('show404')) {
-            show404("$type | $uri");
+            show404("4404: $msg");
         } else {
             die("404: $msg");
         }

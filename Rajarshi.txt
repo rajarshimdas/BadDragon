@@ -15,3 +15,6 @@
 26-Dec-25   Ver 2.1 CSS Optimizations
 
 31-Dec-25   Ver 2.2 Passing data from Controller to View
+
+02-Jan-26   Ver 2.3 Improved Debuging tools
+

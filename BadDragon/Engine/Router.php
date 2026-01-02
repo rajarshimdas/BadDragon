@@ -94,8 +94,8 @@ class Router extends Controller
             show404("Invalid URI");
         }
 
-        $this->uri = $rxURI;
-        $routeParts = array_values(array_filter(explode('/', $this->uri)));
+        $this->uri = 'GET: '.$rxURI;
+        $routeParts = array_values(array_filter(explode('/', $rxURI)));
 
         if (count($routeParts) < 3) {
             show404("404! That route was not found.");
