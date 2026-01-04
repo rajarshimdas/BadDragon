@@ -8,6 +8,8 @@
 | Provide common functions throughout the framework     |
 +-------------------------------------------------------+
 */
+require_once __DIR__ . '/Toolbox/Validation.php';
+$bdIsValid = new bdDataValidation();
 
 function sessionToVars(array $session)
 {
@@ -31,7 +33,7 @@ function view(object $route, string $page, array $data = []): bool
 {
     // var_dump($route);
     extract($data);
-    
+
     $p = W3APP . "/View/" . $route->module . "/" . $route->controller . "/Generate/Page.php";
     // echo $p;
 
@@ -66,24 +68,21 @@ function alpha_numeric_dash_slash(string $str): bool
 
 function bdGo2uri(string $uri): bool
 {
-    header("Location:?$uri");
+    header("Location:?" . BASE_URL . "$uri");
     die;
 
     return true;
 }
 
-if (!function_exists('rx')) {
-    function rx($var)
-    {
-        echo '<pre>', var_dump($var), '</pre>';
-    }
+function rx($var)
+{
+    echo '<pre>', var_dump($var), '</pre>';
 }
 
-if (!function_exists('rd')) {
-    function rd($var)
-    {
-        echo '<div>' . $var . '</div>';
-    }
+
+function rd($var)
+{
+    echo '<div>' . $var . '</div>';
 }
 
 // Return JSON Response | legacy
@@ -136,7 +135,6 @@ function bdLogInFile(string $status, string $message, string $logfile): bool
         $f = fopen($logfile, "a");
         fwrite($f, $log . "\n");
         fclose($f);
-
     } else {
 
         // Logfile not found
@@ -148,36 +146,14 @@ function bdLogInFile(string $status, string $message, string $logfile): bool
 
 function bdIsValidDateMySQLFormat(string $date): bool
 {
-    /*
-    if (empty($date)) return false;
-
-    $x = explode("-", $date);
-
-    $co = isset($x) ? count($x) : 0;
-    if ($co == 3) {
-        $dtD = (int)$x[2];
-        $dtM = (int)$x[1];
-        $dtY = (int)$x[0];
-    }
-
-    if (!is_int($dtM) || empty($dtM) || $dtM < 1 || $dtM > 12) return false;
-    if (!is_int($dtY) || empty($dtY) || $dtY < 1977 || $dtY > 3000) return false;
-
-    // Check last day of month | Todo
-    $noOfDays = date('t', strtotime($dtY . '-' . $dtM . '-01'));
-    //echo $noOfDays;
-    if (!is_int($dtD) || empty($dtD) || $dtD < 1 || $dtD > $noOfDays) return false;
-
-    // Ok
-    return true;
-    */
     return checkValidISODate($date);
 }
 
 
 // ChatGPT | 2025-10-27
-function checkValidISODate(string $date): bool {
-    
+function checkValidISODate(string $date): bool
+{
+
     // Blank string check
     if (trim($date) === '') {
         return false;
@@ -192,4 +168,3 @@ function checkValidISODate(string $date): bool {
     [$year, $month, $day] = explode('-', $date);
     return checkdate((int)$month, (int)$day, (int)$year);
 }
-
