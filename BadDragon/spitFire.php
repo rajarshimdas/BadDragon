@@ -1,11 +1,12 @@
-<?php /* BadDragon 
+<?php 
+/* BadDragon
 +-------------------------------------------------------+
 | Rajarshi Das						                    |
 +-------------------------------------------------------+
 | Created On: 29-Jan-2024                               |
 | Updated On: 23-Oct-2025                               |
 +-------------------------------------------------------+
-| W3APP     App folder path                             |
+| Require: W3APP (App folder path)                      |
 +-------------------------------------------------------+
 */
 
@@ -30,7 +31,6 @@ if (!defined('BADDRAGON')) {
 // Invoke BadDragon
 use BadDragon\Controller;
 use BadDragon\Router;
-//die("Bd");
 
 $dragon = new Controller;
 $route = new Router;
@@ -86,3 +86,5 @@ if ($bdDebugMode == 'T') {
     rd('Framework:');
     rx($framework);
 }
+
+// Done. Bye...
