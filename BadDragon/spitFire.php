@@ -5,12 +5,14 @@
 | Created On: 29-Jan-2024                               |
 | Updated On: 23-Oct-2025                               |
 +-------------------------------------------------------+
+| W3APP     App folder path                             |
++-------------------------------------------------------+
 */
 
-// Fetch BadDragon config
-require_once BD . "/Config.php";
+// Fetch BadDragon Config
+require_once __DIR__ . "/Config.php";
 
-// Override config vars
+// App config vars
 $envfile = W3APP . "/env.php";
 if (is_file($envfile))
     require_once $envfile;
@@ -18,11 +20,11 @@ else
     die("System Error :: ENV file not found.");
 
 // Common Functions
-require_once BD . "/Common.php";
+require_once __DIR__ . "/Common.php";
 
 // Autoload
 if (!defined('BADDRAGON')) {
-    require_once BD . '/Autoload.php';
+    require_once __DIR__ . '/Autoload.php';
 }
 
 // Invoke BadDragon
@@ -71,7 +73,7 @@ foreach ($framework as $controller) {
 }
 
 // Clean up
-if (isset($mysqli)) $mysqli->close();
+if (!empty($mysqli)) $mysqli->close();
 
 // Log this request
 # $logMessage = empty($logMessage) ? 'BD' : $logMessage;
