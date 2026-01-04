@@ -41,6 +41,10 @@ class Router extends Controller
      */
     private function handlePostRoute(string $action): void
     {
+        if (!$this->isAlphaNumericDash($action)) {
+            show404("Invalid URI");
+        }
+
         $this->a = $action;
         $this->uri = "POST:" . $action;
 
@@ -93,7 +97,7 @@ class Router extends Controller
         // 404: Default Route not set
         if (empty($rxURI)) die('Default Route not set. 404');
 
-        if (!alpha_numeric_dash_slash($rxURI)) {
+        if (!$this->isAlphaNumericDashSlash($rxURI)) {
             show404("Invalid URI");
         }
 
@@ -126,5 +130,17 @@ class Router extends Controller
         $this->module       = ucfirst($module);
         $this->controller   = ucfirst($controller);
         $this->method       = $method;
+    }
+
+    ## Validate URI
+    ##
+    private function isAlphaNumericDash(string $value): bool
+    {
+        return (bool) preg_match('/^[A-Za-z0-9\-]+$/', $value);
+    }
+
+    private function isAlphaNumericDashSlash(string $value): bool
+    {
+        return (bool) preg_match('/^[A-Za-z0-9\-\/]+$/', $value);
     }
 }
