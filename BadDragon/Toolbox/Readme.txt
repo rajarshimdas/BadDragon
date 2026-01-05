@@ -1,0 +1,1 @@
+Create a symlink to the public folder here inside the web document root.
