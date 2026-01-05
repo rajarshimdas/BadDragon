@@ -89,7 +89,7 @@ function rd($var)
 function rdReturnJsonHttpResponse(string $httpCode, array $data)
 {
     // For legacy Apps using it
-    bdReturnJSON($data, $httpCode);
+    die(bdReturnJSON($data, $httpCode));
 }
 
 // Return JSON Response
