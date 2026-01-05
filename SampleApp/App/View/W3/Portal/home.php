@@ -1,6 +1,19 @@
+<style>
+    .responsive-img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Mobile Portrait */
+    @media (max-width: 767px) and (orientation: portrait) {
+        .responsive-img {
+            content: url("<?= BASE_URL ?>images/concert-big-picture-mobile2.webp");
+        }
+    }
+</style>
 <div style="background-color:#ede9e8;">
     <div style="max-width:1000px;margin:auto;">
-        <img src="<?= BASE_URL ?>images/concert-big-picture.webp" alt="Home" style="width: 100%;">
+        <img class="responsive-img" src="<?= BASE_URL ?>images/concert-big-picture.webp" alt="Home">
     </div>
 </div>
 
