@@ -65,7 +65,7 @@ class Controller
         }
 
         if (function_exists('show404')) {
-            show404("4404: $msg");
+            show404("404: $msg");
         } else {
             die("404: $msg");
         }
