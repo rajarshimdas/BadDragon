@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* BadDragon
 +-------------------------------------------------------+
 | Rajarshi Das						                    |
@@ -18,7 +18,7 @@ $envfile = W3APP . "/env.php";
 if (is_file($envfile))
     require_once $envfile;
 else
-    die("System Error :: ENV file not found.");
+    die("System Error :: ENV file not found. " . $envfile);
 
 // Common Functions
 require_once __DIR__ . "/Common.php";
@@ -72,8 +72,8 @@ foreach ($framework as $controller) {
     require_once $controller;
 }
 
-// Clean up
-if (!empty($mysqli)) $mysqli->close();
+// Let front controller handle Response and Clean-up (11-Jan-26)
+// if (!empty($mysqli)) $mysqli->close();
 
 // Log this request
 # $logMessage = empty($logMessage) ? 'BD' : $logMessage;
