@@ -6,5 +6,4 @@
 | Updated On:                                           |
 +-------------------------------------------------------+
 */
-$bdDebugMode = 'F';
-
+$bdDebugMode = empty($bdDebugMode) ? 'F' : $bdDebugMode;
