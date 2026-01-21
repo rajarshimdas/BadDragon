@@ -55,10 +55,10 @@
             <li>Under 10 users - Express edition at Rs. 60k for entire year</li>
         </ul>
 
-        <!-- <img
+        <img
             src="<?= BASE_URL ?>images/arkafe-2026.png"
             alt="New Year Offers"
-            style="width:90%;max-width:350px;max-height:350px;"> -->
+            style="width:90%;max-width:350px;max-height:350px;">
 
     </div>
 </div>
