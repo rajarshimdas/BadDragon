@@ -8,3 +8,5 @@ POST    action="http://domain.tld/studio/index.php" and a=reports-timesheet-getS
 
 Troubleshooting
 1. Check method - GET or POST
+
+Remember to unzip ExtraLibs.zip
