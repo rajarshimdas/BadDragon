@@ -230,3 +230,50 @@ const bdValidate = {
         }
     }
 };
+
+
+/*
++-------------------------------------------------------+
+| Passwd strength | 22-Jan-26                           |
++-------------------------------------------------------+
+*/
+/* 
+Example: Live input feedback
+Note: Server side validation available in Toolkit/Validation.php
+
+<input type="password" id="password" />
+<div id="feedback"></div>
+
+<script>
+const input = document.getElementById("password");
+const feedback = document.getElementById("feedback");
+
+input.addEventListener("input", () => {
+  const errors = checkPassword(input.value);
+  feedback.innerHTML = errors.length
+    ? errors.map(e => "❌ " + e).join("<br>")
+    : "✅ Strong password";
+});
+</script>
+*/
+function checkPassword(password) {
+    const errors = [];
+
+    if (password.length < 8)
+        errors.push("At least 8 characters");
+
+    if (!/[A-Z]/.test(password))
+        errors.push("At least one uppercase letter");
+
+    if (!/[a-z]/.test(password))
+        errors.push("At least one lowercase letter");
+
+    if (!/[0-9]/.test(password))
+        errors.push("At least one number");
+
+    if (!/[\W_]/.test(password))
+        errors.push("At least one special character");
+
+    return errors;
+}
+

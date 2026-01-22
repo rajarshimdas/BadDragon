@@ -345,3 +345,32 @@ class bdDataValidation
 		return (base64_encode(base64_decode($str)) === $str);
 	}
 }
+
+
+/*
++-------------------------------------------------------+
+| Passwd strength                                       |
++-------------------------------------------------------+
+*/
+function checkPassword(string $password): array
+{
+    $errors = [];
+
+    if (strlen($password) < 8) {
+        $errors[] = "At least 8 characters";
+    }
+    if (!preg_match('/[A-Z]/', $password)) {
+        $errors[] = "At least one uppercase letter";
+    }
+    if (!preg_match('/[a-z]/', $password)) {
+        $errors[] = "At least one lowercase letter";
+    }
+    if (!preg_match('/\d/', $password)) {
+        $errors[] = "At least one number";
+    }
+    if (!preg_match('/[\W_]/', $password)) {
+        $errors[] = "At least one special character";
+    }
+
+    return $errors;
+}
