@@ -1,6 +1,6 @@
 /* 
 +-------------------------------------------------------+
-| Rajarshi Das						                    |
+| Rajarshi Das                                          |
 +-------------------------------------------------------+
 | Created On: 11-May-2024                               |
 | Updated On: 04-Jan-2026                               |
@@ -75,7 +75,6 @@ function e$(eid) {
     return document.getElementById(eid)
 }
 
-
 function dxClose(dxId) {
     e$(dxId).close()
 }
@@ -83,7 +82,6 @@ function dxClose(dxId) {
 function rx(log) {
     console.log(log)
 }
-
 
 function formatIsoDateToHuman(isoDateStr) {
     const date = new Date(isoDateStr);
@@ -95,13 +93,11 @@ function formatIsoDateToHuman(isoDateStr) {
     return `${day}-${monthShort}-${year}`;
 }
 
-
 /*
 +---------------------------------------------------------------------------+
 | Data Validation | 22-Dec-2025 ChatGPT                                     |
 +---------------------------------------------------------------------------+
 */
-
 const bdValidate = {
 
     /* ===============================
@@ -231,12 +227,12 @@ const bdValidate = {
     }
 };
 
-
 /*
 +-------------------------------------------------------+
 | Passwd strength | 22-Jan-26                           |
 +-------------------------------------------------------+
 */
+
 /* 
 Example: Live input feedback
 Note: Server side validation available in Toolkit/Validation.php
@@ -256,21 +252,18 @@ input.addEventListener("input", () => {
 });
 </script>
 */
+
 function checkPassword(password) {
     const errors = [];
 
     if (password.length < 8)
         errors.push("At least 8 characters");
-
     if (!/[A-Z]/.test(password))
         errors.push("At least one uppercase letter");
-
     if (!/[a-z]/.test(password))
         errors.push("At least one lowercase letter");
-
     if (!/[0-9]/.test(password))
         errors.push("At least one number");
-
     if (!/[\W_]/.test(password))
         errors.push("At least one special character");
 
