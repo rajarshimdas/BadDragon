@@ -2,7 +2,7 @@
 
 ## Pass variables to View
 ## 
-$data['title']                  = 'Grab exciting New Year offers';
+$data['title']                  = 'Grab exciting offers';
 $data['og_locale']              = 'en_US';
 $data['og_type']                = 'website';
 $data['og_title']               = 'Happy New Year';
