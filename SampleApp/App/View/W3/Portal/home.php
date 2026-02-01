@@ -32,5 +32,5 @@
 <div class="contentbox" style="text-align: center;">
     <a class="button-18" href="<?= BASE_URL ?>trial">Free Trial</a>
     <a class="button-18" href="<?= BASE_URL ?>pricing">Pricing</a>
-    <a class="button-18 button-18offer" href="<?= BASE_URL ?>offers">2026 Offers</a>
+    <!-- <a class="button-18 button-18offer" href="<?= BASE_URL ?>offers">2026 Offers</a> -->
 </div>

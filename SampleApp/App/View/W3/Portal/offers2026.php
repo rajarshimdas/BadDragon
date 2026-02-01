@@ -43,6 +43,8 @@
 </div>
 
 <div class="offers">
+    <h1>Comming soon...</h1>
+    <!--     
     <h1>2026 Offers</h1>
 
     <div class="offer-card">
@@ -61,4 +63,5 @@
             style="width:90%;max-width:350px;max-height:350px;">
 
     </div>
+    -->
 </div>
