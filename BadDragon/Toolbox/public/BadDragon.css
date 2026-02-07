@@ -70,3 +70,38 @@ table tr td {
 table thead tr td {
     font-family: 'Segoe UI';
 }
+
+/* 
++---------------------------------------------------------------+
+| Tooltip | 07-Feb-26                                           |
+| <div class="tx" data-title="Friend's Marriage">02</div>       |
++---------------------------------------------------------------+
+*/
+.tooltip {
+    position: fixed;
+    background: var(--rd-nav-light);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.tooltip.show {
+    opacity: 1;
+}
+
+.tooltip::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -6px;
+    border: 6px solid transparent;
+    border-top-color: #222;
+}

@@ -270,3 +270,46 @@ function checkPassword(password) {
     return errors;
 }
 
+
+/* 
++---------------------------------------------------------------+
+| Tooltip | 07-Feb-26                                           |
+| <div class="tx" data-title="Friend's Marriage">02</div>       |
++---------------------------------------------------------------+
+*/
+
+let tooltip;
+
+document.addEventListener('mouseover', e => {
+    const el = e.target.closest('.tx[data-title]');
+    if (!el) return;
+
+    tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
+    tooltip.textContent = el.dataset.title;
+    document.body.appendChild(tooltip);
+
+    const rect = el.getBoundingClientRect();
+    const tRect = tooltip.getBoundingClientRect();
+
+    let top = rect.top - tRect.height - 8;
+    let left = rect.left + rect.width / 2 - tRect.width / 2;
+
+    /* flip if offscreen */
+    if (top < 0) {
+        top = rect.bottom + 8;
+        tooltip.style.transform = 'rotate(180deg)';
+    }
+
+    tooltip.style.top = `${top}px`;
+    tooltip.style.left = `${Math.max(8, left)}px`;
+    tooltip.classList.add('show');
+});
+
+document.addEventListener('mouseout', e => {
+    if (tooltip) {
+        tooltip.remove();
+        tooltip = null;
+    }
+});
+
