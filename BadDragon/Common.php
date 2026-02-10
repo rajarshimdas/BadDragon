@@ -216,7 +216,7 @@ function bdWriteActionLog(
     object $route
 ): void {
 
-    $moduleDir = rtrim($logDir, '/') . '/' . $route->module;
+    $moduleDir = rtrim($logDir, '/') . '/' . $route->module . '/' .  $route->controller . '/' . $route->method;
     $logFile   = $moduleDir . '/' . $route->method . '.log';
 
     // Create directory if it does not exist
