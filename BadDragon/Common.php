@@ -172,7 +172,7 @@ function checkValidISODate(string $date): bool
 
 ## Database connection
 ##
-
+/*
 // Select User
 function bdCN1() {
 
@@ -207,4 +207,40 @@ function bdCN2() {
     // printf("MySQL[1]: %s\n", $mysqli->host_info);
     return $mysqli;
 
+}
+*/
+function bdWriteActionLog(
+    string $flag,
+    string $message,
+    string $logDir,
+    object $route
+): void {
+
+    $moduleDir = rtrim($logDir, '/') . '/' . $route->module;
+    $logFile   = $moduleDir . '/' . $route->method . '.log';
+
+    // Create directory if it does not exist
+    if (!is_dir($moduleDir)) {
+        if (!mkdir($moduleDir, 0755, true) && !is_dir($moduleDir)) {
+            throw new RuntimeException("Unable to create log directory: {$moduleDir}");
+        }
+    }
+
+    // Create file if it does not exist
+    if (!file_exists($logFile)) {
+        if (false === touch($logFile)) {
+            throw new RuntimeException("Unable to create log file: {$logFile}");
+        }
+        chmod($logFile, 0644);
+    }
+
+    $entry = sprintf(
+        "%s | %s | %s%s",
+        $flag,
+        date('Y-m-d H:i:s'),
+        $message,
+        PHP_EOL
+    );
+
+    file_put_contents($logFile, $entry, FILE_APPEND | LOCK_EX);
 }
