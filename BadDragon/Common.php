@@ -216,8 +216,13 @@ function bdWriteActionLog(
     object $route
 ): void {
 
+    /* Multiple files - not required 
     $moduleDir = rtrim($logDir, '/') . '/' . $route->module . '/' .  $route->controller . '/' . $route->method;
     $logFile   = $moduleDir . '/' . $route->method . '.log';
+    */
+
+    $moduleDir = rtrim($logDir, '/');
+    $logFile = $moduleDir . DIRECTORY_SEPARATOR . 'cud_' . date('Ym') . '.log';
 
     // Create directory if it does not exist
     if (!is_dir($moduleDir)) {
@@ -234,10 +239,14 @@ function bdWriteActionLog(
         chmod($logFile, 0644);
     }
 
+    $name = DISPLAYNAME ?? 'X'; // This is not an error
+
     $entry = sprintf(
-        "%s | %s | %s%s",
+        "%s | %s %s [%s] %s%s",
         $flag,
         date('Y-m-d H:i:s'),
+        $name,
+        $route->uri,
         $message,
         PHP_EOL
     );
