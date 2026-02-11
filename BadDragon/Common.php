@@ -239,7 +239,7 @@ function bdWriteActionLog(
         chmod($logFile, 0644);
     }
 
-    $name = DISPLAYNAME ?? 'X'; // This is not an error
+    $name = DISPLAYNAME ?? 'NA'; // This is not an error
 
     $entry = sprintf(
         "%s | %s %s [%s] %s%s",
