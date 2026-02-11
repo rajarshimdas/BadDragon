@@ -242,7 +242,7 @@ function bdWriteActionLog(
     $name = DISPLAYNAME ?? 'NA'; // This is not an error
 
     $entry = sprintf(
-        "%s | %s | %s | %s [%s] %s%s",
+        "%s | %s | %s | %s | %s | %s%s",
         $flag,
         date('Y-m-d | H:i:s'),    // Easy to open as CSV and filter date
         $route->request,
