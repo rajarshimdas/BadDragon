@@ -244,7 +244,7 @@ function bdWriteActionLog(
     $entry = sprintf(
         "%s | %s %s [%s] %s%s",
         $flag,
-        date('Y-m-d H:i:s'),
+        date('Y-m-d | H:i:s |'),    // Easy to open as CSV and filter date
         $name,
         $route->uri,
         $message,
