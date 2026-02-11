@@ -19,6 +19,7 @@ class Router extends Controller
 {
     public string   $a = '';
     public string   $uri = '';
+    public string   $request = '';
     public string   $module = '';
     public string   $controller = '';
     public string   $method = '';
@@ -29,10 +30,12 @@ class Router extends Controller
     public function __construct()
     {
         // Handle POST or GET routes
-        if (!empty($_POST['a'])) {
-            $this->handlePostRoute($_POST['a']);
-        } else {
+        if (empty($_POST['a'])) {
+            $this->request = 'GET';
             $this->handleGetRoute();
+        } else {
+            $this->request = 'POST';
+            $this->handlePostRoute($_POST['a']);
         }
     }
 
@@ -101,7 +104,7 @@ class Router extends Controller
             show404("Invalid URI");
         }
 
-        $this->uri = 'GET: ' . $rxURI;
+        $this->uri = 'GET:' . $rxURI;
         $routeParts = array_values(array_filter(explode('/', $rxURI)));
 
         if (count($routeParts) < 3) {
