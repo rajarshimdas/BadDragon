@@ -8,9 +8,15 @@
 | Provide common functions throughout the framework     |
 +-------------------------------------------------------+
 */
+
+## Validation Library
+##
 require_once __DIR__ . '/Toolbox/Validation.php';
 $bdIsValid = new bdDataValidation();
 
+
+## Session to Individual variables
+##
 function sessionToVars(array $session)
 {
     foreach ($session as $key => $value) {
@@ -79,7 +85,6 @@ function rx($var)
     echo '<pre>', var_dump($var), '</pre>';
 }
 
-
 function rd($var)
 {
     echo '<div>' . $var . '</div>';
@@ -120,29 +125,44 @@ function bdReturnJSON(array $data, string $httpCode = '200')
 }
 
 
+## Login (and Logout) log
+##
 function bdLogInFile(string $status, string $message, string $logfile): bool
 {
-
     $dt = date("Y-m-d");
     $tm = date("H:i:s");
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'CLI';
 
-    $log = "$dt | $tm | " . $_SERVER["REMOTE_ADDR"] . " | $status [ M: " . $message . " ]";
-    $logfile = FILEDB . "/log/$logfile";
+    $log = "$dt | $tm | $ip | $status [ M: $message ]";
 
-    if (is_file($logfile)) {
+    // Backward compatibility support
+    $logdir = defined('FILEDB') ? FILEDB : W3FILEDB;
 
-        // Open/Create the logfile
-        $f = fopen($logfile, "a");
-        fwrite($f, $log . "\n");
-        fclose($f);
-    } else {
+    // Log file
+    $fullPath = rtrim($logdir, '/') . "/log/" . $logfile;
 
-        // Logfile not found
-        return false;
+    // Ensure directory exists
+    $dir = dirname($fullPath);
+    if (!is_dir($dir)) {
+        if (!mkdir($dir, 0755, true)) {
+            return false;
+        }
     }
+
+    // Append log safely with file locking
+    return (bool) file_put_contents(
+        $fullPath,
+        $log . PHP_EOL,
+        FILE_APPEND | LOCK_EX
+    );
 
     return true;
 }
+
+
+
+
+
 
 function bdIsValidDateMySQLFormat(string $date): bool
 {
@@ -170,45 +190,6 @@ function checkValidISODate(string $date): bool
 }
 
 
-## Database connection
-##
-/*
-// Select User
-function bdCN1() {
-
-    $host   = DB_HOST;
-    $un     = CN1_UNAME;
-    $pw     = CN1_PASSWD;
-    $db     = DB_NAME;
-
-    $mysqli = new mysqli($host, $un, $pw, $db);
-    if (mysqli_connect_errno()) {
-        printf("MySQL[cn1]: %s\n", mysqli_connect_error());
-        die;
-    }
-    // printf("MySQL[1]: %s\n", $mysqli->host_info);
-    return $mysqli;
-
-}
-
-// Super User
-function bdCN2() {
-
-    $host   = DB_HOST;
-    $un     = CN2_UNAME;
-    $pw     = CN2_PASSWD;
-    $db     = DB_NAME;
-
-    $mysqli = new mysqli($host, $un, $pw, $db);
-    if (mysqli_connect_errno()) {
-        printf("MySQL[cn2]: %s\n", mysqli_connect_error());
-        die;
-    }
-    // printf("MySQL[1]: %s\n", $mysqli->host_info);
-    return $mysqli;
-
-}
-*/
 function bdWriteActionLog(
     string $flag,
     string $message,
@@ -239,7 +220,7 @@ function bdWriteActionLog(
         chmod($logFile, 0644);
     }
 
-    $name = DISPLAYNAME ?? 'NA'; // This is not an error
+    $name = defined('DISPLAYNAME') ? DISPLAYNAME : 'NA'; // This is not an error
 
     $entry = sprintf(
         "%s | %s | %s | %s | %s%s",
