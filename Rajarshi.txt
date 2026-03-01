@@ -23,3 +23,5 @@
 22-Jan-26   Ver 2.4 ExtraLibs
 
 25-Feb-26   IBM Plex Sans Fonts
+
+01-Mar-26   Ver 2.5 Code Optimizations
