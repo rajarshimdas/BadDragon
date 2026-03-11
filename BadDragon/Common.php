@@ -14,6 +14,9 @@
 require_once __DIR__ . '/Toolbox/Validation.php';
 $bdIsValid = new bdDataValidation();
 
+## Simple ORM
+##
+require_once __DIR__.'/Toolbox/orm.php';
 
 ## Session to Individual variables
 ##
