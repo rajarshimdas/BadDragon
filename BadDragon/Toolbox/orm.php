@@ -1,11 +1,9 @@
-<?php /* 
+<?php /* Simple ORM
 +-------------------------------------------------------+
 | Rajarshi Das						                    |
 +-------------------------------------------------------+
 | Created On: 11-Mar-2026                               |
 | Updated On:                                           |
-+-------------------------------------------------------+
-| ChatGPT                                               |
 +-------------------------------------------------------+
 */
 
@@ -18,10 +16,23 @@ class DB
     {
         self::$config = $config;
 
-        $dsn = "{$config['driver']}:host={$config['host']};dbname={$config['database']};charset=utf8mb4";
+        $driver   = $config['driver'] ?? 'mysql';
+        $host     = $config['host'] ?? 'localhost';
+        $database = $config['database'] ?? '';
+        $port     = $config['port'] ?? null;
 
-        if ($config['driver'] === 'sqlite') {
-            $dsn = "sqlite:" . $config['database'];
+        if ($driver === 'sqlite') {
+
+            $dsn = "sqlite:" . $database;
+        } else {
+
+            $dsn = "$driver:host=$host";
+
+            if ($port) {
+                $dsn .= ";port=$port";
+            }
+
+            $dsn .= ";dbname=$database;charset=utf8mb4";
         }
 
         self::$pdo = new PDO(
@@ -249,12 +260,10 @@ abstract class Model
             static::query()
                 ->where($pk, "=", $this->attributes[$pk])
                 ->update($this->attributes);
-
         } else {
 
             $id = static::query()->insert($this->attributes);
             $this->attributes[$pk] = $id;
-
         }
 
         return $this;
@@ -312,58 +321,58 @@ abstract class Model
    Example Models
 --------------------------------------------------- */
 
-class User extends Model
-{
-    protected static $table = "users";
+// class User extends Model
+// {
+//     protected static $table = "users";
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class, "user_id");
-    }
-}
+//     public function posts()
+//     {
+//         return $this->hasMany(Post::class, "user_id");
+//     }
+// }
 
-class Post extends Model
-{
-    protected static $table = "posts";
+// class Post extends Model
+// {
+//     protected static $table = "posts";
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, "user_id");
-    }
-}
+//     public function user()
+//     {
+//         return $this->belongsTo(User::class, "user_id");
+//     }
+// }
 
 /* --------------------------------------------------
    Example Usage
 --------------------------------------------------- */
 
-if (php_sapi_name() === "cli-server" || !debug_backtrace()) {
+// if (php_sapi_name() === "cli-server" || !debug_backtrace()) {
 
-    DB::connect([
-        "driver" => "mysql",
-        "host" => "localhost",
-        "database" => "test",
-        "username" => "root",
-        "password" => ""
-    ]);
+//     DB::connect([
+//         "driver" => "mysql",
+//         "host" => "localhost",
+//         "database" => "test",
+//         "username" => "root",
+//         "password" => ""
+//     ]);
 
-    // Create user
-    $user = new User();
-    $user->name = "John";
-    $user->email = "john@test.com";
-    $user->save();
+//     // Create user
+//     $user = new User();
+//     $user->name = "John";
+//     $user->email = "john@test.com";
+//     $user->save();
 
-    // Query
-    $users = User::all();
+//     // Query
+//     $users = User::all();
 
-    // Find
-    $u = User::find(1);
+//     // Find
+//     $u = User::find(1);
 
-    // Update
-    $u->name = "John Updated";
-    $u->save();
+//     // Update
+//     $u->name = "John Updated";
+//     $u->save();
 
-    // Relationship
-    $posts = $u->posts();
+//     // Relationship
+//     $posts = $u->posts();
 
-    print_r($users);
-}
+//     print_r($users);
+// }
