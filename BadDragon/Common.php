@@ -234,3 +234,70 @@ function bdWriteActionLog(
 
     file_put_contents($logFile, $entry, FILE_APPEND | LOCK_EX);
 }
+
+
+/*
++-------------------------------------------------------+
+| Universal Date Range Splitter                         |
+| Supports: month, year, financial year, payroll cycle  |
++-------------------------------------------------------+
+*/
+
+function bdSplitDateRangeByMode($sdt, $edt, $mode = 'month', $cycleStartDay = 1)
+{
+    $blocks = [];
+
+    $period = new DatePeriod(
+        new DateTime($sdt),
+        new DateInterval('P1D'),
+        (new DateTime($edt))->modify('+1 day')
+    );
+
+    foreach ($period as $dt) {
+
+        switch ($mode) {
+
+            case 'year':
+                $key = $dt->format('Y');
+                break;
+
+            case 'fy':  // Financial Year (Apr–Mar)
+                $y = $dt->format('Y');
+                $m = $dt->format('n');
+                $key = ($m < 4) ? ($y - 1) . '-' . $y : $y . '-' . ($y + 1);
+                break;
+
+            case 'payroll':
+
+                $day = (int)$dt->format('d');
+                $month = (int)$dt->format('m');
+                $year = (int)$dt->format('Y');
+
+                if ($day < $cycleStartDay) {
+                    $month--;
+                    if ($month == 0) {
+                        $month = 12;
+                        $year--;
+                    }
+                }
+
+                $key = sprintf('%04d-%02d', $year, $month);
+                break;
+
+            case 'month':
+            default:
+                $key = $dt->format('Y-m');
+        }
+
+        if (!isset($blocks[$key])) {
+            $blocks[$key] = [
+                'sdt' => $dt->format('Y-m-d'),
+                'edt' => $dt->format('Y-m-d')
+            ];
+        } else {
+            $blocks[$key]['edt'] = $dt->format('Y-m-d');
+        }
+    }
+
+    return array_values($blocks);
+}
