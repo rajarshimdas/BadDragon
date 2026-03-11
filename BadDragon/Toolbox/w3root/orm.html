@@ -1,419 +1,397 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Single File PHP ORM - Usage Guide</title>
+<meta charset="UTF-8">
+<title>Ultra ORM - Usage Guide</title>
 
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f7fb;
-            margin: 40px;
-            line-height: 1.6;
-        }
+<style>
 
-        h1,
-        h2,
-        h3 {
-            color: #2c3e50;
-        }
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    margin:40px;
+    background:#f5f5f5;
+    line-height:1.6;
+}
 
-        pre {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 15px;
-            border-radius: 6px;
-            overflow: auto;
-        }
+h1,h2,h3{
+    color:#333;
+}
 
-        code {
-            color: #00ff9c;
-        }
+code{
+    background:#eee;
+    padding:4px 6px;
+    border-radius:4px;
+}
 
-        .section {
-            background: white;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        }
+pre{
+    background:#1e1e1e;
+    color:#dcdcdc;
+    padding:15px;
+    overflow:auto;
+    border-radius:6px;
+}
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
+.section{
+    background:#fff;
+    padding:25px;
+    margin-bottom:30px;
+    border-radius:8px;
+    box-shadow:0 0 5px rgba(0,0,0,0.1);
+}
 
-        table td,
-        table th {
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        table th {
-            background: #eee;
-        }
-    </style>
+</style>
 
 </head>
 
 <body>
 
-    <h1>Single File PHP ORM</h1>
-    <p>
-        Powerful lightweight ORM implemented in a single PHP file.
-        Supports MySQL, PostgreSQL and SQLite.
-    </p>
+<h1>Ultra ORM Documentation</h1>
 
-    <div class="section">
+<p>
+Ultra ORM is a lightweight, single-file PHP ORM designed for high performance
+and minimal dependencies.
+</p>
 
-        <h2>1. Installation</h2>
+<p>
+Supported databases:
+</p>
 
-        <p>Copy the ORM file into your project.</p>
+<ul>
+<li>MySQL</li>
+<li>PostgreSQL</li>
+<li>SQLite</li>
+</ul>
 
-        <pre>
-project/
- ├─ orm.php
- ├─ index.php
- └─ howtouse.html
+<hr>
+
+<div class="section">
+
+<h2>1. Installation</h2>
+
+<p>Download the file:</p>
+
+<pre>
+ultraorm.php
 </pre>
 
-    </div>
+<p>Include it in your PHP project:</p>
 
+<pre>
+require "ultraorm.php";
+</pre>
 
-    <div class="section">
+</div>
 
-        <h2>2. Connect to Database</h2>
-        <p>ORM is loaded by BadDragon</p>
-        <pre>
-            DB::connect([
-                "driver"    => "mysql",
-                "host"      => "localhost",
-                "database"  => "mydb",
-                "username"  => "root",
-                "password"  => "password",
-                "port"      => "port"       # Optional
-            ]);
-        </pre>
+<hr>
 
-        <p>Supported drivers:</p>
+<div class="section">
 
-        <table>
-            <tr>
-                <th>Driver</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td>mysql</td>
-                <td>MySQL / MariaDB</td>
-            </tr>
-            <tr>
-                <td>pgsql</td>
-                <td>PostgreSQL</td>
-            </tr>
-            <tr>
-                <td>sqlite</td>
-                <td>SQLite database</td>
-            </tr>
-        </table>
+<h2>2. Database Connection</h2>
 
-    </div>
+<pre>
+DB::connect([
+    'driver'   => 'mysql',
+    'host'     => 'localhost',
+    'database' => 'myapp',
+    'username' => 'root',
+    'password' => 'secret',
+    'port'     => 3306
+]);
+</pre>
 
+</div>
 
-    <div class="section">
+<hr>
 
-        <h2>3. Creating Models</h2>
+<div class="section">
 
-        <p>Create models that extend the base <code>Model</code> class.</p>
+<h2>3. Creating Models</h2>
 
-        <pre>
+<pre>
 class User extends Model
 {
     protected static $table = "users";
 }
-
-class Post extends Model
-{
-    protected static $table = "posts";
-}
 </pre>
 
-    </div>
+</div>
 
+<hr>
 
-    <div class="section">
+<div class="section">
 
-        <h2>4. Insert Records</h2>
+<h2>4. Insert Record</h2>
 
-        <pre>
-$user = new User();
-
-$user->name  = "John";
-$user->email = "john@example.com";
-
-$user->save();
+<pre>
+User::create([
+    "name"  => "John",
+    "email" => "john@example.com"
+]);
 </pre>
 
-    </div>
+</div>
 
+<hr>
 
-    <div class="section">
+<div class="section">
 
-        <h2>5. Fetch Records</h2>
+<h2>5. Find Record</h2>
 
-        <h3>Get all rows</h3>
+<pre>
+$user = User::find(10);
+</pre>
 
-        <pre>
+</div>
+
+<hr>
+
+<div class="section">
+
+<h2>6. Get All Records</h2>
+
+<pre>
 $users = User::all();
 </pre>
 
-        <h3>Find by ID</h3>
+</div>
 
-        <pre>
-$user = User::find(1);
+<hr>
+
+<div class="section">
+
+<h2>7. Update Record</h2>
+
+<pre>
+User::updateById(5,[
+    "name" => "Updated Name"
+]);
 </pre>
 
-    </div>
+</div>
 
+<hr>
 
-    <div class="section">
+<div class="section">
 
-        <h2>6. Query Builder</h2>
+<h2>8. Delete Record</h2>
 
-        <h3>Basic where query</h3>
-
-        <pre>
-$users = User::query()
-        ->where("id", ">", 10)
-        ->get();
+<pre>
+User::deleteById(5);
 </pre>
 
-        <h3>Ordering</h3>
+</div>
 
-        <pre>
-$users = User::query()
-        ->orderBy("id","DESC")
-        ->get();
+<hr>
+
+<div class="section">
+
+<h2>9. Query Builder</h2>
+
+<pre>
+$users = Query::table("users")
+            ->where("age",">",18)
+            ->orderBy("name")
+            ->limit(10)
+            ->get();
 </pre>
 
-        <h3>Limit</h3>
+</div>
 
-        <pre>
-$users = User::query()
-        ->limit(10)
-        ->get();
+<hr>
+
+<div class="section">
+
+<h2>10. Get First Record</h2>
+
+<pre>
+$user = Query::table("users")
+            ->where("email","=","john@mail.com")
+            ->first();
 </pre>
 
-    </div>
+</div>
 
+<hr>
 
-    <div class="section">
+<div class="section">
 
-        <h2>7. Update Record</h2>
+<h2>11. Bulk Insert</h2>
 
-        <pre>
-$user = User::find(1);
-
-$user->name = "Updated Name";
-
-$user->save();
+<pre>
+Query::table("logs")->bulkInsert([
+    ["event"=>"login","user_id"=>1],
+    ["event"=>"logout","user_id"=>1]
+]);
 </pre>
 
-    </div>
+</div>
 
+<hr>
 
-    <div class="section">
+<div class="section">
 
-        <h2>8. Delete Record</h2>
+<h2>12. Pagination</h2>
 
-        <pre>
-$user = User::find(1);
-
-$user->delete();
+<pre>
+$posts = Query::table("posts")
+            ->paginate(2,20);
 </pre>
 
-    </div>
+<p>
+Page 2 with 20 records per page.
+</p>
 
+</div>
 
-    <div class="section">
+<hr>
 
-        <h2>9. Relationships</h2>
+<div class="section">
 
-        <h3>User has many Posts</h3>
+<h2>13. Relationships</h2>
 
-        <pre>
-class User extends Model
-{
-    protected static $table = "users";
+<h3>hasMany</h3>
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class, "user_id");
-    }
-}
+<pre>
+$posts = Model::hasMany(Post::class,"user_id","id",1);
 </pre>
 
-        <h3>Post belongs to User</h3>
+<h3>belongsTo</h3>
 
-        <pre>
-class Post extends Model
-{
-    protected static $table = "posts";
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, "user_id");
-    }
-}
+<pre>
+$user = Model::belongsTo(User::class,"user_id",$post);
 </pre>
 
-        <h3>Usage</h3>
+</div>
 
-        <pre>
-$user = User::find(1);
+<hr>
 
-$posts = $user->posts();
-</pre>
+<div class="section">
 
-    </div>
+<h2>14. Transactions</h2>
 
-
-    <div class="section">
-
-        <h2>10. Transactions</h2>
-
-        <pre>
+<pre>
 DB::begin();
 
-try {
+try{
 
-    $user = new User();
-    $user->name="Transaction Test";
-    $user->save();
+    User::create([
+        "name"=>"Alice"
+    ]);
+
+    User::create([
+        "name"=>"Bob"
+    ]);
 
     DB::commit();
 
-}
-catch(Exception $e){
+}catch(Exception $e){
 
     DB::rollback();
 
 }
 </pre>
 
-    </div>
+</div>
 
+<hr>
 
-    <div class="section">
+<div class="section">
 
-        <h2>11. Raw SQL</h2>
+<h2>15. Migrations</h2>
 
-        <pre>
-$stmt = DB::query(
-    "SELECT * FROM users WHERE id=?",
-    [1]
-);
-
-$row = $stmt->fetch();
+<pre>
+Migration::create("users","
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(200),
+    created_at DATETIME,
+    updated_at DATETIME
+");
 </pre>
 
-    </div>
+</div>
 
+<hr>
 
-    <div class="section">
+<div class="section">
 
-        <h2>12. Pagination Example</h2>
+<h2>16. Query Profiling</h2>
 
-        <pre>
-$users = User::query()
-            ->limit(10)
-            ->offset(20)
-            ->get();
+<pre>
+print_r(DB::profile());
 </pre>
 
-    </div>
+<p>
+Shows all executed queries and execution time.
+</p>
 
+</div>
 
-    <div class="section">
+<hr>
 
-        <h2>13. Example Project</h2>
+<div class="section">
 
-        <pre>
-require "orm.php";
+<h2>17. Security</h2>
 
-DB::connect([
-    "driver"=>"mysql",
-    "host"=>"localhost",
-    "database"=>"blog",
-    "username"=>"root",
-    "password"=>""
-]);
+<ul>
 
-$user = new User();
-$user->name="Alice";
-$user->email="alice@test.com";
-$user->save();
+<li>Prepared statements for values</li>
+<li>Identifier validation</li>
+<li>Operator whitelist</li>
+<li>Limit/offset casting</li>
+<li>PDO emulation disabled</li>
 
-$users = User::all();
+</ul>
 
-print_r($users);
+</div>
+
+<hr>
+
+<div class="section">
+
+<h2>18. Performance Tips</h2>
+
+<ul>
+
+<li>Use bulkInsert for large data</li>
+<li>Use limit when fetching records</li>
+<li>Use paginate for large tables</li>
+<li>Avoid SELECT *</li>
+
+</ul>
+
+</div>
+
+<hr>
+
+<div class="section">
+
+<h2>19. Example Project Structure</h2>
+
+<pre>
+
+project/
+
+    ultraorm.php
+    howtouse.html
+
+    models/
+        User.php
+        Post.php
+
+    public/
+        index.php
+
 </pre>
 
-    </div>
+</div>
 
+<hr>
 
-    <div class="section">
-
-        <h2>14. Features</h2>
-
-        <table>
-            <tr>
-                <th>Feature</th>
-                <th>Supported</th>
-            </tr>
-            <tr>
-                <td>ActiveRecord</td>
-                <td>Yes</td>
-            </tr>
-            <tr>
-                <td>Query Builder</td>
-                <td>Yes</td>
-            </tr>
-            <tr>
-                <td>Relationships</td>
-                <td>Yes</td>
-            </tr>
-            <tr>
-                <td>Transactions</td>
-                <td>Yes</td>
-            </tr>
-            <tr>
-                <td>PDO Support</td>
-                <td>Yes</td>
-            </tr>
-            <tr>
-                <td>MySQL/Postgres/SQLite</td>
-                <td>Yes</td>
-            </tr>
-            <tr>
-                <td>Single File</td>
-                <td>Yes</td>
-            </tr>
-        </table>
-
-    </div>
-
-
-    <div class="section">
-
-        <h2>Author</h2>
-        <p>
-            Single File PHP ORM Documentation.
-        </p>
-
-    </div>
-
+<p>
+Ultra ORM provides a fast and simple database abstraction layer
+without the overhead of large frameworks.
+</p>
 
 </body>
-
 </html>
