@@ -146,7 +146,7 @@ const bdValidate = {
     isPositiveNumber(value) {
         if (!this.isRequired(value)) return false;
         const num = Number(value);
-        return Number.isFinite(num) && num > 0;
+        return Number.isFinite(num) && num >= 0;
     },
 
     isInteger(value) {
