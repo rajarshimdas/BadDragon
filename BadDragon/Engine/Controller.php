@@ -15,7 +15,6 @@ class Controller
     public function __construct()
     {
         // Framework initialization (placeholder)
-        return true;
     }
 
     /**
@@ -25,40 +24,32 @@ class Controller
      * @param object $route
      * @return array|null
      */
-    public function fire(object $route): ?array
+    public function fire(object $route): array
     {
-        // Define file paths
-        $controllerModule = W3APP . '/Controller/' . $route->module . '/' . $route->module . '.php';
-        $controllerMethod = W3APP . '/Controller/' . $route->module . '/' . $route->controller . '/' . $route->controller . '.php';
-        $controllerScript = W3APP . '/Controller/' . $route->module . '/' . $route->controller . '/' . $route->method . '.php';
-
-        // Check all files
-        if (!is_file($controllerModule)) {
-            return $this->handleMissing("Module", $controllerModule, $route->uri);
-        }
-
-        if (!is_file($controllerMethod)) {
-            return $this->handleMissing("Controller", $controllerMethod, $route->uri);
-        }
-
-        if (!is_file($controllerScript)) {
-            return $this->handleMissing("Script", $controllerScript, $route->uri);
-        }
-
-        // All good — return the framework stack
-        return [
-            $controllerModule,
-            $controllerMethod,
-            $controllerScript,
+        // Define file paths for module, controller, and script
+        $files = [
+            'Module'     => W3APP . '/Controller/' . $route->module . '/' . $route->module . '.php',
+            'Controller' => W3APP . '/Controller/' . $route->module . '/' . $route->controller . '/' . $route->controller . '.php',
+            'Script'     => W3APP . '/Controller/' . $route->module . '/' . $route->controller . '/' . $route->method . '.php',
         ];
+
+        // Validate all files in one pass
+        foreach ($files as $type => $filepath) {
+            if (!is_file($filepath)) {
+                $this->handleMissing($type, $filepath);
+            }
+        }
+
+        // Return file stack in execution order
+        return array_values($files);
     }
 
     /**
      * Handles missing files with proper error messages.
      */
-    private function handleMissing(string $type, string $file, string $uri): ?array
+    private function handleMissing(string $type, string $file): null
     {
-        $msg = "Error[BD::Controller]: $type file missing: $file";
+        $msg = sprintf("Error[BD::Controller]: %s file missing: %s", $type, $file);
 
         if (defined('ENV') && ENV === 'dev') {
             die($msg);
@@ -66,10 +57,8 @@ class Controller
 
         if (function_exists('show404')) {
             show404("404: $msg");
-        } else {
-            die("404: $msg");
         }
-
-        return null;
+        
+        die("404: $msg");
     }
 }

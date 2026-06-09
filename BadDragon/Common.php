@@ -16,7 +16,7 @@ $bdIsValid = new bdDataValidation();
 
 ## Simple ORM
 ##
-require_once __DIR__.'/Toolbox/orm.php';
+require_once __DIR__ . '/Toolbox/orm.php';
 
 ## Session to Individual variables
 ##
@@ -75,20 +75,19 @@ function alpha_numeric_dash_slash(string $str): bool
     return (bool) preg_match('/^[a-z0-9\\/-]+$/i', $str);
 }
 
-function bdGo2uri(string $uri): bool
+function bdGo2uri(string $uri): null
 {
     header("Location:?" . BASE_URL . "$uri");
     die;
-
-    return true;
 }
 
-function rx($var)
+function rx(array $var)
 {
-    echo '<pre>', var_dump($var), '</pre>';
+    // echo '<pre>', var_dump($var), '</pre>';
+    var_dump('<pre>', $var, '</pre>');
 }
 
-function rd($var)
+function rd(string $var)
 {
     echo '<div>' . $var . '</div>';
 }
@@ -159,14 +158,9 @@ function bdLogInFile(string $status, string $message, string $logfile): bool
         FILE_APPEND | LOCK_EX
     );
 
-    return true;
 }
 
-
-
-
-
-
+// Legacy function for validating MySQL date format (YYYY-MM-DD)
 function bdIsValidDateMySQLFormat(string $date): bool
 {
     return checkValidISODate($date);
