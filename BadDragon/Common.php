@@ -81,10 +81,15 @@ function bdGo2uri(string $uri): null
     die;
 }
 
-function rx(array $var)
+function rx($var, $bg = 'white')
 {
-    // echo '<pre>', var_dump($var), '</pre>';
-    var_dump('<pre>', $var, '</pre>');
+    if (is_array($var)) {
+        echo '<div style="background-color:' . $bg . ';padding:5px;"><pre>';
+        var_dump($var);
+        echo '</pre></div>';
+    } else {
+        echo 'Variable is not an array.';
+    }
 }
 
 function rd(string $var)
@@ -157,7 +162,6 @@ function bdLogInFile(string $status, string $message, string $logfile): bool
         $log . PHP_EOL,
         FILE_APPEND | LOCK_EX
     );
-
 }
 
 // Legacy function for validating MySQL date format (YYYY-MM-DD)
