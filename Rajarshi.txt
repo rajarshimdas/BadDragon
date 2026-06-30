@@ -29,4 +29,5 @@
 01-Jun-26   Ver 2.6 Updated
 
 30-Jun-26   Global var $bdAppDebugMode added
- 
+
+30-Jun-26   Ver 2.7 HTMX added
