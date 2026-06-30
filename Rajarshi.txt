@@ -27,3 +27,6 @@
 01-Mar-26   Ver 2.5 Code Optimizations
 
 01-Jun-26   Ver 2.6 Updated
+
+30-Jun-26   Global var $bdAppDebugMode added
+ 
