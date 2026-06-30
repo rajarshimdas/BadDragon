@@ -6,4 +6,9 @@
 | Updated On:                                           |
 +-------------------------------------------------------+
 */
-$bdDebugMode = empty($bdDebugMode) ? 'F' : $bdDebugMode;
+
+# Engine Debug Mode
+$bdDebugMode        = empty($bdDebugMode) ? 'F' : $bdDebugMode;
+
+# App Debug Mode
+$bdAppDebugMode     = empty($bdAppDebugMode) ? 'X': $bdAppDebugMode;

@@ -1,6 +1,7 @@
 Global Vars
 
 $bdDebugMode                    Run engine in debug mode if set to 'T'.
+$bdAppDebugMode                 Run app in debug mode if set to 'T', 'F' is prod, 'X' is ignore.
 $route                          Routing information. Object.
 
 dxMessageBox.php                Available in Toolbox

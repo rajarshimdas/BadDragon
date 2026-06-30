@@ -9,6 +9,10 @@
 +-------------------------------------------------------+
 */
 
+## Debug modes
+define('DBDEBUGMODE',       $bdDebugMode ?? 'X');       // Engine debug mode
+define('BDAPPDEBUGMODE',    $bdAppDebugMode ?? 'X');    // App debug mode
+
 ## Validation Library
 ##
 require_once __DIR__ . '/Toolbox/Validation.php';
@@ -83,13 +87,17 @@ function bdGo2uri(string $uri): null
 
 function rx($var, $bg = 'white')
 {
-    echo '<div style="background-color:' . $bg . ';padding:5px;"><pre>';
-    if (is_array($var)) {
-        var_dump($var);
-    } else {
-        rd($var);
+    if (bdAppDebugMode == 'T') {
+
+        echo '<div style="background-color:' . $bg . ';padding:5px;"><pre>';
+        if (is_array($var)) {
+            var_dump($var);
+        } else {
+            rd($var);
+        }
+        echo '</pre></div>';
+        
     }
-    echo '</pre></div>';
 }
 
 function rd(string $var)
