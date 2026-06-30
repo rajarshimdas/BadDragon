@@ -83,13 +83,13 @@ function bdGo2uri(string $uri): null
 
 function rx($var, $bg = 'white')
 {
+    echo '<div style="background-color:' . $bg . ';padding:5px;"><pre>';
     if (is_array($var)) {
-        echo '<div style="background-color:' . $bg . ';padding:5px;"><pre>';
         var_dump($var);
-        echo '</pre></div>';
     } else {
-        echo 'Variable is not an array.';
+        rd($var);
     }
+    echo '</pre></div>';
 }
 
 function rd(string $var)
