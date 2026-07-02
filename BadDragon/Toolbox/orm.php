@@ -8,16 +8,15 @@
 class DB
 {
     private static $pdo;
-    private static $cache = [];
     private static $queries = [];
     private static $start;
 
     public static function connect($config)
     {
-        $driver = $config['driver'] ?? 'mysql';
-        $host = $config['host'] ?? 'localhost';
-        $db = $config['database'] ?? '';
-        $port = $config['port'] ?? null;
+        $driver     = $config['driver'] ?? 'mysql';
+        $host       = $config['host'] ?? 'localhost';
+        $db         = $config['database'] ?? '';
+        $port       = $config['port'] ?? null;
 
         if ($driver === 'sqlite')
             $dsn = "sqlite:$db";
@@ -43,11 +42,6 @@ class DB
 
     public static function query($sql, $bindings = [])
     {
-        $key = md5($sql . serialize($bindings));
-
-        if (isset(self::$cache[$key]))
-            return self::$cache[$key];
-
         $t = microtime(true);
 
         $stmt = self::$pdo->prepare($sql);
@@ -58,7 +52,7 @@ class DB
             'time' => microtime(true) - $t
         ];
 
-        return self::$cache[$key] = $stmt;
+        return $stmt;
     }
 
     public static function pdo()
@@ -136,7 +130,7 @@ class Query
     protected $limit;
     protected $offset;
 
-    protected $operators = ['=', '!=', '<', '>', '<=', '>=', 'LIKE', 'IN'];
+    protected $operators = ['=', '!=', '<', '>', '<=', '>=', 'LIKE', 'IN', 'NOT IN'];
 
     public function __construct($table)
     {
@@ -167,7 +161,7 @@ class Query
         return $this;
     }
 
-    public function where($col, $op, $val)
+    public function where($col, $op, $val, $boolean = 'AND')
     {
         $this->validate($col);
 
@@ -175,20 +169,119 @@ class Query
         if (!in_array($op, $this->operators))
             throw new Exception("Invalid operator");
 
-        $this->where[] = "$col $op ?";
+        $clause = "$col $op ?";
+        if ($this->where) {
+            $this->where[] = strtoupper($boolean) . ' ' . $clause;
+        } else {
+            $this->where[] = $clause;
+        }
+
         $this->bindings[] = $val;
 
         return $this;
     }
 
-    public function join($table, $l, $op, $r)
+    public function orWhere($col, $op, $val)
+    {
+        return $this->where($col, $op, $val, 'OR');
+    }
+
+    public function whereIn($col, array $values, $boolean = 'AND', $not = false)
+    {
+        $this->validate($col);
+
+        if (!$values) {
+            throw new Exception("Values for whereIn cannot be empty");
+        }
+
+        $placeholders = implode(', ', array_fill(0, count($values), '?'));
+        $operator = $not ? 'NOT IN' : 'IN';
+        $clause = "$col $operator ($placeholders)";
+
+        if ($this->where) {
+            $this->where[] = strtoupper($boolean) . ' ' . $clause;
+        } else {
+            $this->where[] = $clause;
+        }
+
+        $this->bindings = array_merge($this->bindings, array_values($values));
+
+        return $this;
+    }
+
+    public function orWhereIn($col, array $values)
+    {
+        return $this->whereIn($col, $values, 'OR');
+    }
+
+    public function whereNotIn($col, array $values)
+    {
+        return $this->whereIn($col, $values, 'AND', true);
+    }
+
+    public function orWhereNotIn($col, array $values)
+    {
+        return $this->whereIn($col, $values, 'OR', true);
+    }
+
+    public function whereNull($col, $boolean = 'AND')
+    {
+        $this->validate($col);
+        $clause = "$col IS NULL";
+
+        if ($this->where) {
+            $this->where[] = strtoupper($boolean) . ' ' . $clause;
+        } else {
+            $this->where[] = $clause;
+        }
+
+        return $this;
+    }
+
+    public function whereNotNull($col, $boolean = 'AND')
+    {
+        $this->validate($col);
+        $clause = "$col IS NOT NULL";
+
+        if ($this->where) {
+            $this->where[] = strtoupper($boolean) . ' ' . $clause;
+        } else {
+            $this->where[] = $clause;
+        }
+
+        return $this;
+    }
+
+    public function whereRaw($sql, $bindings = [], $boolean = 'AND')
+    {
+        if ($this->where) {
+            $this->where[] = strtoupper($boolean) . ' ' . $sql;
+        } else {
+            $this->where[] = $sql;
+        }
+
+        $this->bindings = array_merge($this->bindings, $bindings);
+        return $this;
+    }
+
+    public function join($table, $l, $op, $r, $type = 'JOIN')
     {
         $this->validate($table);
         $this->validate($l);
         $this->validate($r);
 
-        $this->joins[] = "JOIN $table ON $l $op $r";
+        $this->joins[] = strtoupper($type) . " $table ON $l $op $r";
         return $this;
+    }
+
+    public function leftJoin($table, $l, $op, $r)
+    {
+        return $this->join($table, $l, $op, $r, 'LEFT JOIN');
+    }
+
+    public function rightJoin($table, $l, $op, $r)
+    {
+        return $this->join($table, $l, $op, $r, 'RIGHT JOIN');
     }
 
     public function orderBy($col, $dir = "ASC")
@@ -203,6 +296,11 @@ class Query
         return $this;
     }
 
+    public function orderByDesc($col)
+    {
+        return $this->orderBy($col, 'DESC');
+    }
+
     public function limit($n)
     {
         $this->limit = (int)$n;
@@ -215,15 +313,16 @@ class Query
         return $this;
     }
 
-    private function build()
+    private function build($select = null)
     {
-        $sql = "SELECT {$this->select} FROM {$this->table}";
+        $select = $select ?? $this->select;
+        $sql = "SELECT {$select} FROM {$this->table}";
 
         if ($this->joins)
             $sql .= " " . implode(" ", $this->joins);
 
         if ($this->where)
-            $sql .= " WHERE " . implode(" AND ", $this->where);
+            $sql .= " WHERE " . implode(" ", $this->where);
 
         if ($this->order)
             $sql .= " ORDER BY {$this->order}";
@@ -237,15 +336,65 @@ class Query
         return $sql;
     }
 
+    protected function execute($sql)
+    {
+        return DB::query($sql, $this->bindings);
+    }
+
+    public function toSql()
+    {
+        return $this->build();
+    }
+
     public function get()
     {
-        return DB::query($this->build(), $this->bindings)->fetchAll();
+        return $this->execute($this->build())->fetchAll();
     }
 
     public function first()
     {
         $this->limit(1);
-        return DB::query($this->build(), $this->bindings)->fetch();
+        return $this->execute($this->build())->fetch();
+    }
+
+    public function count($column = '*')
+    {
+        $sql = $this->build("COUNT($column) AS count");
+        return (int)DB::query($sql, $this->bindings)->fetchColumn();
+    }
+
+    public function exists()
+    {
+        $sql = $this->build('1');
+        return (bool)DB::query($sql . ' LIMIT 1', $this->bindings)->fetchColumn();
+    }
+
+    public function value($column)
+    {
+        $sql = $this->build($column);
+        $row = DB::query($sql . ' LIMIT 1', $this->bindings)->fetch();
+        return $row[$column] ?? null;
+    }
+
+    public function pluck($column, $key = null)
+    {
+        $select = $column;
+        if ($key) {
+            $select = "$column, $key";
+        }
+
+        $sql = $this->build($select);
+        $rows = DB::query($sql, $this->bindings)->fetchAll();
+
+        if ($key) {
+            $result = [];
+            foreach ($rows as $row) {
+                $result[$row[$key]] = $row[$column];
+            }
+            return $result;
+        }
+
+        return array_column($rows, $column);
     }
 
     public function insert($data)
@@ -254,8 +403,8 @@ class Query
 
         $data = array_intersect_key($data, array_flip($cols));
 
-        $columns = implode(',', array_keys($data));
-        $placeholders = implode(',', array_fill(0, count($data), '?'));
+        $columns = implode(', ', array_keys($data));
+        $placeholders = implode(', ', array_fill(0, count($data), '?'));
 
         $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
 
@@ -266,22 +415,22 @@ class Query
 
     public function bulkInsert($rows)
     {
-        if (!$rows) return;
+        if (!$rows) {
+            return;
+        }
 
         $cols = array_keys($rows[0]);
-        $columns = implode(',', $cols);
+        $columns = implode(', ', $cols);
 
         $values = [];
         $bindings = [];
 
         foreach ($rows as $r) {
-            $values[] = "(" . implode(',', array_fill(0, count($cols), '?')) . ")";
+            $values[] = '(' . implode(', ', array_fill(0, count($cols), '?')) . ')';
             $bindings = array_merge($bindings, array_values($r));
         }
 
-        $values = implode(',', $values);
-
-        $sql = "INSERT INTO {$this->table} ($columns) VALUES $values";
+        $sql = "INSERT INTO {$this->table} ($columns) VALUES " . implode(', ', $values);
 
         DB::query($sql, $bindings);
     }
@@ -292,16 +441,12 @@ class Query
 
         foreach ($data as $k => $v) {
             $this->validate($k);
-            $set[] = "$k=?";
+            $set[] = "$k = ?";
             $this->bindings[] = $v;
         }
 
-        $set = implode(',', $set);
-
-        $sql = "UPDATE {$this->table} SET $set";
-
-        if ($this->where)
-            $sql .= " WHERE " . implode(" AND ", $this->where);
+        $sql = "UPDATE {$this->table} SET " . implode(', ', $set);
+        $sql .= $this->where ? ' WHERE ' . implode(' ', $this->where) : '';
 
         DB::query($sql, $this->bindings);
     }
@@ -382,20 +527,22 @@ class Query
     public function delete()
     {
         $sql = "DELETE FROM {$this->table}";
-
-        if ($this->where)
-            $sql .= " WHERE " . implode(" AND ", $this->where);
+        $sql .= $this->where ? ' WHERE ' . implode(' ', $this->where) : '';
 
         DB::query($sql, $this->bindings);
     }
 
-    public function softDelete($id)
+    public function softDelete($id = null)
     {
-        $this->validate('id');
+        if ($id !== null) {
+            $this->validate('id');
+            $this->where('id', '=', $id);
+        }
 
-        $sql = "UPDATE {$this->table} SET active = 0 WHERE id = ?";
+        $sql = "UPDATE {$this->table} SET active = 0";
+        $sql .= $this->where ? ' WHERE ' . implode(' ', $this->where) : '';
 
-        DB::query($sql, [$id]);
+        DB::query($sql, $this->bindings);
 
         return true;
     }
@@ -442,6 +589,43 @@ class Model
         return static::query()->insert($data);
     }
 
+    public static function firstOrCreate($attributes, $values = [])
+    {
+        $query = static::query();
+
+        foreach ($attributes as $key => $value) {
+            $query->where($key, '=', $value);
+        }
+
+        $record = $query->first();
+        if ($record) {
+            return $record;
+        }
+
+        return static::create(array_merge($attributes, $values));
+    }
+
+    public static function updateOrCreate($attributes, $values = [])
+    {
+        $query = static::query();
+
+        foreach ($attributes as $key => $value) {
+            $query->where($key, '=', $value);
+        }
+
+        $record = $query->first();
+
+        if ($record) {
+            static::query()
+                ->where('id', '=', $record['id'])
+                ->update(array_merge($attributes, $values));
+
+            return static::find($record['id']);
+        }
+
+        return static::create(array_merge($attributes, $values));
+    }
+
     public static function updateById($id, $data)
     {
         $data['updated_at'] = date('Y-m-d H:i:s');
@@ -451,11 +635,50 @@ class Model
             ->update($data);
     }
 
+    public static function updateWhere(array $conditions, array $data)
+    {
+        $data['updated_at'] = date('Y-m-d H:i:s');
+        $query = static::query();
+
+        foreach ($conditions as $key => $value) {
+            $query->where($key, '=', $value);
+        }
+
+        $query->update($data);
+    }
+
     public static function deleteById($id)
     {
         static::query()
             ->where('id', '=', $id)
             ->delete();
+    }
+
+    public static function deleteWhere(array $conditions)
+    {
+        $query = static::query();
+
+        foreach ($conditions as $key => $value) {
+            $query->where($key, '=', $value);
+        }
+
+        $query->delete();
+    }
+
+    public static function softDeleteById($id)
+    {
+        return static::query()->softDelete($id);
+    }
+
+    public static function softDeleteWhere(array $conditions)
+    {
+        $query = static::query();
+
+        foreach ($conditions as $key => $value) {
+            $query->where($key, '=', $value);
+        }
+
+        return $query->softDelete();
     }
 
     /* Relationships */
