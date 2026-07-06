@@ -1,17 +1,20 @@
 <?php /*
 +-------------------------------------------------------+
-| ULTRA ORM                                             |
+| ULTRA ORM - R0                                        |
 | Author: Rajarshi Das                                  |
 +-------------------------------------------------------+
 */
 
 class DB
 {
-    private static $pdo;
+    // support multiple named PDO connections
+    private static $pdo = [];
+    private static $current = 'default';
     private static $queries = [];
-    private static $start;
+    private static $start = [];
 
-    public static function connect($config)
+    // connect and register a named connection (default name = 'default')
+    public static function connect($config, $name = 'default')
     {
         $driver     = $config['driver'] ?? 'mysql';
         $host       = $config['host'] ?? 'localhost';
@@ -26,7 +29,7 @@ class DB
             $dsn .= ";dbname=$db;charset=utf8mb4";
         }
 
-        self::$pdo = new PDO(
+        self::$pdo[$name] = new PDO(
             $dsn,
             $config['username'] ?? null,
             $config['password'] ?? null,
@@ -37,17 +40,46 @@ class DB
             ]
         );
 
-        self::$start = microtime(true);
+        // mark start time for this connection
+        self::$start[$name] = microtime(true);
     }
 
-    public static function query($sql, $bindings = [])
+    // set the active/default connection name used by query() and pdo() when no name passed
+    public static function use($name)
+    {
+        if (!isset(self::$pdo[$name]))
+            throw new Exception("Unknown DB connection $name");
+
+        self::$current = $name;
+    }
+
+    // return PDO for a named connection or the current one
+    public static function pdo($name = null)
+    {
+        if ($name === null) $name = self::$current;
+
+        // if only one connection exists and requested name not present, return that PDO
+        if (!isset(self::$pdo[$name]) && count(self::$pdo) === 1) {
+            return reset(self::$pdo);
+        }
+
+        return self::$pdo[$name] ?? null;
+    }
+
+    // execute a query on a specific connection (or current if null)
+    public static function query($sql, $bindings = [], $connection = null)
     {
         $t = microtime(true);
 
-        $stmt = self::$pdo->prepare($sql);
+        $pdo = self::pdo($connection);
+        if (!$pdo) throw new Exception('No PDO connection available');
+
+        $stmt = $pdo->prepare($sql);
         $stmt->execute($bindings);
 
+        $connName = $connection ?? self::$current;
         self::$queries[] = [
+            'conn' => $connName,
             'sql' => $sql,
             'time' => microtime(true) - $t
         ];
@@ -55,31 +87,37 @@ class DB
         return $stmt;
     }
 
-    public static function pdo()
+    // transaction helpers that accept optional connection name
+    public static function begin($connection = null)
     {
-        return self::$pdo;
+        $pdo = self::pdo($connection);
+        $pdo->beginTransaction();
     }
 
-    public static function begin()
+    public static function commit($connection = null)
     {
-        self::$pdo->beginTransaction();
+        $pdo = self::pdo($connection);
+        $pdo->commit();
     }
 
-    public static function commit()
+    public static function rollback($connection = null)
     {
-        self::$pdo->commit();
+        $pdo = self::pdo($connection);
+        $pdo->rollBack();
     }
 
-    public static function rollback()
+    public static function profile($connection = null)
     {
-        self::$pdo->rollBack();
-    }
+        if ($connection) {
+            return [
+                'queries' => array_values(array_filter(self::$queries, fn($q) => ($q['conn'] ?? null) === $connection)),
+                'total_time' => microtime(true) - (self::$start[$connection] ?? microtime(true))
+            ];
+        }
 
-    public static function profile()
-    {
         return [
             'queries' => self::$queries,
-            'total_time' => microtime(true) - self::$start
+            'total_time' => microtime(true) - (self::$start[self::$current] ?? microtime(true))
         ];
     }
 }
@@ -129,6 +167,7 @@ class Query
     protected $order;
     protected $limit;
     protected $offset;
+    protected $connection = null;
 
     protected $operators = ['=', '!=', '<', '>', '<=', '>=', 'LIKE', 'IN', 'NOT IN'];
 
@@ -141,6 +180,13 @@ class Query
     public static function table($table)
     {
         return new static($table);
+    }
+
+    // set connection name for this query
+    public function on($connection)
+    {
+        $this->connection = $connection;
+        return $this;
     }
 
     private function validate($id)
@@ -338,7 +384,7 @@ class Query
 
     protected function execute($sql)
     {
-        return DB::query($sql, $this->bindings);
+        return DB::query($sql, $this->bindings, $this->connection);
     }
 
     public function toSql()
@@ -567,6 +613,12 @@ class Model
     public static function query()
     {
         return Query::table(static::$table);
+    }
+
+    // start a query on a specific connection
+    public static function on($connection)
+    {
+        return Query::table(static::$table)->on($connection);
     }
 
     public static function find($id)

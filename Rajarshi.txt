@@ -31,3 +31,5 @@
 30-Jun-26   Global var $bdAppDebugMode added
 
 30-Jun-26   Ver 2.7 HTMX added
+
+06-Jul-26   UltraORM - R0
