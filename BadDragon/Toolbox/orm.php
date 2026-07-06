@@ -1,6 +1,6 @@
 <?php /*
 +-------------------------------------------------------+
-| ULTRA ORM - R0                                        |
+| ULTRA ORM - R0a                                       |
 | Author: Rajarshi Das                                  |
 +-------------------------------------------------------+
 */
@@ -578,11 +578,32 @@ class Query
         DB::query($sql, $this->bindings);
     }
 
-    public function softDelete($id = null)
+    protected function inferPrimaryKey()
+    {
+        $cols = Schema::columns($this->table);
+
+        if (in_array('id', $cols)) {
+            return 'id';
+        }
+
+        foreach ($cols as $col) {
+            if (preg_match('/_id$/', $col)) {
+                return $col;
+            }
+        }
+
+        return $cols[0] ?? 'id';
+    }
+
+    public function softDelete($id = null, $col = null)
     {
         if ($id !== null) {
-            $this->validate('id');
-            $this->where('id', '=', $id);
+            if ($col === null) {
+                $col = $this->inferPrimaryKey();
+            }
+
+            $this->validate($col);
+            $this->where($col, '=', $id);
         }
 
         $sql = "UPDATE {$this->table} SET active = 0";
@@ -609,6 +630,32 @@ class Query
 class Model
 {
     protected static $table;
+    protected static $primaryKey = 'id';
+    protected static $allowedOrderColumns = [];
+
+    // Return the primary key column name for this model's table.
+    // If a model declares `$primaryKey`, use it.
+    // Otherwise inspect the table columns and prefer `id`, then any `*_id` column.
+    public static function primaryKey()
+    {
+        $vars = get_class_vars(static::class);
+        if (array_key_exists('primaryKey', $vars) && $vars['primaryKey']) {
+            return $vars['primaryKey'];
+        }
+
+        $table = static::$table ?? null;
+        if (!$table) return 'id';
+
+        $cols = Schema::columns($table);
+
+        if (in_array('id', $cols)) return 'id';
+
+        foreach ($cols as $c) {
+            if (preg_match('/_id$/', $c)) return $c;
+        }
+
+        return $cols[0] ?? 'id';
+    }
 
     public static function query()
     {
@@ -621,10 +668,26 @@ class Model
         return Query::table(static::$table)->on($connection);
     }
 
+    public static function allowedOrderColumns()
+    {
+        return (array) static::$allowedOrderColumns;
+    }
+
+    public static function orderByAllowed($column, $direction = 'ASC')
+    {
+        $columns = static::allowedOrderColumns();
+        if ($columns && !in_array($column, $columns, true)) {
+            throw new Exception("Ordering by {$column} is not allowed");
+        }
+
+        return static::query()->orderBy($column, $direction);
+    }
+
     public static function find($id)
     {
+        $pk = static::primaryKey();
         return static::query()
-            ->where('id', '=', $id)
+            ->where($pk, '=', $id)
             ->first();
     }
 
@@ -668,11 +731,12 @@ class Model
         $record = $query->first();
 
         if ($record) {
+            $pk = static::primaryKey();
             static::query()
-                ->where('id', '=', $record['id'])
+                ->where($pk, '=', $record[$pk])
                 ->update(array_merge($attributes, $values));
 
-            return static::find($record['id']);
+            return static::find($record[$pk]);
         }
 
         return static::create(array_merge($attributes, $values));
@@ -682,8 +746,9 @@ class Model
     {
         $data['updated_at'] = date('Y-m-d H:i:s');
 
+        $pk = static::primaryKey();
         static::query()
-            ->where('id', '=', $id)
+            ->where($pk, '=', $id)
             ->update($data);
     }
 
@@ -701,8 +766,9 @@ class Model
 
     public static function deleteById($id)
     {
+        $pk = static::primaryKey();
         static::query()
-            ->where('id', '=', $id)
+            ->where($pk, '=', $id)
             ->delete();
     }
 
@@ -717,9 +783,16 @@ class Model
         $query->delete();
     }
 
+    public static function softDelete($id)
+    {
+        $pk = static::primaryKey();
+        return static::query()->where($pk, '=', $id)->softDelete();
+    }
+
     public static function softDeleteById($id)
     {
-        return static::query()->softDelete($id);
+        $pk = static::primaryKey();
+        return static::query()->where($pk, '=', $id)->softDelete();
     }
 
     public static function softDeleteWhere(array $conditions)
@@ -744,8 +817,10 @@ class Model
 
     public static function belongsTo($related, $foreign, $id)
     {
+        $pk = $related::primaryKey();
+        $value = is_array($id) ? ($id[$foreign] ?? null) : $id;
         return $related::query()
-            ->where('id', '=', $id[$foreign])
+            ->where($pk, '=', $value)
             ->first();
     }
 
