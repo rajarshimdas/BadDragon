@@ -1,6 +1,6 @@
 <?php /*
 +-------------------------------------------------------+
-| ULTRA ORM - R0a                                       |
+| ULTRA ORM - R0b                                       |
 | Author: Rajarshi Das                                  |
 +-------------------------------------------------------+
 */
@@ -740,6 +740,36 @@ class Model
         }
 
         return static::create(array_merge($attributes, $values));
+    }
+
+    public static function upsert(array $data, $uniqueColumns)
+    {
+        if (!$data) {
+            throw new Exception('Upsert data cannot be empty');
+        }
+
+        $uniqueColumns = (array) $uniqueColumns;
+        if (!$uniqueColumns) {
+            throw new Exception('Unique columns must be provided for upsert');
+        }
+
+        $query = static::query();
+        $query->upsert($data, $uniqueColumns);
+
+        $pk = static::primaryKey();
+        if (isset($data[$pk])) {
+            return static::find($data[$pk]);
+        }
+
+        $findQuery = static::query();
+        foreach ($uniqueColumns as $column) {
+            if (!array_key_exists($column, $data)) {
+                throw new Exception("Missing unique column '{$column}' in upsert data");
+            }
+            $findQuery->where($column, '=', $data[$column]);
+        }
+
+        return $findQuery->first();
     }
 
     public static function updateById($id, $data)
