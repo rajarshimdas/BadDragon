@@ -406,19 +406,19 @@ class Query
     public function count($column = '*')
     {
         $sql = $this->build("COUNT($column) AS count");
-        return (int)DB::query($sql, $this->bindings)->fetchColumn();
+        return (int)DB::query($sql, $this->bindings, $this->connection)->fetchColumn();
     }
 
     public function exists()
     {
         $sql = $this->build('1');
-        return (bool)DB::query($sql . ' LIMIT 1', $this->bindings)->fetchColumn();
+        return (bool)DB::query($sql . ' LIMIT 1', $this->bindings, $this->connection)->fetchColumn();
     }
 
     public function value($column)
     {
         $sql = $this->build($column);
-        $row = DB::query($sql . ' LIMIT 1', $this->bindings)->fetch();
+        $row = DB::query($sql . ' LIMIT 1', $this->bindings, $this->connection)->fetch();
         return $row[$column] ?? null;
     }
 
@@ -430,7 +430,7 @@ class Query
         }
 
         $sql = $this->build($select);
-        $rows = DB::query($sql, $this->bindings)->fetchAll();
+        $rows = DB::query($sql, $this->bindings, $this->connection)->fetchAll();
 
         if ($key) {
             $result = [];
@@ -449,14 +449,18 @@ class Query
 
         $data = array_intersect_key($data, array_flip($cols));
 
+        if (!$data) {
+            throw new Exception("Insert data cannot be empty");
+        }
+
         $columns = implode(', ', array_keys($data));
         $placeholders = implode(', ', array_fill(0, count($data), '?'));
 
         $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
 
-        DB::query($sql, array_values($data));
+        DB::query($sql, array_values($data), $this->connection);
 
-        return DB::pdo()->lastInsertId();
+        return DB::pdo($this->connection)->lastInsertId();
     }
 
     public function bulkInsert($rows)
@@ -478,23 +482,37 @@ class Query
 
         $sql = "INSERT INTO {$this->table} ($columns) VALUES " . implode(', ', $values);
 
-        DB::query($sql, $bindings);
+        DB::query($sql, $bindings, $this->connection);
     }
 
     public function update($data)
     {
+        if (!$data) {
+            throw new Exception("Update data cannot be empty");
+        }
+
+        $cols = Schema::columns($this->table);
+        $data = array_intersect_key($data, array_flip($cols));
+
+        if (!$data) {
+            throw new Exception("No valid columns provided for update");
+        }
+
         $set = [];
+        $bindings = [];
 
         foreach ($data as $k => $v) {
             $this->validate($k);
             $set[] = "$k = ?";
-            $this->bindings[] = $v;
+            $bindings[] = $v;
         }
 
         $sql = "UPDATE {$this->table} SET " . implode(', ', $set);
         $sql .= $this->where ? ' WHERE ' . implode(' ', $this->where) : '';
 
-        DB::query($sql, $this->bindings);
+        $bindings = array_merge($bindings, $this->bindings);
+
+        DB::query($sql, $bindings, $this->connection);
     }
 
     public function upsert(array $data, $uniqueColumns)
@@ -575,7 +593,7 @@ class Query
         $sql = "DELETE FROM {$this->table}";
         $sql .= $this->where ? ' WHERE ' . implode(' ', $this->where) : '';
 
-        DB::query($sql, $this->bindings);
+        DB::query($sql, $this->bindings, $this->connection);
     }
 
     protected function inferPrimaryKey()
@@ -609,7 +627,7 @@ class Query
         $sql = "UPDATE {$this->table} SET active = 0";
         $sql .= $this->where ? ' WHERE ' . implode(' ', $this->where) : '';
 
-        DB::query($sql, $this->bindings);
+        DB::query($sql, $this->bindings, $this->connection);
 
         return true;
     }
