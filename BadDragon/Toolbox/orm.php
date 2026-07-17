@@ -168,6 +168,7 @@ class Query
     protected $limit;
     protected $offset;
     protected $connection = null;
+    protected $allowedOrderColumns = [];
 
     protected $operators = ['=', '!=', '<', '>', '<=', '>=', 'LIKE', 'IN', 'NOT IN'];
 
@@ -186,6 +187,12 @@ class Query
     public function on($connection)
     {
         $this->connection = $connection;
+        return $this;
+    }
+
+    public function setAllowedOrderColumns(array $columns)
+    {
+        $this->allowedOrderColumns = array_values($columns);
         return $this;
     }
 
@@ -332,6 +339,10 @@ class Query
 
     public function orderBy($col, $dir = "ASC")
     {
+        if ($this->allowedOrderColumns && !in_array($col, $this->allowedOrderColumns, true)) {
+            throw new Exception("Ordering by {$col} is not allowed");
+        }
+
         $this->validate($col);
         $dir = strtoupper($dir);
 
@@ -677,7 +688,8 @@ class Model
 
     public static function query()
     {
-        return Query::table(static::$table);
+        return Query::table(static::$table)
+            ->setAllowedOrderColumns(static::allowedOrderColumns());
     }
 
     // start a query on a specific connection
@@ -693,11 +705,6 @@ class Model
 
     public static function orderByAllowed($column, $direction = 'ASC')
     {
-        $columns = static::allowedOrderColumns();
-        if ($columns && !in_array($column, $columns, true)) {
-            throw new Exception("Ordering by {$column} is not allowed");
-        }
-
         return static::query()->orderBy($column, $direction);
     }
 
