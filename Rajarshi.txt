@@ -33,3 +33,5 @@
 30-Jun-26   Ver 2.7 HTMX added
 
 06-Jul-26   UltraORM - R0
+
+21-Jul-26   Ver 2.8 UltraORM - R1
