@@ -96,7 +96,6 @@ function rx($var, $bg = 'white')
             rd($var);
         }
         echo '</pre></div>';
-        
     }
 }
 
@@ -309,4 +308,17 @@ function bdSplitDateRangeByMode($sdt, $edt, $mode = 'month', $cycleStartDay = 1)
     }
 
     return array_values($blocks);
+}
+
+
+function bdGetSessionVar(
+    $sessionVarName,            // Name of the variable, who could have guessed :-)
+    $sessionVarValue = 'NA'     // Default value to set if session variable does not exist
+) {
+    if (empty($_SESSION[$sessionVarName])) {
+        $_SESSION[$sessionVarName] = $sessionVarValue;
+        return $sessionVarValue;
+    } else {
+        return $_SESSION[$sessionVarName];
+    }
 }
