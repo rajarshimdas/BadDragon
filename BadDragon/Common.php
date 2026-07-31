@@ -104,6 +104,21 @@ function rd(string $var)
     echo '<div>' . $var . '</div>';
 }
 
+/* Todo, later...
+function bdTraceVar($name, $value)
+{
+    error_log(
+        sprintf(
+            "[%s:%d] %s = %s",
+            basename(__FILE__),
+            __LINE__,
+            $name,
+            print_r($value, true)
+        )
+    );
+}
+*/
+
 // Return JSON Response | legacy
 function rdReturnJsonHttpResponse(string $httpCode, array $data)
 {
@@ -322,3 +337,4 @@ function bdGetSessionVar(
         return $_SESSION[$sessionVarName];
     }
 }
+
