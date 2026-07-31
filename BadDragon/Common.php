@@ -87,7 +87,7 @@ function bdGo2uri(string $uri): null
 
 function rx($var, $bg = 'white')
 {
-    if (bdAppDebugMode == 'T') {
+    if (BDAPPDEBUGMODE == 'T') {
 
         echo '<div style="background-color:' . $bg . ';padding:5px;"><pre>';
         if (is_array($var)) {
