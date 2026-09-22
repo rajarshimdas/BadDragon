@@ -338,3 +338,24 @@ function bdGetSessionVar(
     }
 }
 
+function bdFinancialYear(string $isoDate): string
+{
+    $date = new DateTime($isoDate);
+    $year = (int) $date->format('Y');
+    $month = (int) $date->format('n');
+
+    if ($month >= 4) {
+        return sprintf('%04d-%02d', $year, ($year + 1) % 100);
+    }
+
+    return sprintf('%04d-%02d', $year - 1, $year % 100);
+}
+
+function bdAmountInINR($number): string
+{
+    $formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
+    $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 0);
+    $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 2);
+
+    return '&#8377;&nbsp;' . $formatter->format($number);
+}

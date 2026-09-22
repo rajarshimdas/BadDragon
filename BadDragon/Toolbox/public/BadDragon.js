@@ -313,3 +313,11 @@ document.addEventListener('mouseout', e => {
     }
 });
 
+function bdAmountInINR(number) {
+    const formatter = new Intl.NumberFormat('en-IN', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    });
+
+    return '&#8377;&nbsp;' + formatter.format(number);
+}
