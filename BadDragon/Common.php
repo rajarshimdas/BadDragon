@@ -351,7 +351,7 @@ function bdFinancialYear(string $isoDate): string
     return sprintf('%04d-%02d', $year - 1, $year % 100);
 }
 
-function bdAmountInINR($number): string
+function bdAmountInINR(float $number): string
 {
     $formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
     $formatter->setAttribute(NumberFormatter::MIN_FRACTION_DIGITS, 0);
