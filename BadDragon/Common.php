@@ -338,7 +338,7 @@ function bdGetSessionVar(
     }
 }
 
-function bdFinancialYear(string $isoDate): string
+function bd2FinancialYear(string $isoDate): string
 {
     $date = new DateTime($isoDate);
     $year = (int) $date->format('Y');
