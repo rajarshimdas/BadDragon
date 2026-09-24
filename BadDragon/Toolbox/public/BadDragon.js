@@ -321,3 +321,91 @@ function bdAmountInINR(number) {
 
     return '&#8377;&nbsp;' + formatter.format(number);
 }
+
+function inrAmountInWords(amount) {
+        amount = Math.round((Number(amount) + Number.EPSILON) * 100) / 100;
+
+        const rupees = Math.floor(amount);
+        const paise = Math.round((amount - rupees) * 100);
+
+        const ones = [
+            '',
+            'One',
+            'Two',
+            'Three',
+            'Four',
+            'Five',
+            'Six',
+            'Seven',
+            'Eight',
+            'Nine',
+            'Ten',
+            'Eleven',
+            'Twelve',
+            'Thirteen',
+            'Fourteen',
+            'Fifteen',
+            'Sixteen',
+            'Seventeen',
+            'Eighteen',
+            'Nineteen'
+        ];
+
+        const tens = [
+            '',
+            '',
+            'Twenty',
+            'Thirty',
+            'Forty',
+            'Fifty',
+            'Sixty',
+            'Seventy',
+            'Eighty',
+            'Ninety'
+        ];
+
+        function convert(number) {
+            if (number < 20) {
+                return ones[number];
+            }
+
+            if (number < 100) {
+                return tens[Math.floor(number / 10)] +
+                    (number % 10 ? ' ' + ones[number % 10] : '');
+            }
+
+            if (number < 1000) {
+                return ones[Math.floor(number / 100)] + ' Hundred' +
+                    (number % 100 ? ' ' + convert(number % 100) : '');
+            }
+
+            if (number < 100000) {
+                return convert(Math.floor(number / 1000)) + ' Thousand' +
+                    (number % 1000 ? ' ' + convert(number % 1000) : '');
+            }
+
+            if (number < 10000000) {
+                return convert(Math.floor(number / 100000)) + ' Lakh' +
+                    (number % 100000 ? ' ' + convert(number % 100000) : '');
+            }
+
+            return convert(Math.floor(number / 10000000)) + ' Crore' +
+                (number % 10000000 ? ' ' + convert(number % 10000000) : '');
+        }
+
+        let result = 'Rupees ';
+
+        if (rupees > 0) {
+            result += convert(rupees);
+        } else {
+            result += ' Zero';
+        }
+
+        if (paise > 0) {
+            result += ' and Paise ' + convert(paise);
+        }
+
+        return result + ' Only';
+    }
+
+    
